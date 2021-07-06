@@ -1,0 +1,2413 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nucleus.Game</name>
+    </assembly>
+    <members>
+        <member name="T:Nucleus.Game.ActionCellInputTrigger">
+            <summary>
+            An ActionInputTrigger that is contextual to a particular map cell
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.ActionCellInputTrigger._TargetCell">
+            <summary>
+            Private backing member variable for the TargetCell property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ActionCellInputTrigger.TargetCell">
+            <summary>
+            The index of the cell that is targeted for this action
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.ExitStageAction">
+            <summary>
+            Action which allows an actor to move between stages
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.ActionFactory">
+            <summary>
+            Base class for objects which can be used to generate actions dynamically
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ActionFactory.GenerateActions(Nucleus.Game.TurnContext,Nucleus.Game.AvailableActions)">
+            <summary>
+            Generate actions given the specified context and add them to the available actions
+            </summary>
+            <param name="context"></param>
+            <param name="addTo"></param>
+        </member>
+        <member name="T:Nucleus.Game.ActionInputTrigger">
+            <summary>
+            Base class representing the input conditions under which an action will be triggered by the player
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.ActionInputTrigger._Input">
+            <summary>
+            Private backing member variable for the Input property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ActionInputTrigger.Input">
+            <summary>
+            The input function which will trigger this action.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ActionInputTrigger.Matches(Nucleus.Game.ActionInputTrigger)">
+            <summary>
+            Does this input trigger match the given one?
+            For the purposes of matching, top level input
+            functions are taken to be equivalent to any of
+            their sub-inputs
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.BumpAttackAction">
+            <summary>
+            A 'bump' melee attack action
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.CellTargetingAction">
+            <summary>
+            A base class for actions which target a particular cell
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.ElementTargetingAction">
+            <summary>
+            An action which targets an element
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.AOEAttackActionFactory">
+            <summary>
+            An action factory to produce AOEAttackActions
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.AOEAttackActionFactory._Offsets">
+            <summary>
+            Private backing member variable for the Offsets property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.AOEAttackActionFactory.Offsets">
+            <summary>
+            The array of cell offsets which is to be used to determine the area of effect 
+            of the action.  These are the offset vectors of the cell locations to be 
+            affected relative to the actor position, when the actor is orientated at
+            0 degrees (i.e. facing along the X-axis).  These offsets will be automatically 
+            rotatetd in order to give the pattern of effect in other directions.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.AOEAttackActionFactory._SourceSFX">
+            <summary>
+            Private backing member variable for the SourceSFX property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.AOEAttackActionFactory.SourceSFX">
+            <summary>
+            The keyword of the special effect to play at the source of the attack
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(Nucleus.Geometry.Vector[])">
+            <summary>
+            Creates an AOEAttackAction factory to create an attack pattern
+            with the specified list offsets.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(System.String,Nucleus.Geometry.Vector[])">
+            <summary>
+            Creates an AOEAttackAction factory to create an attack pattern
+            with the specified list offsets.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(System.Double[])">
+            <summary>
+            Creates an AOEAttackAction factory to create an attack pattern
+            with the specified list of alternating X and Y offset components.
+            </summary>
+            <param name="offsetComponents"></param>
+        </member>
+        <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(System.String,System.Double[])">
+            <summary>
+            Creates an AOEAttackAction factory to create an attack pattern
+            with the specified list of alternating X and Y offset components.
+            </summary>
+            <param name="offsetComponents"></param>
+        </member>
+        <member name="T:Nucleus.Game.DirectionalActionFactory">
+            <summary>
+            Base class for ActionFactory types which produce actions for all 
+            surrounding directions
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.DirectionalActionFactory.GenerateActions(Nucleus.Game.TurnContext,Nucleus.Game.AvailableActions)">
+            <summary>
+            Generate actions given the specified context and add them to the available actions.
+            Basic implementation that provides the boilerplate for setting up different directions
+            </summary>
+            <param name="context"></param>
+            <param name="addTo"></param>
+        </member>
+        <member name="M:Nucleus.Game.DirectionalActionFactory.ActionForDirection(Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,Nucleus.Geometry.MapCell,Nucleus.Game.TurnContext)">
+            <summary>
+            Generate the action for the specified direction and trigger cell
+            </summary>
+            <param name="direction"></param>
+            <param name="triggerCell"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.GameActionCollection">
+            <summary>
+            A collection of game actions
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameActionCollection.FirstMatch(Nucleus.Game.ActionInputTrigger)">
+            <summary>
+            Find the first action in this collection with a matching
+            input trigger to the one provided
+            </summary>
+            <param name="trigger"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.IActionsOverride">
+            <summary>
+            Interface for objects which override the generation of available
+            actions for an actor in order to provide its own.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.IActionsOverride.GenerateOverrideActions(Nucleus.Game.TurnContext,Nucleus.Game.AvailableActions)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="addTo"></param>
+        </member>
+        <member name="T:Nucleus.Game.MoveCellAction">
+            <summary>
+            An action which will (attempt to) move an element from one
+            map cell to another
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.MoveCellAction._CellIndex">
+            <summary>
+            Private backing member variable for the CellIndex property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.MoveCellAction.CellIndex">
+            <summary>
+            The index of the cell this action will move an element into
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.MultiCellTargetingAction">
+            <summary>
+            Base class for actions which may target multiple map cells
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.PickUpAction">
+            <summary>
+            Action to pick up items
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.PickUpAction.#ctor(Nucleus.Model.Element)">
+            <summary>
+            Creates an action to pick up the target item
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="T:Nucleus.Game.WindUpAction">
+            <summary>
+            Action whereby a game element spends a turn preparing to use an
+            item or ability
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.TargetedAction`1">
+            <summary>
+            An action which targets particular element or place
+            </summary>
+            <typeparam name="TTarget"></typeparam>
+        </member>
+        <member name="F:Nucleus.Game.TargetedAction`1._Target">
+            <summary>
+            Private backing member variable for the Target property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TargetedAction`1.Target">
+            <summary>
+            The target of the action
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.WaitAction">
+            <summary>
+            Action whereby an element waits or rests for a turn
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.BlueprintCell">
+            <summary>
+            A cell in a stage map blueprint
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.BlueprintCell._GenerationType">
+            <summary>
+            Private backing member variable for the GenerationType property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.BlueprintCell.GenerationType">
+            <summary>
+            The generation type of the cell
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.BlueprintCell._Room">
+            <summary>
+            Private backing member variable for the Room property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.BlueprintCell.Room">
+            <summary>
+            The room that the cell occupies
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.CellGenerationType">
+            <summary>
+            An enum to store the type of a cell during map generation
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.CellGenerationTypeExtensions.IsWall(Nucleus.Game.CellGenerationType)">
+            <summary>
+            Is this a wall type?
+            </summary>
+            <param name="genType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.ExitPlacement">
+            <summary>
+            Enumerated value to represent different strategies for placing an exit in a room
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Room">
+            <summary>
+            Class to hold information about a room in a game level
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Room._Template">
+            <summary>
+            Private backing member variable for the Template property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Room.Template">
+            <summary>
+            The template used to generate this Room
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Room._Bounds">
+            <summary>
+            Private backing member variable for the Bounds property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Room.Bounds">
+            <summary>
+            The rectangular bounding region within which this room lies on the map
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Room._Connections">
+            <summary>
+            Private backing member variable for the Connections property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Room.Connections">
+            <summary>
+            The rooms which connect to this one
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Room.IsConnectedTo(Nucleus.Game.Room,System.Int32)">
+            <summary>
+            Is this room connected to the other within a specified number of degrees
+            of separation
+            </summary>
+            <param name="other"></param>
+            <param name="level">The degrees of separation</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.RoomCollection">
+            <summary>
+            A collection of rooms
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.RoomTemplateCollection">
+            <summary>
+            A collection of room templates
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.RoomTemplateCollection.GetAllOfType(Nucleus.Game.RoomType)">
+            <summary>
+            Get all templates in this collection of the specified type
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.RoomType">
+            <summary>
+            Room type enum
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Cards.Card">
+            <summary>
+            Base class for card-type objects
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCard._Suit">
+            <summary>
+            Private backing member variable for the Suit property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Cards.PlayingCard.Suit">
+            <summary>
+            The suit of this playing card
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCard._Rank">
+            <summary>
+            Private backing member variable for the Rank property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Cards.PlayingCard.Rank">
+            <summary>
+            The rank of this playing card
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Cards.PlayingCard.BuildDeck">
+            <summary>
+            Build a standard deck of 52 playing cards
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.Cards.PlayingCardRank">
+            <summary>
+            Enumerated value representing the rank of a playing card
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Ace">
+            <summary>
+            Ace
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Two">
+            <summary>
+            Two
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Three">
+            <summary>
+            Three
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Four">
+            <summary>
+            Four
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Five">
+            <summary>
+            Five
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Six">
+            <summary>
+            Six
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Seven">
+            <summary>
+            Seven
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Eight">
+            <summary>
+            Eight
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Nine">
+            <summary>
+            Nine
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Ten">
+            <summary>
+            Ten
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Jack">
+            <summary>
+            Jack
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.Queen">
+            <summary>
+            Queen
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardRank.King">
+            <summary>
+            King
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Cards.PlayingCardSuit">
+            <summary>
+            Enumerated value representing the suit of a playing card
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardSuit.Spades">
+            <summary>
+            Spades suit
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardSuit.Hearts">
+            <summary>
+            Hearts suit
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardSuit.Diamonds">
+            <summary>
+            Diamonds suit
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Cards.PlayingCardSuit.Clubs">
+            <summary>
+            Clubs suit
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Ability">
+            <summary>
+            Base class for element data components which propose an action
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Ability.IsDisabled(Nucleus.Game.TurnContext)">
+            <summary>
+            Is this ability currently disabled by a status effect?
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.BumpAttackAbility">
+            <summary>
+            Data component which confers the ability to bump-attack
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DirectionalItemUseAbility._ActionFactory">
+            <summary>
+            Private backing member variable for the ActionFactory property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DirectionalItemUseAbility.ActionFactory">
+            <summary>
+            The ActionFactory used to generate actions
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.DamageVulnerabilities">
+            <summary>
+            Data component to store the vulnerabilities of elements to different
+            forms of damage.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DamageVulnerabilities._BaseFactor">
+            <summary>
+            Private backing member variable for the BaseFactor property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DamageVulnerabilities.BaseFactor">
+            <summary>
+            The default factor to be applied to damage types not explicitly listed
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DamageVulnerabilities._Vulnerabilities">
+            <summary>
+            Private backing member variable for the Vulnerabilities property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DamageVulnerabilities.Vulnerabilities">
+            <summary>
+            The map of vulnerability factors for different damage types.  The amount of damage 
+            taken will be multiplied by these factors for the relevant damage type.  Lower than 1
+            = resistant, greater than 1 = vulnerable.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.DamageVulnerabilities.#ctor">
+            <summary>
+            Creates a new empty DamageVulnerabilities data component
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.DamageVulnerabilities.#ctor(System.Double)">
+            <summary>
+            Creates a DamageVulnerabilities component with the specified
+            default damage multiplier.
+            </summary>
+            <param name="baseFactor"></param>
+        </member>
+        <member name="M:Nucleus.Game.DamageVulnerabilities.VulnerabilityTo(Nucleus.Game.DamageType)">
+            <summary>
+            Get the damage multiplier for the specified damage type
+            </summary>
+            <param name="damage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DamageVulnerabilities.Add(Nucleus.Game.DamageType,System.Double)">
+            <summary>
+            Add a new vulnerability/immunity
+            </summary>
+            <param name="damageType">The damage type</param>
+            <param name="vulnerability">The damage multiplication factor</param>
+        </member>
+        <member name="T:Nucleus.Game.DisableActions">
+            <summary>
+            Status effect that disables certain actions
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.EquipmentSlot">
+            <summary>
+            A slot which can hold an item of equipment
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.EquipmentSlot._HotKey">
+            <summary>
+            Private backing member variable for the HotKey property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EquipmentSlot.HotKey">
+            <summary>
+            The button bound to this equipment slot
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.EquipmentSlot._Item">
+            <summary>
+            Private backing member variable for the Item property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EquipmentSlot.Item">
+            <summary>
+            The item of equipment contained within this slot
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.EquipmentSlot.#ctor(System.String,Nucleus.Game.InputFunction,Nucleus.Model.Element)">
+            <summary>
+            Creates a new equipment slot with the specified name, hotkey and starting item
+            </summary>
+            <param name="hotKey"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:Nucleus.Game.EquipmentSlot.CanHold(Nucleus.Model.Element)">
+            <summary>
+            Can this slot hold the specified item?
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.EquipmentSlot.DropItem(Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+            <summary>
+            Drop the item held in this slot.
+            This will remove the item from the slot.  If the
+            item is a PickUp it will be added back to the map.
+            </summary>
+            <param name="dropper">The element dropping the item</param>
+            <param name="context">The current context</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.EquipmentSlot.ToString">
+            <summary>
+            Get a text description of this slot
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.EquipmentSlotCollection">
+            <summary>
+            A collection of equipment slots
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.EquipmentSlotCollection.GetFirstEmpty">
+            <summary>
+            Get the first equipment slot that is not currently occupied
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.EquipmentSlotCollection.GetFirstAvailableFor(Nucleus.Model.Element)">
+            <summary>
+            Get the first equipment slot that is not currently occupied
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.EquippableItem">
+            <summary>
+            An element data component which can be used to tag items as
+            being equippable
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Equipped">
+            <summary>
+            A data component to store the currently equipped items on a character
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Equipped._Slots">
+            <summary>
+            Private backing member variable for the Slots property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Equipped.Slots">
+            <summary>
+            The available equipment slots
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Equipped.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Equipped.Equip(Nucleus.Model.Element)">
+            <summary>
+            Attempt to equip the specified item of equipment.
+            Returns true if the attempt was successful.
+            </summary>
+            <param name="equipment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Equipped.DropAll(Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+            <summary>
+            Drop all items in this
+            </summary>
+            <param name="dropper"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.ExitStageAbility">
+            <summary>
+            Grants the ability to move between stages through stage exits
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.HitPoints">
+            <summary>
+            A data component to hold the hit points value of destructable elements
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.HitPoints._Value">
+            <summary>
+            Private backing field for Value property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.HitPoints.Value">
+            <summary>
+            The current value of the hitpoints of the element
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.HitPoints._Maximum">
+            <summary>
+            Private backing field for Maximum property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.HitPoints.Maximum">
+            <summary>
+            The maximum value of the hitpoints of the element
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.HitPoints.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.HitPoints.#ctor(System.Double)">
+            <summary>
+            Constructor setting the value and maximum of the hitpoints value
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:Nucleus.Game.AvailableActions">
+            <summary>
+            A data component which attaches to actor elements.
+            Provides a collection of all available actions which
+            are available to that actor
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.AvailableActions.Actions">
+            <summary>
+            The collection of actions available to this element
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.AvailableActions.ActionForInput(Nucleus.Game.InputFunction)">
+            <summary>
+            Get the action assigned to the specified user input function
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.AvailableActions.ActionForInput(Nucleus.Game.InputFunction,System.Int32)">
+            <summary>
+            Get the action assigned to the specified user input function
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.DungeonArtitect">
+            <summary>
+            Generator class for dungeons
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DungeonArtitect._RNG">
+            <summary>
+            Random number generator
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DungeonArtitect._Blueprint">
+            <summary>
+            The blueprint that the generator will work on
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.Blueprint">
+            <summary>
+            The blueprint that the generator will work on
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.ExitPlaced">
+            <summary>
+            Has the level exit yet been placed?
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.Rooms">
+            <summary>
+            The collection of rooms created during the generation
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.Templates">
+            <summary>
+            The collection of templates to be used to generate rooms
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.Snapshots">
+            <summary>
+            A collection of 'snapshot' images of the dungeon being generated.
+            By default this is null and no snapshots will be recorded.  If populated
+            with a suitable container snapshots will be taken as each room is added
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.PathToExit">
+            <summary>
+            The number of rooms typically found between the entry and exit
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.PreventParallelCorridors">
+            <summary>
+            If set to true, parallel corridors will be detected and prevented
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new dungeon artitect to work within the specified bounds
+            </summary>
+            <param name="iSize"></param>
+            <param name="jSize"></param>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.TakeSnapshot">
+            <summary>
+            Take a snapshot of the current state of the blueprint and add it to the snapshots collection
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.Generate(System.Int32,System.Int32,Nucleus.Game.RoomTemplate,Nucleus.Geometry.CompassDirection)">
+            <summary>
+            Generate a dungeon map
+            </summary>
+            <param name="iStart"></param>
+            <param name="jStart"></param>
+            <param name="startRoom">The room to start with</param>
+            <param name="startDirection">The initial direction</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.IsCellAvailable(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Check whether the specified cell is available for assignment
+            </summary>
+            <param name="i"></param>
+            <param name="j"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.AvailableForDoorway(System.Int32,System.Int32,Nucleus.Geometry.CompassDirection,System.Int32)">
+            <summary>
+            Can a door be placed here?
+            </summary>
+            <param name="i"></param>
+            <param name="j"></param>
+            <param name="direction"></param>
+            <param name="width"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.AreAllType(Nucleus.Geometry.IntRectangle,Nucleus.Game.CellGenerationType)">
+            <summary>
+            Are all cells within the specified rectangular region of the specified
+            type?
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.AreAllType(System.Int32,System.Int32,System.Int32,System.Int32,Nucleus.Game.CellGenerationType)">
+            <summary>
+            Are all cells within the specified rectangular region of the specified
+            type?
+            </summary>
+            <param name="iMin"></param>
+            <param name="iMax"></param>
+            <param name="jMin"></param>
+            <param name="jMax"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.CheckAvailability(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Are the following range of cells all available?
+            </summary>
+            <param name="iMin"></param>
+            <param name="iMax"></param>
+            <param name="jMin"></param>
+            <param name="jMax"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.CheckAvailability(Nucleus.Geometry.IntRectangle)">
+            <summary>
+            Are the selected range of cells all available?
+            </summary>
+            <param name="rect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.CountRoomCells(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Count up the number of cells belonging to each room in the specified zone
+            </summary>
+            <param name="iMin"></param>
+            <param name="iMax"></param>
+            <param name="jMin"></param>
+            <param name="jMax"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.IsParallelToCorridor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Check whether there is a corridor running parallel to this region
+            </summary>
+            <param name="iMin"></param>
+            <param name="iMax"></param>
+            <param name="jMin"></param>
+            <param name="jMax"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.IsParallelToCorridor(Nucleus.Geometry.IntRectangle)">
+            <summary>
+            Check whether there is a corridor running parallel to this region
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.GenerateDoorway(System.Int32,System.Int32,Nucleus.Geometry.CompassDirection,System.Int32)">
+            <summary>
+            Generate a (possibly multi-tile) doorway
+            </summary>
+            <param name="i"></param>
+            <param name="j"></param>
+            <param name="direction"></param>
+            <param name="template"></param>
+            <param name="template2"></param>
+            <param name="floorLevel"></param>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.NextRoom(Nucleus.Game.RoomTemplate)">
+            <summary>
+            Get the template of the next room to be placed
+            </summary>
+            <param name="currentRoom"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.DeleteCell(System.Int32,System.Int32,Nucleus.Game.Room)">
+            <summary>
+            'Delete' a cell in the blueprint by returning it to 
+            </summary>
+            <param name="i"></param>
+            <param name="j"></param>
+            <param name="room"></param>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.DeleteRoom(Nucleus.Game.Room)">
+            <summary>
+            Delete an existing room
+            </summary>
+            <param name="room"></param>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.GenerateRoom(Nucleus.Geometry.IntRectangle,Nucleus.Game.RoomTemplate)">
+            <summary>
+            Generate a rectangular room
+            </summary>
+            <param name="iMin"></param>
+            <param name="iMax"></param>
+            <param name="jMin"></param>
+            <param name="jMax"></param>
+            <param name="template"></param>
+            <param name="floorLevel"></param>
+            <param name="slopeDirection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.GenerateRoom(System.Int32,System.Int32,System.Int32,System.Int32,Nucleus.Game.RoomTemplate)">
+            <summary>
+            Generate a rectangular room
+            </summary>
+            <param name="iMin"></param>
+            <param name="iMax"></param>
+            <param name="jMin"></param>
+            <param name="jMax"></param>
+            <param name="template"></param>
+            <param name="floorLevel"></param>
+            <param name="slopeDirection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.SetCell(System.Int32,System.Int32,Nucleus.Game.CellGenerationType,Nucleus.Game.Room)">
+            <summary>
+            Set a cell of the blueprint to the specified type
+            </summary>
+            <param name="i"></param>
+            <param name="j"></param>
+            <param name="genType"></param>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.ExitDirection(Nucleus.Game.ExitPlacement,Nucleus.Geometry.CompassDirection)">
+            <summary>
+            Determine an exit direction based on the current placement logic
+            </summary>
+            <param name="logic"></param>
+            <param name="startDir"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.RecursiveGrowth(System.Int32,System.Int32,Nucleus.Game.RoomTemplate,Nucleus.Geometry.CompassDirection,System.Boolean,Nucleus.Game.Room)">
+            <summary>
+            Generate a dungeon map via recursive growth
+            </summary>
+            <param name="iDoor"></param>
+            <param name="jDoor"></param>
+            <param name="template"></param>
+            <param name="direction"></param>
+            <param name="createDoor"></param>
+            <param name="floorLevel"></param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.IEndOfTurn">
+            <summary>
+            Interface for data components which process at the end of 
+            a turn.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.IEndOfTurn.EndOfTurn(Nucleus.Game.TurnContext)">
+            <summary>
+            Process the end of a turn
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Nucleus.Game.Inertia">
+            <summary>
+            Data component which denotes resistance to knockback
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Inertia._Fixed">
+            <summary>
+            Private backing member variable for the Fixed property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Inertia.Fixed">
+            <summary>
+            Gets or sets whether this component is fixed and immovable
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Components.Inventory">
+            <summary>
+            The inventory of an element
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Components.Inventory._Contents">
+            <summary>
+            Private backing member variable for the Contents property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Components.Inventory.Contents">
+            <summary>
+            The items contained within this inventory
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.IStartOfTurn">
+            <summary>
+            Interface for data components which process at the start of 
+            a turn.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.IStartOfTurn.StartOfTurn(Nucleus.Game.TurnContext)">
+            <summary>
+            Process the start of a turn
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Nucleus.Game.ItemActions">
+            <summary>
+            A data component for use on items which 
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.ItemActions._Prototype">
+            <summary>
+            Private backing member variable for the Prototype property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ItemActions.Prototype">
+            <summary>
+            The prototype of the item action.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ItemActions.#ctor">
+            <summary>
+            Creates a blank itemaction
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ItemActions.#ctor(Nucleus.Game.ActionFactory)">
+            <summary>
+            Creates an ItemAction using the default 
+            WindUpAction as a prototype followed by actions
+            generated using the specified action factory
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.MapAwareness">
+            <summary>
+            Data component to store element field of view within a Cell Map
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.MapAwareness.FieldOfView">
+            <summary>
+            The element field of view map
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.MapAwareness.VisualRange">
+            <summary>
+            The visual range of the element
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.MapAwareness.AwarenessOfCell(System.Int32)">
+            <summary>
+            Get the awareness of the specified cell
+            </summary>
+            <param name="cellIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.Memorable">
+            <summary>
+            A data component which can be used to tag elements that should remain
+            in memory when not in direct line of sight
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.MoveCellAbility">
+            <summary>
+            An element data component which indicates that the element is
+            able to move between cells of its own volition and will generate
+            suitable actions for open spaces
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.ActionSelectionAI">
+            <summary>
+            AI component used to select actions to be performed by NPCs
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ActionSelectionAI.SelectAction(Nucleus.Game.TurnContext,Nucleus.Game.GameActionCollection)">
+            <summary>
+            Select an action from the specified collection
+            </summary>
+            <param name="element"></param>
+            <param name="actions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.PickUp">
+            <summary>
+            Element data component used to tag items which may be picked up
+            and carried.
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.PickUpAbility">
+            <summary>
+            Ability which allows an element to pick up
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.TemporaryAbility">
+            <summary>
+            Base class for temporary abilities that are removed 
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.StageExit">
+            <summary>
+            A component which tags an object as a gate between different stages
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.StageExit._TravelTo">
+            <summary>
+            Private backing member variable for the TravelTo property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StageExit.TravelTo">
+            <summary>
+            The stage which this exit allows travel to
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.StageExit._CellIndex">
+            <summary>
+            Private backing member variable for the CellIndex property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StageExit.CellIndex">
+            <summary>
+            The index of the cell to move to in the next stage
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.TemporaryStatus">
+            <summary>
+            A base class for status ailments or buffs which are temporary in
+            nature and will expire after a number of turns.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.TemporaryStatus._LifeSpan">
+            <summary>
+            Private backing member variable for the LifeSpan property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TemporaryStatus.LifeSpan">
+            <summary>
+            The number of turns remaining until this status effect should end.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.TemporaryStatus.EndStatus(Nucleus.Game.TurnContext)">
+            <summary>
+            End the status effect, performing any necessary clearup
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Nucleus.Game.TurnCounter">
+            <summary>
+            Element data component which indicates that an element is able to take
+            a turn, either directed by the player or by AI, and keeps track of the
+            order in which these turns are taken.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.TurnCounter._CountDown">
+            <summary>
+            Private backing member variable for the CountDown property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TurnCounter.CountDown">
+            <summary>
+            The count down until the element can take its next turn
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.UseItemAbility">
+            <summary>
+            Ability which enables the use of items
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.VisionBlocker">
+            <summary>
+            An element data component that can be used to indicate that a cell blocks vision
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.VisionBlocker.IsTransparent(Nucleus.Model.Element)">
+            <summary>
+            Does this block LOS to the specified element
+            </summary>
+            <param name="toElement"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.WaitAbility">
+            <summary>
+            Ability data component which allows an element to take a 'wait' action
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.ActorOrientationEffect._OrientTo">
+            <summary>
+            Private backing member variable for the OrientTo property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ActorOrientationEffect.OrientTo">
+            <summary>
+            The orientation angle (anticlockwise from +X) to set
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ActorOrientationEffect.#ctor(Nucleus.Model.Element,Nucleus.Geometry.MapCell)">
+            <summary>
+            Creates an orientation effect such that the specified element would
+            face towards the specified cell
+            </summary>
+            <param name="actor"></param>
+            <param name="cell"></param>
+        </member>
+        <member name="M:Nucleus.Game.ActorOrientationEffect.#ctor(Nucleus.Geometry.Vector)">
+            <summary>
+            Creates an orientation effect to face in the specified direction
+            </summary>
+            <param name="direction"></param>
+        </member>
+        <member name="T:Nucleus.Game.Effects.AddAbilityEffect">
+            <summary>
+            An effect which adds an ability to an 
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Effects.AddAbilityEffect._Ability">
+            <summary>
+            Private backing member variable for the Ability property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Effects.AddAbilityEffect.Ability">
+            <summary>
+            The ability to be added to the target
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Effects.AnimationEffect">
+            <summary>
+            An effect which triggers a predefined animation
+            of the target entity
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Effects.ExitStageEffect">
+            <summary>
+            Effect which will move the actor through the
+            specified stage exit
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Effects.ExitStageEffect._Exit">
+            <summary>
+            Private backing member variable for the Exit property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Effects.ExitStageEffect.Exit">
+            <summary>
+            The exit to move the target through
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Effects.ExitStageEffect.#ctor(Nucleus.Game.StageExit)">
+            <summary>
+            Creates an ExitStageEffect to move through the specified
+            exit
+            </summary>
+            <param name="exit"></param>
+        </member>
+        <member name="T:Nucleus.Game.BasicEffect">
+            <summary>
+            Base class for simple effects
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.BasicEffect._Spent">
+            <summary>
+            Private backing member variable for the Spent property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.BasicEffect.Spent">
+            <summary>
+            Has this effect been spent?
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.DamageEffect">
+            <summary>
+            An effect which reduces element hitpoints
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DamageEffect._Damage">
+            <summary>
+            Private backing member variable for the Damage property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DamageEffect.Damage">
+            <summary>
+            The value of the damage to be inflicted
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DamageEffect._DamageType">
+            <summary>
+            Private backing member variable for the DamageType property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DamageEffect.DamageType">
+            <summary>
+            The type of the damage
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.DamageType">
+            <summary>
+            Represents a type of damage
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DamageType.Base">
+            <summary>
+            The base damage type
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.DamageType.MultiplierFor(Nucleus.Model.Element)">
+            <summary>
+            Get the damage multiplier for the specified element
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.DisableEffect">
+            <summary>
+            Disable all actions for a turn
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.EffectContext">
+            <summary>
+            The context within which an effect is being applied
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EffectContext.Actor">
+            <summary>
+            The element (if any) which is the root cause of this effect 
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EffectContext.Target">
+            <summary>
+            The element that is the primary target of the effect
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EffectContext.Stage">
+            <summary>
+            The current stage
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EffectContext.State">
+            <summary>
+            The current state
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EffectContext.SFX">
+            <summary>
+            The object used to trigger special effects in the front-end
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EffectContext.Direction">
+            <summary>
+            Direction for use in directional effects
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EffectContext.Map">
+            <summary>
+            Get the map (retrieved from current stage)
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.KnockbackEffect">
+            <summary>
+            An effect which moves the target in a particular direction (typically
+            involuntarily).  Resistance to knockback is determined by the Inertia component.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.KnockbackEffect._Direction">
+            <summary>
+            Private backing member variable for the Direction property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.KnockbackEffect.Direction">
+            <summary>
+            The direction in which the element is to be knocked
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.KnockbackEffect._Power">
+            <summary>
+            Private backing member variable for the Power property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.KnockbackEffect.Power">
+            <summary>
+            The power of the knockback effect (translates to the number of spaces an average-sized target will move)
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.PickUpItemEffect">
+            <summary>
+            An effect which picks up the target item and adds it to
+            the inventory of the actor
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.SFXEffect">
+            <summary>
+            Trigger an SFX
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXEffect._KeyWord">
+            <summary>
+            Private backing member variable for the KeyWord property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.SFXEffect.KeyWord">
+            <summary>
+            The keyword which defines the type of special effect to be created
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXEffect._Position">
+            <summary>
+            Private backing member variable for the Position property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.SFXEffect.Position">
+            <summary>
+            The position at which the effect is to be created, if applicable.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXEffect._Direction">
+            <summary>
+            Private backing member variable for the Direction property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.SFXEffect.Direction">
+            <summary>
+            The direction in/path along which the effect should be orientated/moved, if applicable
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXEffect._UseTargetPosition">
+            <summary>
+            Private backing member variable for the UseTargetPosition property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.SFXEffect.UseTargetPosition">
+            <summary>
+            If true, the position of the target will be taken as the position of the effect
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.SFXEffect.#ctor(System.String)">
+            <summary>
+            Trigger a special effect with the specified keyword
+            </summary>
+            <param name="keyword"></param>
+        </member>
+        <member name="M:Nucleus.Game.SFXEffect.#ctor(System.String,Nucleus.Geometry.Vector)">
+            <summary>
+            Trigger a special effect with the specified keyword at the specified position
+            </summary>
+            <param name="keyword"></param>
+            <param name="position"></param>
+        </member>
+        <member name="M:Nucleus.Game.SFXEffect.#ctor(System.String,Nucleus.Geometry.Vector,Nucleus.Geometry.Vector)">
+            <summary>
+            Trigger a special effect with the specified keyword at the specified position
+            in the specified direction
+            </summary>
+            <param name="keyword"></param>
+            <param name="position"></param>
+            <param name="direction"></param>
+        </member>
+        <member name="M:Nucleus.Game.SFXEffect.#ctor(System.String,System.Boolean)">
+            <summary>
+            Trigger a special effect with the specified keyword at (optionally)
+            the position of the target
+            </summary>
+            <param name="keyword"></param>
+            <param name="useTargetPosition"></param>
+        </member>
+        <member name="M:Nucleus.Game.SFXEffect.#ctor(System.String,System.Boolean,Nucleus.Geometry.Vector)">
+            <summary>
+            Trigger a special effect with the specified keyword at (optionally)
+            the position of the target
+            </summary>
+            <param name="keyword"></param>
+            <param name="useTargetPosition"></param>
+            <param name="direction"></param>
+        </member>
+        <member name="T:Nucleus.Game.SFXImpactEffect">
+            <summary>
+            A SFX effect that produces an effect at a point on the target
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Faction">
+            <summary>
+            A player or AI-controlled faction
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Faction.#ctor">
+            <summary>
+            Initialise a blank faction
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Faction.#ctor(System.String)">
+            <summary>
+            Initialise a faction with the specified name
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Nucleus.Game.Faction.IsEnemy(Nucleus.Game.Faction)">
+            <summary>
+            Is this faction an enemy of the specified other faction?
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Faction.IsAlly(Nucleus.Game.Faction)">
+            <summary>
+            Is this faction an ally of the specified other faction?
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Faction.AreEnemies(Nucleus.Model.Element,Nucleus.Model.Element)">
+            <summary>
+            Does elementB belong to a faction which is an enemy of the faction of elementA?
+            </summary>
+            <param name="elementA"></param>
+            <param name="elementB"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.GameElement">
+            <summary>
+            An element which is specialised towards functioning as an entity
+            in a game.
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.InputFunction">
+            <summary>
+            An enumerated value representing different possible
+            user input functions.
+            </summary>
+            <remarks>Values whose integer equivalent is a multiple
+            of 1000 are 'top level' and taken for certain purposes
+            as being equivalent to those within the range of the
+            next 999 values.</remarks>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Undefined">
+            <summary>
+            The input function is not defined
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Move">
+            <summary>
+            Movement (in any direction)
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Up">
+            <summary>
+            Upwards movement
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Right">
+            <summary>
+            Rightwards movement
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Down">
+            <summary>
+            Downwards movement
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Left">
+            <summary>
+            Leftwards movement
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Interact">
+            <summary>
+            Use an interactive object
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.UseExit">
+            <summary>
+            Use a level exit from one stage to another
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Wait">
+            <summary>
+            A resting action
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.PickUp">
+            <summary>
+            Pick up an item
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Ability_1">
+            <summary>
+            Use special ability 1
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Ability_2">
+            <summary>
+            Use special ability 2
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Ability_3">
+            <summary>
+            Use special ability 3
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Ability_4">
+            <summary>
+            Use special ability 4
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Ability_5">
+            <summary>
+            Use special ability 5
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Ability_6">
+            <summary>
+            Use special ability 6
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Ability_7">
+            <summary>
+            Use special ability 7
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Ability_8">
+            <summary>
+            Use special ability 8
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Ability_9">
+            <summary>
+            Use special ability 9
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.InputFunctionExtensions">
+            <summary>
+            Extension methods for the InputFunction enum
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.InputFunctionExtensions.DirectionVector(Nucleus.Game.InputFunction)">
+            <summary>
+            Get the vector which indicates the direction associated with this input
+            (if any)
+            </summary>
+            <param name="iF"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.InputFunctionExtensions.ToTopLevel(Nucleus.Game.InputFunction)">
+            <summary>
+            Convert this input to a 'top level' input that represents a
+            category of different inputs
+            </summary>
+            <param name="iF"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.InputFunctionExtensions.IsTopLevel(Nucleus.Game.InputFunction)">
+            <summary>
+            Is this a 'top level' input that represents a category of
+            different sub-inputs?
+            </summary>
+            <param name="iF"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.InputManager">
+            <summary>
+            Manager class for user input
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.InputManager.InputPress(Nucleus.Game.InputFunction)">
+            <summary>
+            Called when the user presses a key or button
+            </summary>
+            <param name="input">The input function pressed</param>
+        </member>
+        <member name="M:Nucleus.Game.InputManager.InputRelease(Nucleus.Game.InputFunction)">
+            <summary>
+            Called when the user releases a key or button
+            </summary>
+            <param name="input">The input function pressed</param>
+        </member>
+        <member name="T:Nucleus.Game.RoomTemplate">
+            <summary>
+            A template which is used to generate a room
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._RoomType">
+            <summary>
+            Private backing member variable for the RoomType property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.RoomType">
+            <summary>
+            The type of the room
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._Dimension1">
+            <summary>
+            Private backing member variable for the Dimension1 property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.Dimension1">
+            <summary>
+            The domain of possible values for the first dimension of this room.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._Dimension2">
+            <summary>
+            Private backing member variable for the Dimension2 property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.Dimension2">
+            <summary>
+            The domain of possible values for the second dimension of this room.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._EntryWidth">
+            <summary>
+            Private backing member variable for the EntryWidth property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.EntryWidth">
+            <summary>
+            The width of the entryway into this type of room
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._ExitPlacement">
+            <summary>
+            Private backing member variable for the ExitPlacement property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.ExitPlacement">
+            <summary>
+            The logic for the placement of the primary exit from this room
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._SproutTries">
+            <summary>
+            Private backing member variable for the SproutTries property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.SproutTries">
+            <summary>
+            The number of attempts that will be made to generate rooms coming off of one of this type
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._MaxConnections">
+            <summary>
+            Private backing member variable for the MaxConnections property
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Nucleus.Game.RoomTemplate.MaxConnections" -->
+        <member name="F:Nucleus.Game.RoomTemplate._SymmetryChance">
+            <summary>
+            Private backing member variable for the SymmetryChance property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.SymmetryChance">
+            <summary>
+            The chance of sprouting doorways symmetrically
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._CorridorChance">
+            <summary>
+            Private backing member variable for the CorridorChance property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.CorridorChance">
+            <summary>
+            The chance of sprouting a corridor (or other circulation space)
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._DoorChance">
+            <summary>
+            Private backing member variable for the DoorChance property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.DoorChance">
+            <summary>
+            The chance of creating a door between this and connected rooms.  The maximum chance of the two room templates will be used.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.RoomTemplate.GenTypeForCell(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Determine the generation type for a cell within a room
+            with this template
+            </summary>
+            <param name="i"></param>
+            <param name="iMin"></param>
+            <param name="iMax"></param>
+            <param name="j"></param>
+            <param name="jMin"></param>
+            <param name="jMax"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.SFXKeywords">
+            <summary>
+            Standard keywords used to denote predefined special effects
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXKeywords.Bang">
+            <summary>
+            A 'bang' explosion effect
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXKeywords.Bash">
+            <summary>
+            A 'bash' effect when one object strikes another
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXKeywords.Dust">
+            <summary>
+            A dusty 'footprint' effect
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXKeywords.Slash">
+            <summary>
+            A melee-weapon slash effect
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXKeywords.Stab">
+            <summary>
+            A melee-weapon stab effect
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Stages.StageCollection`1">
+            <summary>
+            A collection of stages
+            </summary>
+            <typeparam name="TStage"></typeparam>
+        </member>
+        <member name="T:Nucleus.Game.GameSaveFile">
+            <summary>
+            An abstract base class for documents which act as a save file
+            for a game state
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameSaveFile.RetrieveState">
+            <summary>
+            Retrieve the game state (if any) stored in this save file
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.GameSaveFile.Load(Nucleus.Base.FilePath)">
+            <summary>
+            Load a ModelDocument from a file stored in binary format
+            </summary>
+            <param name="filePath">The path of the file to be loaded.</param>
+            <returns>The loaded document, if a document could indeed be loaded.
+            Else, null.</returns>
+        </member>
+        <member name="T:Nucleus.Game.GameSaveFile`1">
+            <summary>
+            An abstract base class for game save files which store a
+            particular type of game state
+            </summary>
+            <typeparam name="TState"></typeparam>
+        </member>
+        <member name="F:Nucleus.Game.GameSaveFile`1._State">
+            <summary>
+            Private backing member variable for the State property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameSaveFile`1.State">
+            <summary>
+            The state which is stored in this file
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameSaveFile`1.RetrieveState">
+            <summary>
+            Retrieve the game state (if any) stored in this save file
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.MapState">
+            <summary>
+            Base class for states which contains a MapStage
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.RLState">
+            <summary>
+            A game state for Roguelikes
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RLState._Active">
+            <summary>
+            Private backing member variable for the Active property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RLState.Active">
+            <summary>
+            The element who is currently activated for a turn.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RLState._Log">
+            <summary>
+            Private backing member variable for the Log property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RLState.Log">
+            <summary>
+            The logger which stores and displays messages to the user.  May be null, in which case no messages will be displayed.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RLState.RNG">
+            <summary>
+            The random number generator used to provide randomisation
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RLState._AITurnDelay">
+            <summary>
+            The time delay to be used between the end of the player turn and the start of AI movement
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RLState._AITurnCountDown">
+            <summary>
+            Time remaining before AI turns can begin
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.RLState.InputRelease(Nucleus.Game.InputFunction,Nucleus.Geometry.Vector)">
+            <summary>
+            Called when the user releases a key or button
+            </summary>
+            <param name="input">The input function pressed</param>
+            <param name="direction">The direction associated with the input,
+            if applicable.</param>
+        </member>
+        <member name="M:Nucleus.Game.RLState.StartTurnOf(Nucleus.Model.Element)">
+            <summary>
+            Process the start of the turn
+            </summary>
+            <param name="element"></param>
+        </member>
+        <member name="M:Nucleus.Game.RLState.EndTurnOf(Nucleus.Model.Element)">
+            <summary>
+            Process the end of the turn
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.RLState.DelayAITurn">
+            <summary>
+            Reset the AI turn delay countdown to provide a slight pause before
+            the AI will take its turn.  Allows for player moves to be distingishable
+            in the user interface.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.RLState.NextTurn">
+            <summary>
+            Progress to the next turn
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.RLState.CleanUpDeleted">
+            <summary>
+            Clean up after any elements which have been deleted in this turn
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.RLState.Save(Nucleus.Base.FilePath)">
+            <summary>
+            Save this state to the specified filepath
+            </summary>
+            <param name="filePath"></param>
+        </member>
+        <member name="T:Nucleus.Game.BasicGameState`1">
+            <summary>
+            A basic game state that implements the fundamental mechanics
+            of a game in a fairly general way
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.BasicGameState`1._Controlled">
+            <summary>
+            Private backing member variable for the Controlled property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.BasicGameState`1.Controlled">
+            <summary>
+            The game element which is currently directly under the player's control
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.BasicGameState`1._Stage">
+            <summary>
+            Private backing member variable for the Stage property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.BasicGameState`1.Stage">
+            <summary>
+            The current stage
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.EffectCollection">
+            <summary>
+            A collection of effects
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.GameAction">
+            <summary>
+            An action is a process that may be performed by a game element
+            which has one or more effects
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.GameAction._Trigger">
+            <summary>
+            Private backing member variable for the Trigger property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameAction.Trigger">
+            <summary>
+            The input combination which will trigger this action.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.GameAction._Effects">
+            <summary>
+            Private backing member variable for the Effects property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameAction.Effects">
+            <summary>
+            The effects of this action on the target element(s)
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.GameAction._SelfEffects">
+            <summary>
+            Private backing member variable for the Effects property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameAction.SelfEffects">
+            <summary>
+            The effects of this action on the element performing the action
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameAction.Attempt(Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Attempt the action.  Returns true if successful, false if not.
+            Should be overridden to check skill levels etc.
+            </summary>
+            <param name="log"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.GameAction.Enact(Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Enact this action
+            </summary>
+            <param name="log"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.GameAction.PrePopulateContext(Nucleus.Game.EffectContext)">
+            <summary>
+            Populate the context data before attempting to execute the action
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Nucleus.Game.GameAction.ApplyEffects(Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Apply the effects of the action to the target
+            </summary>
+            <param name="log"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:Nucleus.Game.GameAction.ApplySelfEffects(Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Apply the self-effects of the action, targetting the actor performing
+            the action
+            </summary>
+            <param name="log"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:Nucleus.Game.GameAction.AIScore(Nucleus.Game.TurnContext,Nucleus.Game.ActionSelectionAI)">
+            <summary>
+            Generate a score for this action based on the specified
+            set of weightings
+            </summary>
+            <param name="weights"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.GameAction.CanTarget(Nucleus.Model.Element)">
+            <summary>
+            Can this action target the specified element
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.GameEngine">
+            <summary>
+            A core engine for games and realtime simulations
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.GameEngine._Instance">
+            <summary>
+            Private backing field for Instance
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameEngine.Instance">
+            <summary>
+            The instance of the game engine
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameEngine.Input">
+            <summary>
+            The sub-manager which handles user input
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.GameEngine._State">
+            <summary>
+            Private backing member variable for the State property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameEngine.State">
+            <summary>
+            The current state
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameEngine.SFX">
+            <summary>
+            The special effects supervisor
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.GameEngine._Module">
+            <summary>
+            Private backing member variable for the Module property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameEngine.Module">
+            <summary>
+            The currently loaded module
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameEngine.StartUp">
+            <summary>
+            Perform engine initialisation.
+            This should be done after a module has been loaded.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameEngine.Update">
+            <summary>
+            Called every frame update
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameEngine.LoadModule(Nucleus.Game.GameModule)">
+            <summary>
+            Load a module into the engine
+            </summary>
+            <param name="module"></param>
+        </member>
+        <member name="M:Nucleus.Game.GameEngine.LoadState(Nucleus.Base.FilePath,System.Boolean)">
+            <summary>
+            Load a state from a save file, optionally setting it as the current
+            state.
+            </summary>
+            <param name="filePath">The filepath of the save file to load</param>
+            <param name="makeCurrent">If true, the loaded state will be set as
+            the current one.</param>
+            <returns>The loaded state, or null if reading the file was unsuccessful.</returns>
+        </member>
+        <member name="T:Nucleus.Game.GameModule">
+            <summary>
+            Abstract base class for game modules.
+            Modules define top-level information about a game including 
+            how it should be initialised and run.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameModule.Initialise">
+            <summary>
+            Initialise the game module
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameModule.StartingState">
+            <summary>
+            Get the state which starts this game.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.GameStage">
+            <summary>
+            A class to hold data about a stage or level in a game.
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.GameState">
+            <summary>
+            Abstract base class for states within a game (levels, menus etc.)
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameState.Elements">
+            <summary>
+            The collection of currently active game elements
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameState.StartUp">
+            <summary>
+            Perform state initialisation
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameState.Update(Nucleus.Game.UpdateInfo)">
+            <summary>
+            Called every frame update
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.GameState.InputPress(Nucleus.Game.InputFunction,Nucleus.Geometry.Vector)">
+            <summary>
+            Called when the user presses a key or button
+            </summary>
+            <param name="input">The input function pressed</param>
+            <param name="direction">The direction associated with the input,
+            if applicable.</param>
+        </member>
+        <member name="M:Nucleus.Game.GameState.InputRelease(Nucleus.Game.InputFunction,Nucleus.Geometry.Vector)">
+            <summary>
+            Called when the user releases a key or button
+            </summary>
+            <param name="input">The input function pressed</param>
+            <param name="direction">The direction associated with the input,
+            if applicable.</param>
+        </member>
+        <member name="T:Nucleus.Game.IEffect">
+            <summary>
+            Interface for an effect which is to be applied to an element
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.IEffect.Spent">
+            <summary>
+            Has the effect been spent?
+            This should return true when the effect has been fully applied
+            and shoul dno longer be executed any further.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.IEffect.Apply(Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Attempt to apply this effect to an element
+            </summary>
+            <param name="target">The target element</param>
+            <param name="log">A message log used to report back the outcome of the effect</param>
+            <param name="context">The context in which the effect is being applied</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.IEffect`1">
+            <summary>
+            Generic interface for an effect which is to be applied to a target
+            object of a specifed type
+            </summary>
+            <typeparam name="TTarget"></typeparam>
+        </member>
+        <member name="P:Nucleus.Game.IEffect`1.Target">
+            <summary>
+            The target of the effect
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.IEffectExtensions">
+            <summary>
+            Extension methods for the IEffect interface
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.IEffectExtensions.RemoveSpent(System.Collections.Generic.IList{Nucleus.Game.IEffect})">
+            <summary>
+            Remove all spent effects from this collection
+            </summary>
+            <param name="list"></param>
+        </member>
+        <member name="M:Nucleus.Game.IEffectExtensions.ApplyAll``1(System.Collections.Generic.IList{Nucleus.Game.IEffect{``0}},Nucleus.Logs.IActionLog)">
+            <summary>
+            Apply all unspent effects in this collection to the target object
+            </summary>
+            <typeparam name="TTarget"></typeparam>
+            <param name="list"></param>
+            <param name="target"></param>
+            <param name="log"></param>
+        </member>
+        <member name="T:Nucleus.Game.MapCellCollider">
+            <summary>
+            A data component which may be attached to elements and map cells
+            which will register a collision with solid objects in the same map cell
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.MapCellCollider._Solid">
+            <summary>
+            Private backing member variable for the Solid property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.MapCellCollider.Solid">
+            <summary>
+            Is this collider solid?  Solid objects will register collisions with other solid objects.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.MapCellCollider.CanEnter(Nucleus.Geometry.MapCell)">
+            <summary>
+            Can the owner of this collider enter the specified cell?
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.MapCellCollider.Blocker(Nucleus.Geometry.MapCell)">
+            <summary>
+            Get the element which is blocking the owner of this collider
+            from entering the specified cell.  If this returns null, there
+            is no blocking element in the cell and the owner may enter it.
+            </summary>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.MapStage">
+            <summary>
+            A game stage which represents level geometry via a map
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.MapStage._Elements">
+            <summary>
+            Private backing member variable for the Elements property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.MapStage.Elements">
+            <summary>
+            The collection of currently active game elements in this stage
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.MapStage._Map">
+            <summary>
+            Private backing member variable for the Map property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.MapStage.Map">
+            <summary>
+            The spatial map of the stage
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.MoveCellEffect">
+            <summary>
+            An effect which will move an element to a specific cell
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.MoveCellEffect._MoveTo">
+            <summary>
+            Private backing member variable for the MoveTo property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.MoveCellEffect.MoveTo">
+            <summary>
+            The index of the mapcell to move to
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.RLStateSaveFile">
+            <summary>
+            Document which saves an RLState
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.TurnContext">
+            <summary>
+            Object to contain context data about a turn in a turn-based game
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TurnContext.State">
+            <summary>
+            The current state
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TurnContext.Stage">
+            <summary>
+            The current stage
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TurnContext.Element">
+            <summary>
+            The element whose turn has completed
+            (and whose components are currently being activated)
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TurnContext.RNG">
+            <summary>
+            The random number generator used to provide randomisation
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.UpdateInfo">
+            <summary>
+            Information about an update cycle
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.UpdateInfo._TimeStep">
+            <summary>
+            Private backing member variable for the TimeStep property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.UpdateInfo.TimeStep">
+            <summary>
+            The timestep between the previous update and this one, in seconds.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.UpdateInfo.#ctor(System.Double)">
+            <summary>
+            Initialise a new UpdateInfo
+            </summary>
+            <param name="timeStep"></param>
+        </member>
+        <member name="T:Nucleus.Logs.IActionLog">
+            <summary>
+            An interface for log objects which report on actions
+            </summary>
+        </member>
+    </members>
+</doc>

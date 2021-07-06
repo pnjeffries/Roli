@@ -1,0 +1,50 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Roli/1.0.0": {
+        "dependencies": {
+          "Nucleus": "1.0.0",
+          "Nucleus.Game": "1.0.0"
+        },
+        "runtime": {
+          "Roli.dll": {}
+        }
+      },
+      "Nucleus/1.0.0": {
+        "runtime": {
+          "Nucleus.dll": {}
+        }
+      },
+      "Nucleus.Game/1.0.0": {
+        "dependencies": {
+          "Nucleus": "1.0.0"
+        },
+        "runtime": {
+          "Nucleus.Game.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Roli/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Nucleus/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Nucleus.Game/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,4 @@
+<linker>
+	<assembly fullname="Nucleus" preserve="all"/>
+    <assembly fullname="Nucleus.Game" preserve="all"/>
+</linker>
