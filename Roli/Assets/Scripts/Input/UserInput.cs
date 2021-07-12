@@ -22,7 +22,7 @@ public class UserInput : MonoBehaviour
     /// <summary>
     /// The amount of time before the key press will be repeated
     /// </summary>
-    public float RepeatTime = 0.2f;
+    public float RepeatTime = 0.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +72,6 @@ public class UserInput : MonoBehaviour
 
                 if (Input.GetKeyDown(kvp.Key))
                 {
-                    Debug.Log("User Pressed: " + kvp.Value.ToString());
                     GameEngine.Instance.Input.InputPress(kvp.Value);
                 }
             }

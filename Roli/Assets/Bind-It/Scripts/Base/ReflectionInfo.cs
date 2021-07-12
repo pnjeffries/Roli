@@ -97,6 +97,16 @@ namespace Binding
                 pInfo.SetValue(Obj, value);
                 return true;
             }
+            else if (Info is MethodInfo mInfo)
+            {
+                var paras = mInfo.GetParameters();
+                if (paras.Length != 1) throw new ArgumentException("Target method does not have a single parameter.");
+                if (conversion != null)
+                {
+                    value = conversion.Invoke(value, paras[0].ParameterType, null, CultureInfo.CurrentCulture);
+                }
+                mInfo.Invoke(Obj, new object[] { value });
+            }
             return false;
         }
 
@@ -137,7 +147,7 @@ namespace Binding
                 {
                     if (token.EndsWith("()"))
                     {
-                        MethodInfo info = type.GetMethod(token.TrimEnd(')', '('), new Type[] { });
+                        var info = type.GetMethod(token.TrimEnd(')', '('), new Type[] { });
                         if (info == null) return null;
                         else if (last) return new ReflectionInfo(obj, info);
                         else
@@ -145,7 +155,6 @@ namespace Binding
                     }
                     else
                     {
-
                         string key = null;
                         token = token.TrimEnd(')');
                         int keyStart = token.LastIndexOf('(');
@@ -154,7 +163,16 @@ namespace Binding
                             key = token.Substring(keyStart + 1);
                             token = token.Substring(0, keyStart);
                         }
-                        MethodInfo info = type.GetMethod(token, new Type[] { key.GetType() });
+                        MethodInfo info = null;
+                        /*if (key.StartsWith("<") && key.EndsWith(">"))
+                        {
+                            key = key.TrimStart('<').TrimEnd('>');
+
+                        }
+                        else
+                        {*/
+                            info = type.GetMethod(token, new Type[] { key.GetType() });
+                        //}
                         if (info == null) return null;
                         else if (last) return new ReflectionInfo(obj, info, key);
                         obj = info.Invoke(obj, new object[] { key });

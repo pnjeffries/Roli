@@ -750,6 +750,11 @@
             Random number generator
             </summary>
         </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.RNG">
+            <summary>
+            Get or set the random number generator
+            </summary>
+        </member>
         <member name="F:Nucleus.Game.DungeonArtitect._Blueprint">
             <summary>
             The blueprint that the generator will work on
@@ -780,6 +785,11 @@
             A collection of 'snapshot' images of the dungeon being generated.
             By default this is null and no snapshots will be recorded.  If populated
             with a suitable container snapshots will be taken as each room is added
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.RecordSnapshots">
+            <summary>
+            Should snapshots be recorded at each generation stage?
             </summary>
         </member>
         <member name="P:Nucleus.Game.DungeonArtitect.PathToExit">
@@ -867,6 +877,23 @@
             <param name="rect"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.CheckRoom(Nucleus.Geometry.IntRectangle)">
+            <summary>
+            Return the first room encountered within the specified bounds
+            </summary>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.CheckRoom(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Return the first room encountered within the specified bounds
+            </summary>
+            <param name="iMin"></param>
+            <param name="iMax"></param>
+            <param name="jMin"></param>
+            <param name="jMax"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Game.DungeonArtitect.CountRoomCells(System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             Count up the number of cells belonging to each room in the specified zone
@@ -949,6 +976,17 @@
             <param name="floorLevel"></param>
             <param name="slopeDirection"></param>
             <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.SetBlock(System.Int32,System.Int32,System.Int32,System.Int32,Nucleus.Game.CellGenerationType,Nucleus.Game.Room)">
+            <summary>
+            Set a rectangular block of cells to the specified values
+            </summary>
+            <param name="iMin"></param>
+            <param name="iMax"></param>
+            <param name="jMin"></param>
+            <param name="jMax"></param>
+            <param name="genType"></param>
+            <param name="room"></param>
         </member>
         <member name="M:Nucleus.Game.DungeonArtitect.SetCell(System.Int32,System.Int32,Nucleus.Game.CellGenerationType,Nucleus.Game.Room)">
             <summary>

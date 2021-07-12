@@ -22,12 +22,16 @@ namespace Roli
         /// <returns></returns>
         public GameElement Hero()
         {
-            return new GameElement("Hero",
+            return new ActiveElement("Hero",
                 PlayerFaction,
                 new ASCIIStyle("@"),
-                new AvailableActions(), new TurnCounter(),
+                new AvailableActions(), 
+                new TurnCounter(),
                 new WaitAbility(),
-                new MoveCellAbility());
+                new MoveCellAbility(),
+                new MapCellCollider(),
+                new MapAwareness(10),
+                new Memorable());
         }
     }
 }

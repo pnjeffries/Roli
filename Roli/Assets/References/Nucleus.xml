@@ -5036,6 +5036,13 @@
             <param name="range"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Extensions.RandomExtensions.NextBoolean(System.Random)">
+            <summary>
+            Generate a random boolean value
+            </summary>
+            <param name="rng"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Extensions.CharExtensions">
             <summary>
             Extension methods for the standard Character type
@@ -5769,6 +5776,16 @@
             </summary>
             <param name="list"></param>
             <param name="addThis"></param>
+        </member>
+        <member name="M:Nucleus.Extensions.IntExtensions.Power(System.Int32,System.UInt32)">
+            <summary>
+            Raise this integer to a specified power.
+            </summary>
+            <param name="value"></param>
+            <param name="power">The exponent to raise this number to.</param>
+            <remarks>Based on fast methodology from: 
+            https://stackoverflow.com/questions/383587/how-do-you-do-integer-exponentiation-in-c</remarks>
+            <returns></returns>
         </member>
         <member name="T:Nucleus.Extensions.ObjectExtensions">
             <summary>
@@ -8506,6 +8523,13 @@
             Extension methods for the ICellMap interface
             </summary>
         </member>
+        <member name="M:Nucleus.Geometry.ICellMapExtensions.Clear``1(Nucleus.Geometry.ICellMap{``0})">
+            <summary>
+            Set all cells in this map back to the default value
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="map"></param>
+        </member>
         <member name="M:Nucleus.Geometry.ICellMapExtensions.CellAt``1(Nucleus.Geometry.ICellMap{``0},Nucleus.Geometry.Vector)">
             <summary>
             Get the item in the cell at the specified location
@@ -8613,6 +8637,17 @@
             </summary>
             <param name="dMap"></param>
             <param name="blockedValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.ICellMapExtensions.Contour``1(Nucleus.Geometry.ICellMap{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Generate a set of contour polylines which separate the areas of the map which
+            meet a certain condition from those which do not.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="map"></param>
+            <param name="condition">The condition which will return true for the cells to have
+            a contour constructed around them.</param>
             <returns></returns>
         </member>
         <member name="T:Nucleus.Geometry.IMapCell">
@@ -9428,6 +9463,23 @@
             <param name="sizeX"></param>
             <param name="sizeY"></param>
             <param name="cellSize"></param>
+        </member>
+        <member name="M:Nucleus.Geometry.SquareCellMap`1.#ctor(Nucleus.Geometry.Vector,System.Int32,System.Int32,`0[])">
+            <summary>
+            Initialise a new square cell map of the specified size with the specified set of initial values
+            </summary>
+            <param name="origin"></param>
+            <param name="sizeX"></param>
+            <param name="sizeY"></param>
+            <param name="values"></param>
+        </member>
+        <member name="M:Nucleus.Geometry.SquareCellMap`1.#ctor(System.Int32,System.Int32,`0[])">
+            <summary>
+            Initialise a new square cell map of the specified size with the specified set of initial values
+            </summary>
+            <param name="sizeX"></param>
+            <param name="sizeY"></param>
+            <param name="values"></param>
         </member>
         <member name="M:Nucleus.Geometry.SquareCellMap`1.Nucleus#Geometry#ICellMap#GetCell(System.Int32)">
             <summary>
@@ -17055,6 +17107,16 @@
             </summary>
             <param name="pt"></param>
         </member>
+        <member name="M:Nucleus.Geometry.PolyLine.Add(Nucleus.Geometry.Vector,System.Double)">
+            <summary>
+            Add a new point to end of the polyline the provided it is not within
+            tolerance of the current end of the curve.
+            </summary>
+            <param name="pt">The point</param>
+            <param name="tolerance">The distance tolerance.  If the new point list within this
+            distance from the previous added point, it will not be added.</param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Geometry.PolyLine.SetPoints(System.Collections.Generic.IList{Nucleus.Geometry.Vector})">
             <summary>
             Set the positions and number of the vertices in this polyline to the
@@ -17169,6 +17231,21 @@
             If the curve has only a single segment, nothing will be removed and the operation will fail.
             </summary>
             <returns>True if a segment was successfully removed.</returns>
+        </member>
+        <member name="M:Nucleus.Geometry.PolyLine.VertexAngle(System.Int32)">
+            <summary>
+            Calculate the anglular change of direction at the specified vertex
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.PolyLine.Bevel(System.Double,Nucleus.Geometry.Angle)">
+            <summary>
+            Generate a new PolyLine based on this one but with added bevelled corners.
+            </summary>
+            <param name="bevelSize">The dimension of the bevel</param>
+            <param name="tolerance">Only vertices with a turn angle greater than this will be bevelled</param>
+            <returns></returns>
         </member>
         <member name="M:Nucleus.Geometry.PolyLine.Trapezoid(System.Double,System.Double,System.Double)">
             <summary>
