@@ -347,6 +347,38 @@
             Room type enum
             </summary>
         </member>
+        <member name="T:Nucleus.Game.Artitecture.WeightedTable`1">
+            <summary>
+            A table of objects and their weightings.  A roll can be made
+            on this table to randomly decide on an item from the table
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Nucleus.Game.Artitecture.WeightedTable`1.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Artitecture.WeightedTable`1.#ctor(`0[])">
+            <summary>
+            Create a table of items with equal weighting of 1 for each.
+            </summary>
+            <param name="items"></param>
+        </member>
+        <member name="M:Nucleus.Game.Artitecture.WeightedTable`1.SumWeights">
+            <summary>
+            Calculate the total of all weighting values in this table
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Artitecture.WeightedTable`1.Roll(System.Random)">
+            <summary>
+            Roll on this table and randomly return a result with a probability
+            based on the weighting values
+            </summary>
+            <param name="rng"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Game.Cards.Card">
             <summary>
             Base class for card-type objects
@@ -814,6 +846,21 @@
             Take a snapshot of the current state of the blueprint and add it to the snapshots collection
             </summary>
         </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.Generate(Nucleus.Game.RoomTemplate)">
+            <summary>
+            Generate a dungeon map
+            </summary>
+            <param name="startRoom">The room to start with</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.Generate(Nucleus.Game.RoomTemplate,Nucleus.Geometry.CompassDirection)">
+            <summary>
+            Generate a dungeon map
+            </summary>
+            <param name="startRoom">The room to start with</param>
+            <param name="startDirection">The initial direction</param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Game.DungeonArtitect.Generate(System.Int32,System.Int32,Nucleus.Game.RoomTemplate,Nucleus.Geometry.CompassDirection)">
             <summary>
             Generate a dungeon map
@@ -1059,6 +1106,19 @@
             The items contained within this inventory
             </summary>
         </member>
+        <member name="T:Nucleus.Game.Components.IOutOfTurnMove">
+            <summary>
+            Interface for components which should be processed when
+            the actor is moved outside of its normal turn order
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Components.IOutOfTurnMove.OutOfTurnMove(Nucleus.Game.TurnContext)">
+            <summary>
+            Called when the actor is moved outside of its ordinary
+            turn order
+            </summary>
+            <param name="context"></param>
+        </member>
         <member name="T:Nucleus.Game.IStartOfTurn">
             <summary>
             Interface for data components which process at the start of 
@@ -1103,6 +1163,16 @@
             Data component to store element field of view within a Cell Map
             </summary>
         </member>
+        <member name="F:Nucleus.Game.MapAwareness.Visible">
+            <summary>
+            The value used to indicate that a cell is directly visible
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.MapAwareness.Remembered">
+            <summary>
+            The value used to indicate that a cell is remembered
+            </summary>
+        </member>
         <member name="P:Nucleus.Game.MapAwareness.FieldOfView">
             <summary>
             The element field of view map
@@ -1119,6 +1189,12 @@
             </summary>
             <param name="cellIndex"></param>
             <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.MapAwareness.StageChanged(Nucleus.Game.GameStage)">
+            <summary>
+            Called when the stage is changed
+            </summary>
+            <param name="stage"></param>
         </member>
         <member name="T:Nucleus.Game.Memorable">
             <summary>
@@ -1142,7 +1218,7 @@
             <summary>
             Select an action from the specified collection
             </summary>
-            <param name="element"></param>
+            <param name="context"></param>
             <param name="actions"></param>
             <returns></returns>
         </member>
@@ -1416,6 +1492,11 @@
         <member name="P:Nucleus.Game.EffectContext.Map">
             <summary>
             Get the map (retrieved from current stage)
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EffectContext.RNG">
+            <summary>
+            The random number generator to be used to resolve stochastic effects
             </summary>
         </member>
         <member name="T:Nucleus.Game.KnockbackEffect">
@@ -1868,6 +1949,11 @@
             A dusty 'footprint' effect
             </summary>
         </member>
+        <member name="F:Nucleus.Game.SFXKeywords.Knock">
+            <summary>
+            The effect of one object knocking against another
+            </summary>
+        </member>
         <member name="F:Nucleus.Game.SFXKeywords.Slash">
             <summary>
             A melee-weapon slash effect
@@ -1883,6 +1969,16 @@
             A collection of stages
             </summary>
             <typeparam name="TStage"></typeparam>
+        </member>
+        <member name="T:Nucleus.Game.Stages.StageTemplate">
+            <summary>
+            A template used to generate a stage
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Stages.StageTemplate.CreatureTable">
+            <summary>
+            The table of creatures which may be present in this stage
+            </summary>
         </member>
         <member name="T:Nucleus.Game.GameSaveFile">
             <summary>
@@ -1972,6 +2068,16 @@
             Time remaining before AI turns can begin
             </summary>
         </member>
+        <member name="F:Nucleus.Game.RLState._LastUpdateStart">
+            <summary>
+            The time that the last update started
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.RLState.RandomiseTurnOrder">
+            <summary>
+            Randomise the turn order of all non-player turn-based elements
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.RLState.InputRelease(Nucleus.Game.InputFunction,Nucleus.Geometry.Vector)">
             <summary>
             Called when the user releases a key or button
@@ -2039,6 +2145,13 @@
             <summary>
             The current stage
             </summary>
+        </member>
+        <member name="M:Nucleus.Game.BasicGameState`1.ChangeStage(`0)">
+            <summary>
+            Change the current stage.  This may be overridden to provide
+            more specific logic on how stages should be changed.
+            </summary>
+            <param name="newStage"></param>
         </member>
         <member name="T:Nucleus.Game.EffectCollection">
             <summary>
@@ -2334,6 +2447,17 @@
             Is this collider solid?  Solid objects will register collisions with other solid objects.
             </summary>
         </member>
+        <member name="P:Nucleus.Game.MapCellCollider.BlockingCheck">
+            <summary>
+            Get the condition used to check whether another element blocks this entity's
+            movement.  (By default this just checks if the object is solid)
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.MapCellCollider.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.MapCellCollider.CanEnter(Nucleus.Geometry.MapCell)">
             <summary>
             Can the owner of this collider enter the specified cell?
@@ -2374,6 +2498,18 @@
             <summary>
             The spatial map of the stage
             </summary>
+        </member>
+        <member name="P:Nucleus.Game.MapStage.Borders">
+            <summary>
+            Curves representing the border between walkable and solid space
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.MapStage.AddElement(Nucleus.Game.GameElement,System.Int32)">
+            <summary>
+            Add an element residing in the specified cell
+            </summary>
+            <param name="element"></param>
+            <param name="cellIndex"></param>
         </member>
         <member name="T:Nucleus.Game.MoveCellEffect">
             <summary>

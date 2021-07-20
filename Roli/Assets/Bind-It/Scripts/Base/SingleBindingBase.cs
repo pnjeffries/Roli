@@ -209,7 +209,7 @@ namespace Binding
                     sb.Append(")");
                     sb.Append(link.PropertyName);
                 }
-                Debug.Log("Chain generated: " + sb.ToString());
+                //Debug.Log("Chain generated: " + sb.ToString());
             }
         }
 
@@ -244,7 +244,7 @@ namespace Binding
         /// <param name="e"></param>
         private void Source_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Debug.Log("Property '" + e.PropertyName + "' changed.");
+            //Debug.Log("Property '" + e.PropertyName + "' changed.");
             if (BindingChain != null && sender is INotifyPropertyChanged)
             {
                 int i = BindingChain.IndexOfSource((INotifyPropertyChanged)sender);

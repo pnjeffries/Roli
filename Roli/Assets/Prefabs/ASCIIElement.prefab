@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3965513525935030461}
   - component: {fileID: 4594789636359327545}
   - component: {fileID: 4421765897914544948}
+  - component: {fileID: 1186594336963270948}
+  - component: {fileID: 7548887833343305599}
   m_Layer: 0
   m_Name: ASCII
   m_TagString: Untagged
@@ -79,7 +81,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4461835780981762062
 MonoBehaviour:
@@ -110,8 +112,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255610
-  m_fontColor: {r: 0.98206747, g: 1, b: 0, a: 1}
+    rgba: 4294770943
+  m_fontColor: {r: 1, g: 0, b: 0.9916911, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -149,7 +151,7 @@ MonoBehaviour:
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
+  m_enableKerning: 0
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -171,7 +173,7 @@ MonoBehaviour:
   m_renderer: {fileID: 6374024697941476190}
   m_maskType: 0
   _SortingLayerID: 0
-  _SortingOrder: 0
+  _SortingOrder: -1
 --- !u!114 &3965513525935030461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +223,39 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1186594336963270948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6060099236948074569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451426d7d5677ba4cb88848c7769b49f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bindings:
+  - Source: {fileID: 7548887833343305599}
+    Path: SourceObject.State.Controlled.Data[MapAwareness].FieldOfView
+  - Source: {fileID: 0}
+    Path: Data[MapData].MapCell.Index
+  Target: {fileID: 6374024697941476190}
+  TargetPath: enabled
+  Converter: {fileID: -3153837404718867923}
+--- !u!114 &7548887833343305599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6060099236948074569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a528cc4c65c3d146a199657f0fd8540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AncestorLevels: 1
 --- !u!1 &7573023531222794778
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +344,18 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   Duration: 0.2
+--- !u!114 &-5863260565291233284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70827e20f7ab4694b9c01b1d5d6e84ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-5589001841855201952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +366,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70827e20f7ab4694b9c01b1d5d6e84ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3153837404718867923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9210ee43b27ea0479143a7c7ed6caf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1113141026153802966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9210ee43b27ea0479143a7c7ed6caf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7282040752968435457

@@ -5017,6 +5017,13 @@
             <param name="rng"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Extensions.RandomExtensions.NextDirection(System.Random)">
+            <summary>
+            Returns a random cardinal direction
+            </summary>
+            <param name="rng"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Extensions.RandomExtensions.NextPoint(System.Random,Nucleus.Geometry.BoundingBox)">
             <summary>
             Generate a random point within the specified bounding box
@@ -8648,6 +8655,15 @@
             <param name="map"></param>
             <param name="condition">The condition which will return true for the cells to have
             a contour constructed around them.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.ICellMapExtensions.IndicesWhere``1(Nucleus.Geometry.ICellMap{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Return a list of indices where the specified condition delegate returns true
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="map"></param>
+            <param name="condition"></param>
             <returns></returns>
         </member>
         <member name="T:Nucleus.Geometry.IMapCell">
@@ -24073,7 +24089,7 @@
             <param name="length">The length of the arrows representing the load</param>
             <param name="zigZagLength"></param>
         </member>
-        <member name="M:Nucleus.Meshing.MeshBuilderBase.AddQuadGridMesh(Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,System.Int32,System.Int32)">
+        <member name="M:Nucleus.Meshing.MeshBuilderBase.AddQuadGridMesh(Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,System.Int32,System.Int32,System.Double)">
             <summary>
             Generate a regular grillage quad mesh
             </summary>
@@ -24084,6 +24100,8 @@
             in the mesh in the second ('v') axis</param>
             <param name="uCount">The number of vertices in the first ('u') direction.</param>
             <param name="vCount">The number of vertices in the second ('v') direction.</param>
+            <param name="edgeExtension">The distance by which the edge quads should be extended out to produce
+            an enlarged 'frame' around the grid.</param>
         </member>
         <member name="M:Nucleus.Meshing.MeshBuilderBase.AddGridMeshXYPolgon(System.Collections.Generic.IList{Nucleus.Geometry.Vector},System.Collections.Generic.IList{System.Collections.Generic.IList{Nucleus.Geometry.Vector}},System.Double)">
             <summary>

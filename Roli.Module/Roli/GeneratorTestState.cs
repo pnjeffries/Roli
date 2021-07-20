@@ -27,7 +27,7 @@ namespace Roli
 
             //RNG = new Random(1);
 
-            _Artitect = GenerateLevel(map, true);
+            _Artitect = DesignDungeon(map, true);
 
             ShowGenerationStage(0);
         }
@@ -47,8 +47,8 @@ namespace Roli
                 poly.Clean();
                 polys[i] = poly.Bevel(0.1, Angle.FromDegrees(10));
             }
-            WallLines = new CurveCollection();
-            WallLines.AddRange(polys);
+            Stage.Borders = new CurveCollection();
+            Stage.Borders.AddRange(polys);
         }
 
         public override void InputRelease(InputFunction input, Vector direction)

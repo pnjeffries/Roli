@@ -9,6 +9,7 @@ public class StartUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
         Debug.Log("Loading module...");
         var module = new Roli.RoliModule();
         GameEngine.Instance.LoadModule(module);

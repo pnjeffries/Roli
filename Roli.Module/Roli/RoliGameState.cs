@@ -4,6 +4,7 @@ using Nucleus.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace Roli
@@ -13,49 +14,57 @@ namespace Roli
     /// </summary>
     public class RoliGameState : RLState
     {
-        #region Properties
-
-        private CurveCollection _WallLines = null;
-        
-        /// <summary>
-        /// Curves representing the border between walkable and solid space
-        /// </summary>
-        public CurveCollection WallLines
-        {
-            get { return _WallLines; }
-            set { ChangeProperty(ref _WallLines, value); }
-        }
-
-        #endregion
 
         #region Methods
 
         public override void StartUp()
         {
-            // Initialise state, map and stage:
-            int mapX = 32;
-            int mapY = 32;
-            var stage = new MapStage();
-            var map = new SquareCellMap<MapCell>(mapX, mapY);
-            stage.Map = map;
-            Stage = stage;
-
-            var generator = GenerateLevel(map);
-
-            var blueprint = generator.Blueprint;
-            BuildDungeon(blueprint);
-
-            var creatures = new CreatureLibrary();
-            // Create player character
-            var hero = creatures.Hero();
-            map[5, 6].PlaceInCell(hero);
-            Elements.Add(hero);
-            Controlled = hero;
+            var stages = GenerateAllLevels();
+            Stage = stages.First();
 
             base.StartUp();
         }
 
-        public DungeonArtitect GenerateLevel(SquareCellMap<MapCell> map, bool record = false)
+        public IList<MapStage> GenerateAllLevels()
+        {
+            var result = new List<MapStage>();
+
+            // Generate stages in reverse, so we know who to connect to:
+            StageExit exit = null;
+            for (int i = 0; i < 26; i++)
+            {
+                var stage = GenerateStage(exit, out int entryIndex);
+                result.Insert(0, stage);
+                exit = new StageExit(stage, entryIndex);
+            }
+
+            var creatures = new CreatureLibrary();
+            // Create player character
+            var hero = creatures.Hero();
+            Controlled = hero;
+            result[0].AddElement(hero, exit.CellIndex);
+
+            return result;
+        }
+
+        public MapStage GenerateStage(StageExit exit, out int entryIndex)
+        {
+            // Initialise state, map and stage:
+            int mapX = 24;
+            int mapY = 24;
+            var stage = new MapStage();
+            var map = new SquareCellMap<MapCell>(mapX, mapY);
+            stage.Map = map;
+
+            var generator = DesignDungeon(map, exit != null);
+
+            var blueprint = generator.Blueprint;
+            entryIndex = BuildDungeon(blueprint, stage, exit);
+
+            return stage;
+        }
+
+        public DungeonArtitect DesignDungeon(SquareCellMap<MapCell> map, bool includeExit = true, bool record = false)
         {
             int mapX = map.SizeX;
             int mapY = map.SizeY;
@@ -70,21 +79,26 @@ namespace Roli
             generator.Templates.Add(rooms.Cell());
             generator.Templates.Add(rooms.Exit());
             generator.RecordSnapshots = record;
+            generator.ExitPlaced = !includeExit;
 
             while (!generator.ExitPlaced)
             {
                 generator.ClearBlueprint(mapX, mapY);
-                generator.Generate(5, 4, rooms.StandardRoom(), CompassDirection.North);
+                generator.Generate(rooms.Entry());
             }
 
             return generator;
         }
 
-        private void BuildDungeon(SquareCellMap<BlueprintCell> blueprint)
+        private int BuildDungeon(SquareCellMap<BlueprintCell> blueprint, MapStage stage, StageExit exit)
         {
-            var map = Stage.Map;
+            int result = 0;
+            var map = stage.Map as SquareCellMap<MapCell>;
             map.InitialiseCells();
 
+            var features = new FeatureLibrary();
+            var creatures = new CreatureLibrary();
+            var enemies = creatures.AllEnemies;
             // Build dungeon from blueprint:
             Random rng = new Random();
             for (int i = 0; i < blueprint.CellCount; i++)
@@ -92,37 +106,42 @@ namespace Roli
                 CellGenerationType cGT = blueprint[i].GenerationType;
                 if (cGT.IsWall()) //|| cGT == CellGenerationType.Untouched)
                 {
-                    var wall = new GameElement("Wall");
-                    wall.SetData(new ASCIIStyle("#"), new PrefabStyle("Wall"), new MapCellCollider(),
-                        new VisionBlocker(), new Memorable(), new Inertia(true));
-                    map[i].PlaceInCell(wall);
-                    Elements.Add(wall);
+                    stage.AddElement(features.Wall(), i);
                 }
                 else if (cGT == CellGenerationType.Door && rng.NextDouble() > 0.5)
                 {
                     // Create door
-                    /*var door = new ActiveElement("Door");
-                    door.SetData(new ASCIIStyle("+"), new VisionBlocker(), new Memorable(), new Inertia(true));
-                    map[i, j].PlaceInCell(door);
-                    state.Elements.Add(door);*/
+                    stage.AddElement(features.Door(), i);
                 }
                 else if (cGT == CellGenerationType.Void)
                 {
                     if (blueprint[i].Room.Template.RoomType == RoomType.Exit)
                     {
-                        var exit = new ActiveElement("Exit");
-                        exit.SetData(new ASCIIStyle(">"),
-                            new Memorable(), new Inertia(true));
-                        map[i].PlaceInCell(exit);
-                        Elements.Add(exit);
+                        stage.AddElement(features.Exit(exit), i);
+                    }
+                    else if (blueprint[i].Room.Template.RoomType == RoomType.Entry)
+                    {
+                        // TODO
+                        //stage.AddElement(features.Entrance(), i);
+                        result = i;
+                    }
+                    else
+                    {
+                        if (rng.NextDouble() < 0.05)
+                        {
+                            var func = enemies.Roll(RNG);
+                            var element = func.Invoke();
+                            stage.AddElement(element, i);
+                        }
                     }
                 }
             }
 
-            BuildWallOutline(blueprint);
+            stage.Borders = BuildWallOutline(blueprint);
+            return result;
         }
 
-        public void BuildWallOutline(SquareCellMap<BlueprintCell> blueprint)
+        public CurveCollection BuildWallOutline(SquareCellMap<BlueprintCell> blueprint)
         {
             // Build (initial) wall lines:
             bool rocky = false;
@@ -145,8 +164,9 @@ namespace Roli
                 }
                 polys[i] = poly.Bevel(0.1, Angle.FromDegrees(10));
             }
-            WallLines = new CurveCollection();
-            WallLines.AddRange(polys);
+            var result = new CurveCollection();
+            result.AddRange(polys);
+            return result;
         }
 
     }

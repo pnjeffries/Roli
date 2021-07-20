@@ -24,11 +24,26 @@ namespace Roli
 
         public RoomTemplate Corridor()
         {
-            return new RoomTemplate(RoomType.Circulation, 1, 1, 4, 8)
+            return new RoomTemplate(RoomType.Circulation, 1, 1, 2, 8)
             {
                 SproutTries = 10,
                 MaxConnections = 6
             };
+        }
+
+        public RoomTemplate Hall()
+        {
+            return new RoomTemplate(RoomType.Circulation, 2, 3, 2, 8)
+            {
+                SproutTries = 10,
+                MaxConnections = 6
+            };
+        }
+
+        public RoomTemplate Entry()
+        {
+            return new RoomTemplate(RoomType.Entry, 1, 1, 1, 1)
+            { MaxConnections = 1 };
         }
 
         public RoomTemplate Exit()

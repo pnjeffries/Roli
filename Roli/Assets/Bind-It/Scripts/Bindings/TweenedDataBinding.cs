@@ -19,7 +19,6 @@ namespace Binding
 
         public override void UpdateTargetValue()
         {
-            //StopCoroutine(Tween());
             if (Target == null) return;
             StartCoroutine(Tween());
         }
@@ -46,7 +45,7 @@ namespace Binding
             Binding.SetByPath(Target, TargetPath, endValue);
         }
 
-        static object Lerp(object startValue, object endValue, float t)
+        public static object Lerp(object startValue, object endValue, float t)
         {
             if (startValue is float && endValue is float)
             {
@@ -71,6 +70,10 @@ namespace Binding
             else if (startValue is int i0 && endValue is int i1)
             {
                 return (int)(i0 + (i1 - i0) * t);
+            }
+            else if (startValue is bool b0 && endValue is bool b1)
+            {
+                return b0;
             }
             else
             {

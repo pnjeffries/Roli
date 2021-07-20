@@ -1,4 +1,8 @@
 <linker>
-	<assembly fullname="Nucleus" preserve="all"/>
-    <assembly fullname="Nucleus.Game" preserve="all"/>
+  <assembly fullname="Nucleus" preserve="all"/>
+  <assembly fullname="Nucleus.Game" preserve="all"/>
+  <assembly fullname="UnityEngine.CoreModule">
+    <type fullname="UnityEngine.Mesh" preserve="all"/>
+    <type fullname="UnityEngine.MeshFilter" preserve="all"/>
+  </assembly>
 </linker>

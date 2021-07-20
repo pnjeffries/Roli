@@ -48,11 +48,12 @@ namespace Binding
         {
             get
             {
-                if (_TargetInfo == null)
-                {
-                    _TargetInfo = ReflectionInfo.GetReflectionInfoFromPath(Target, TargetPath);
-                }
-                return _TargetInfo;
+                return ReflectionInfo.GetReflectionInfoFromPath(Target, TargetPath);
+                //if (_TargetInfo == null)
+                //{
+                //  _TargetInfo = ReflectionInfo.GetReflectionInfoFromPath(Target, TargetPath);
+                //}
+                //return _TargetInfo;
             }
         }
 

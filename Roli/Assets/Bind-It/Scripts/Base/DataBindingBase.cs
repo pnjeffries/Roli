@@ -98,7 +98,7 @@ namespace Binding
         {
             if (BindingRefreshRequired)
             {
-                Debug.Log("Binding Refresh Required");
+                //Debug.Log("Binding Refresh Required");
                 RefreshBinding();
             }
             if (UIRefreshRequired)
@@ -106,7 +106,7 @@ namespace Binding
                 //Prevent updating if the field is being edited:
                 if (!IsLocked())
                 {
-                    Debug.Log("UI Refresh Required");
+                    //Debug.Log("UI Refresh Required");
                     UIRefreshRequired = false;
                     UpdateTargetValue();
                 }
