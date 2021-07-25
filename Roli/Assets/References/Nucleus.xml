@@ -5024,6 +5024,13 @@
             <param name="rng"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Extensions.RandomExtensions.NextGender(System.Random)">
+            <summary>
+            Return a random gender
+            </summary>
+            <param name="rng"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Extensions.RandomExtensions.NextPoint(System.Random,Nucleus.Geometry.BoundingBox)">
             <summary>
             Generate a random point within the specified bounding box
@@ -6597,7 +6604,7 @@
         <member name="M:Nucleus.Extensions.StringExtensions.NextChunk(System.String,System.Int32@,System.Char[])">
             <summary>
             Get the chunk of text that starts from the specified index and proceeds
-            up to the next found instance of the specified character
+            up to the next found instance of the specified character(s)
             </summary>
             <param name="str"></param>
             <param name="index">The start index of the chunk.  This will be updated to the
@@ -6608,7 +6615,7 @@
         <member name="M:Nucleus.Extensions.StringExtensions.NextChunk(System.String,System.Char@,System.Int32@,System.Char[])">
             <summary>
             Get the chunk of text that starts from the specified index and proceeds
-            up to the next found instance of the specified character
+            up to the next found instance of the specified character(s)
             </summary>
             <param name="str"></param>
             <param name="terminator">The found character which terminates this chunk</param>
@@ -19232,6 +19239,18 @@
             The serialization binder to be used to resolve types.
             </summary>
         </member>
+        <member name="T:Nucleus.IO.IResourceLoader">
+            <summary>
+            Interface for loading resources
+            </summary>
+        </member>
+        <member name="M:Nucleus.IO.IResourceLoader.LoadString(Nucleus.Base.FilePath)">
+            <summary>
+            Load a string from a resource at the specified path
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.IO.CSVReader">
             <summary>
             A class to help read CSV files
@@ -20066,6 +20085,20 @@
             Third person - other parties - 'They', 'their' etc.
             </summary>
         </member>
+        <member name="M:Nucleus.Logs.IScriptedLog.HasScriptFor(System.String)">
+            <summary>
+            Does this log have a pre-defined script for the specified key?
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Logs.IScriptedLog.WriteScripted(System.String,System.Object[])">
+            <summary>
+            Write a pre-scripted entry to the log based on a key and a set of subject objects
+            </summary>
+            <param name="key"></param>
+            <param name="subjects"></param>
+        </member>
         <member name="T:Nucleus.Logs.LogScriptMarkupParser">
             <summary>
             Class to parse markup tags in log script entries
@@ -20135,6 +20168,28 @@
             The collection of objects to be used as source data
             </summary>
         </member>
+        <member name="F:Nucleus.Logs.LogScriptMarkupParser._Author">
+            <summary>
+            Private backer for Author
+            </summary>
+        </member>
+        <member name="P:Nucleus.Logs.LogScriptMarkupParser.Author">
+            <summary>
+            The subject object which is also the author of the statement (if any).
+            Used to determine when first-person perspective should be used.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Logs.LogScriptMarkupParser._Reader">
+            <summary>
+            Private backer for Reader
+            </summary>
+        </member>
+        <member name="P:Nucleus.Logs.LogScriptMarkupParser.Reader">
+            <summary>
+            The subject object which is the intended audience of the statement (if any).
+            Used to determine when second-person perspective should be used
+            </summary>
+        </member>
         <member name="F:Nucleus.Logs.LogScriptMarkupParser._RNG">
             <summary>
             Private backing member variable for the RNG property
@@ -20165,6 +20220,13 @@
             </summary>
             <param name="markup"></param>
             <param name="pass"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Logs.LogScriptMarkupParser.PersonOf(System.Object)">
+            <summary>
+            Determine the grammatical person of the specified subject
+            </summary>
+            <param name="subject"></param>
             <returns></returns>
         </member>
         <member name="M:Nucleus.Logs.LogScriptMarkupParser.B">
@@ -20244,6 +20306,26 @@
             <param name="neutral"></param>
             <param name="masculine"></param>
             <param name="feminine"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Logs.LogScriptMarkupParser.PERSON(System.String,System.String,System.String,System.String)">
+            <summary>
+            Select a variation based on the grammatical person of a subject
+            </summary>
+            <param name="index"></param>
+            <param name="first"></param>
+            <param name="second"></param>
+            <param name="third"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Logs.LogScriptMarkupParser.PERSON(System.String,System.String,System.String)">
+            <summary>
+            Select a variation based on the grammatical person of a subject where the
+            first and second person variations are the same
+            </summary>
+            <param name="index"></param>
+            <param name="firstOrSecond"></param>
+            <param name="third"></param>
             <returns></returns>
         </member>
         <member name="T:Nucleus.Logs.ICalculationLog">
@@ -20336,6 +20418,33 @@
             <param name="subjects"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Logs.ILogExtensions.WriteMarkup``1(``0,System.String,System.Object,System.Random,System.Object[])">
+            <summary>
+            Write text to the log from a string of text containing markup.
+            Returns a reference to this log to enable chaining.
+            </summary>
+            <typeparam name="TLog"></typeparam>
+            <param name="log"></param>
+            <param name="reader"></param>
+            <param name="markup"></param>
+            <param name="rng"></param>
+            <param name="subjects"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Logs.ILogExtensions.WriteMarkup``1(``0,System.String,System.Object,System.Object,System.Random,System.Object[])">
+            <summary>
+            Write text to the log from a string of text containing markup.
+            Returns a reference to this log to enable chaining.
+            </summary>
+            <typeparam name="TLog"></typeparam>
+            <param name="log"></param>
+            <param name="author"></param>
+            <param name="reader"></param>
+            <param name="markup"></param>
+            <param name="rng"></param>
+            <param name="subjects"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Logs.ILogExtensions.Bold``1(``0,System.Boolean)">
             <summary>
             Switch whether text subsequently written to the log should be displayed
@@ -20370,6 +20479,12 @@
             placed at the start of a line.
             </summary>
         </member>
+        <member name="F:Nucleus.Logs.LogScript.COMMENT">
+            <summary>
+            The sequence of characters which indicates that the rest of the line 
+            is a comment and should be ignored.
+            </summary>
+        </member>
         <member name="F:Nucleus.Logs.LogScript._Entries">
             <summary>
             Private backing member variable for the Entries property
@@ -20387,11 +20502,33 @@
             <param name="filePath"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Logs.LogScript.LoadFrom(Nucleus.Base.FilePath,Nucleus.IO.IResourceLoader)">
+            <summary>
+            Load the script from a resource file via a loader
+            </summary>
+            <param name="filePath"></param>
+            <param name="resources"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Logs.LogScript.Load(System.String)">
+            <summary>
+            Load the script directly from a text string
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Logs.LogScript.Load(System.IO.TextReader)">
             <summary>
             Load the script via a text reader.
             </summary>
             <param name="reader"></param>
+        </member>
+        <member name="M:Nucleus.Logs.LogScript.GetText(System.String)">
+            <summary>
+            Get the default unprocessed text record for the entry under 
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="T:Nucleus.Logs.LogScriptEntry">
             <summary>
@@ -20407,6 +20544,81 @@
             <summary>
             The possible variations of log entry message, in raw markup form.
             </summary>
+        </member>
+        <member name="M:Nucleus.Logs.LogScriptEntry.PrintToLog(Nucleus.Logs.ILog,System.Random,System.Object[])">
+            <summary>
+            Print a randomised variant of this entry to the specified log
+            </summary>
+            <param name="log"></param>
+            <param name="rng"></param>
+            <param name="subjects"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Logs.LogScriptEntry.PrintToLog(Nucleus.Logs.ILog,System.Object,System.Object,System.Random,System.Object[])">
+            <summary>
+            Print a randomised variant of this entry to the specified log
+            </summary>
+            <param name="log"></param>
+            <param name="rng"></param>
+            <param name="subjects"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Logs.ScriptedLog">
+            <summary>
+            Log class which assembles messages based on a LogScript
+            </summary>
+        </member>
+        <member name="F:Nucleus.Logs.ScriptedLog._Script">
+            <summary>
+            Private backer for the Script property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Logs.ScriptedLog.Script">
+            <summary>
+            The script used to generate log messages
+            </summary>
+        </member>
+        <member name="F:Nucleus.Logs.ScriptedLog._RNG">
+            <summary>
+            Private backer for the RNG property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Logs.ScriptedLog.RNG">
+            <summary>
+            The random number generator used to assemble script varients
+            </summary>
+        </member>
+        <member name="P:Nucleus.Logs.ScriptedLog.Author">
+            <summary>
+            The object representing the author of this log (if any).
+            Used to automatically determine when first-person variations should be employed.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Logs.ScriptedLog.Reader">
+            <summary>
+            The object representing the reader of this log (if any).
+            Used to automatically determine when second-person variations should be employed.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Logs.ScriptedLog.#ctor(Nucleus.Logs.LogScript)">
+            <summary>
+            Constructor.  Initialise from a log script
+            </summary>
+            <param name="script"></param>
+        </member>
+        <member name="M:Nucleus.Logs.ScriptedLog.WriteScripted(System.String,System.Object[])">
+            <summary>
+            Write a pre-scripted entry to the log based on a key and a set of subject objects
+            </summary>
+            <param name="key"></param>
+            <param name="subjects"></param>
+        </member>
+        <member name="M:Nucleus.Logs.ScriptedLog.HasScriptFor(System.String)">
+            <summary>
+            Does this log have a pre-defined script for the specified key?
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
         </member>
         <member name="T:Nucleus.Logs.StringLog">
             <summary>

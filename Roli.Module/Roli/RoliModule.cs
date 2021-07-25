@@ -12,6 +12,12 @@ namespace Roli
     /// </summary>
     public class RoliModule : GameModule
     {
+        public override void Initialise()
+        {
+            GameEngine.Instance.LanguagePack.LoadFrom("English", GameEngine.Instance.Resources);
+            base.Initialise();
+        }
+
         public override GameState StartingState()
         {
             var state = new RoliGameState();

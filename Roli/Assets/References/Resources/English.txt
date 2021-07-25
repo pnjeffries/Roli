@@ -1,0 +1,34 @@
+﻿// English text file.
+// See LogScriptMarkepParser for syntax and available markup functions.
+
+// =======
+// ACTIONS
+// =======
+
+~~~BumpAttackAction
+{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(hit|strike|attack)}{PERSON(0||s)} {PERSON(1|me|you|a {SUBJECT(1)})}.
+{PERSON(1|I am|You are|A {SUBJECT(1)} is)} {RANDOM(hit|struck)}!
+
+~~~ExitStageAction
+{PERSON(0|I|You|A {SUBJECT(0)})} climb{PERSON(0||s)} down the stairs.
+{PERSON(0|I|You|A {SUBJECT(0)})} descend{PERSON(0||s)}.
+
+~~~OpenDoorAction
+{PERSON(0|I|You|A {SUBJECT(0)})} open{PERSON(0||s)} the {SUBJECT(1)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} push{PERSON(0||es)} open the {SUBJECT(1)}.
+The {SUBJECT(1)} opens.
+The {SUBJECT(1)} creaks open.
+
+// =======
+// EFFECTS
+// =======
+
+~~~Death
+{PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(die|fall|collapse)}{PERSON(1||s)}.
+{PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})} is)} {RANDOM(dead|no more|deceased)}.
+
+~~~Death_phantom
+{PERSON(1|I|You|The {SUBJECT(1)})} fade{PERSON(1||s)} away.
+
+~~~Death_rat
+{PERSON(1|I am|You are|The {SUBJECT(1)} is)} {RANDOM(splatted|squashed)}!

@@ -107,6 +107,8 @@
     <Compile Include="Assets\Bind-It\Scripts\DataContext\AncestorDataContext.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\LoadResourceConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\TweenedMultiBinding.cs" />
+    <Compile Include="Assets\Scripts\Binding\BarSizeConverter.cs" />
+    <Compile Include="Assets\Scripts\StartUp\ResourceLoader.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Shapes\Shaders\Generated Shaders\Resources\Triangle Darken.shader" />
@@ -229,6 +231,7 @@
      <None Include="Assets\Shapes\Shaders\Generated Shaders\Resources\Regular Polygon ColorBurn.shader" />
      <None Include="Assets\Shapes\Shaders\Generated Shaders\Resources\Line 2D LinearBurn.shader" />
      <None Include="Assets\Shapes\Shaders\Core\Line 2D Core.cginc" />
+     <None Include="Assets\References\Resources\English.txt" />
      <None Include="Assets\Shapes\Shaders\Core\Quad Core.cginc" />
      <None Include="Assets\Shapes\Shaders\Generated Shaders\Resources\Disc Additive.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />

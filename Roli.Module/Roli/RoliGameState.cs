@@ -1,5 +1,6 @@
 ﻿using Nucleus.Game;
 using Nucleus.Geometry;
+using Nucleus.Logs;
 using Nucleus.Rendering;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,6 @@ namespace Roli
     /// </summary>
     public class RoliGameState : RLState
     {
-
         #region Methods
 
         public override void StartUp()
@@ -31,9 +31,11 @@ namespace Roli
 
             // Generate stages in reverse, so we know who to connect to:
             StageExit exit = null;
-            for (int i = 0; i < 26; i++)
+            int maxLevel = 26;
+            for (int i = 0; i < maxLevel; i++)
             {
                 var stage = GenerateStage(exit, out int entryIndex);
+                stage.Name = "Floor " + (maxLevel - i);
                 result.Insert(0, stage);
                 exit = new StageExit(stage, entryIndex);
             }
@@ -127,7 +129,7 @@ namespace Roli
                     }
                     else
                     {
-                        if (rng.NextDouble() < 0.05)
+                        if (rng.NextDouble() < 0.1)
                         {
                             var func = enemies.Roll(RNG);
                             var element = func.Invoke();

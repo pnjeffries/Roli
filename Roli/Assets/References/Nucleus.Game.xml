@@ -201,6 +201,11 @@
             Base class for actions which may target multiple map cells
             </summary>
         </member>
+        <member name="T:Nucleus.Game.Actions.OpenDoorAction">
+            <summary>
+            An action to open a door
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.PickUpAction">
             <summary>
             Action to pick up items
@@ -522,6 +527,16 @@
             Data component which confers the ability to bump-attack
             </summary>
         </member>
+        <member name="P:Nucleus.Game.BumpAttackAbility.BaseDamage">
+            <summary>
+            The base damage of bump attacks
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.BumpAttackAbility.BaseKnockback">
+            <summary>
+            The base knockback of bump attacks
+            </summary>
+        </member>
         <member name="F:Nucleus.Game.DirectionalItemUseAbility._ActionFactory">
             <summary>
             Private backing member variable for the ActionFactory property
@@ -531,6 +546,51 @@
             <summary>
             The ActionFactory used to generate actions
             </summary>
+        </member>
+        <member name="T:Nucleus.Game.Components.Abilities.OpenDoorAbility">
+            <summary>
+            Data component which confers the ability to open doors
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Components.Door">
+            <summary>
+            A data component which marks an element as a door which may be opened or closed
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Components.Door.TryToOpen(Nucleus.Game.EffectContext)">
+            <summary>
+            Attempt to open this door
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.Components.Inventory">
+            <summary>
+            The inventory of an element
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Components.Inventory._Contents">
+            <summary>
+            Private backing member variable for the Contents property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Components.Inventory.Contents">
+            <summary>
+            The items contained within this inventory
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Components.IOutOfTurnMove">
+            <summary>
+            Interface for components which should be processed when
+            the actor is moved outside of its normal turn order
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Components.IOutOfTurnMove.OutOfTurnMove(Nucleus.Game.TurnContext)">
+            <summary>
+            Called when the actor is moved outside of its ordinary
+            turn order
+            </summary>
+            <param name="context"></param>
         </member>
         <member name="T:Nucleus.Game.DamageVulnerabilities">
             <summary>
@@ -1091,34 +1151,6 @@
             Gets or sets whether this component is fixed and immovable
             </summary>
         </member>
-        <member name="T:Nucleus.Game.Components.Inventory">
-            <summary>
-            The inventory of an element
-            </summary>
-        </member>
-        <member name="F:Nucleus.Game.Components.Inventory._Contents">
-            <summary>
-            Private backing member variable for the Contents property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.Components.Inventory.Contents">
-            <summary>
-            The items contained within this inventory
-            </summary>
-        </member>
-        <member name="T:Nucleus.Game.Components.IOutOfTurnMove">
-            <summary>
-            Interface for components which should be processed when
-            the actor is moved outside of its normal turn order
-            </summary>
-        </member>
-        <member name="M:Nucleus.Game.Components.IOutOfTurnMove.OutOfTurnMove(Nucleus.Game.TurnContext)">
-            <summary>
-            Called when the actor is moved outside of its ordinary
-            turn order
-            </summary>
-            <param name="context"></param>
-        </member>
         <member name="T:Nucleus.Game.IStartOfTurn">
             <summary>
             Interface for data components which process at the start of 
@@ -1302,6 +1334,16 @@
             The count down until the element can take its next turn
             </summary>
         </member>
+        <member name="F:Nucleus.Game.TurnCounter._Speed">
+            <summary>
+            Private backer for speed
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TurnCounter.Speed">
+            <summary>
+            The relative speed of action of the element
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.UseItemAbility">
             <summary>
             Ability which enables the use of items
@@ -1310,6 +1352,11 @@
         <member name="T:Nucleus.Game.VisionBlocker">
             <summary>
             An element data component that can be used to indicate that a cell blocks vision
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.VisionBlocker.Opaque">
+            <summary>
+            Is this vision blocker currently blocking vision?
             </summary>
         </member>
         <member name="M:Nucleus.Game.VisionBlocker.IsTransparent(Nucleus.Model.Element)">
@@ -1391,6 +1438,11 @@
             exit
             </summary>
             <param name="exit"></param>
+        </member>
+        <member name="T:Nucleus.Game.Effects.OpenDoorEffect">
+            <summary>
+            An effect which attempts to open a door
+            </summary>
         </member>
         <member name="T:Nucleus.Game.BasicEffect">
             <summary>
@@ -1499,6 +1551,13 @@
             The random number generator to be used to resolve stochastic effects
             </summary>
         </member>
+        <member name="M:Nucleus.Game.EffectContext.CloneWithTarget(Nucleus.Model.Element)">
+            <summary>
+            Create a clone of this EffectContext but with the target element replaced with another
+            </summary>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Game.KnockbackEffect">
             <summary>
             An effect which moves the target in a particular direction (typically
@@ -1523,6 +1582,13 @@
         <member name="P:Nucleus.Game.KnockbackEffect.Power">
             <summary>
             The power of the knockback effect (translates to the number of spaces an average-sized target will move)
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.KnockbackEffect.ImpactEffect">
+            <summary>
+            The effect (if any) which will be applied should the knockback be stopped by the target
+            hitting a blocking object.  This effect will be applied to both the target and the object
+            they have collided with.
             </summary>
         </member>
         <member name="T:Nucleus.Game.PickUpItemEffect">
@@ -1929,6 +1995,38 @@
             <param name="jMax"></param>
             <returns></returns>
         </member>
+        <member name="T:Nucleus.Game.Logs.ActionLog">
+            <summary>
+            A log which describe in-game player actions
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Logs.ActionLog._CurrentMessage">
+            <summary>
+            The message currently being written to.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Logs.ActionLog.#ctor(Nucleus.Logs.LogScript,System.Object,System.Object)">
+            <summary>
+            Constructors
+            </summary>
+            <param name="script"></param>
+        </member>
+        <member name="M:Nucleus.Game.Logs.ActionLog.WriteText(System.String)">
+            <summary>
+            Write text to the log
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="T:Nucleus.Game.Logs.ActionLogMessage">
+            <summary>
+            A message in an action log
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Logs.ActionLogMessage.Text">
+            <summary>
+            The text of the message
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.SFXKeywords">
             <summary>
             Standard keywords used to denote predefined special effects
@@ -2262,6 +2360,11 @@
             The instance of the game engine
             </summary>
         </member>
+        <member name="P:Nucleus.Game.GameEngine.LanguagePack">
+            <summary>
+            The current language pack used to define text
+            </summary>
+        </member>
         <member name="P:Nucleus.Game.GameEngine.Input">
             <summary>
             The sub-manager which handles user input
@@ -2292,10 +2395,15 @@
             The currently loaded module
             </summary>
         </member>
+        <member name="P:Nucleus.Game.GameEngine.Resources">
+            <summary>
+            The resource loader
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.GameEngine.StartUp">
             <summary>
             Perform engine initialisation.
-            This should be done after a module has been loaded.
+            This should be done after a module has been loaded and a resource loader supplied.
             </summary>
         </member>
         <member name="M:Nucleus.Game.GameEngine.Update">
