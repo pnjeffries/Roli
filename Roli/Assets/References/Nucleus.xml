@@ -8226,7 +8226,7 @@
             <param name="s"></param>
             <param name="t"></param>
         </member>
-        <member name="M:Nucleus.Geometry.Triangle.XYContainment(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:Nucleus.Geometry.Triangle.XYContainment(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
             <summary>
             Test whether a point lies within or on a triangle on the XY plane
             </summary>
@@ -8238,9 +8238,10 @@
             <param name="y1">The y coordinate of the second vertex of the triangle</param>
             <param name="x2">The x coordinate of the third vertex of the triangle</param>
             <param name="y2">The y coordinate of the first vertex of the triangle</param>
+            <param name="edgePointsAreInside">If true, treat points on the triangle edge as being contained within the triangle.</param>
             <returns></returns>
         </member>
-        <member name="M:Nucleus.Geometry.Triangle.XYContainment(Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,Nucleus.Geometry.Vector)">
+        <member name="M:Nucleus.Geometry.Triangle.XYContainment(Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,System.Boolean)">
             <summary>
             Test whether a point lies within or on a triangle on the XY plane
             </summary>
@@ -8248,9 +8249,10 @@
             <param name="t0">The position of the first vertex of the triangle</param>
             <param name="t1">The position of the second vertex of the triangle</param>
             <param name="t2">The position of the third vertex of the triangle</param>
+            <param name="edgePointsAreInside">If true, treat points on the triangle edge as being contained within the triangle.</param>
             <returns></returns>
         </member>
-        <member name="M:Nucleus.Geometry.Triangle.XYContainment(Nucleus.Geometry.Vertex,Nucleus.Geometry.Vertex,Nucleus.Geometry.Vertex,Nucleus.Geometry.Vertex)">
+        <member name="M:Nucleus.Geometry.Triangle.XYContainment(Nucleus.Geometry.Vertex,Nucleus.Geometry.Vertex,Nucleus.Geometry.Vertex,Nucleus.Geometry.Vertex,System.Boolean)">
             <summary>
             Test whether a point lies within or on a triangle on the XY plane
             </summary>
@@ -8258,6 +8260,7 @@
             <param name="t0">The position of the first vertex of the triangle</param>
             <param name="t1">The position of the second vertex of the triangle</param>
             <param name="t2">The position of the third vertex of the triangle</param>
+            <param name="edgePointsAreInside">If true, treat points on the triangle edge as being contained within the triangle.</param>
             <returns></returns>
         </member>
         <member name="M:Nucleus.Geometry.Triangle.ZCoordinateOfPoint(System.Double,System.Double,Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,System.Boolean)">
@@ -9861,6 +9864,23 @@
             automatically be copied and the copy added to this cloud.
             </summary>
             <param name="vertex"></param>
+        </member>
+        <member name="M:Nucleus.Geometry.Cloud.Clear">
+            <summary>
+            Clear all vertices in this cloud.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Geometry.Cloud.SetVertices(System.Collections.Generic.IList{Nucleus.Geometry.Vertex})">
+            <summary>
+            Replace all vertices in this cloud with a new set of vertices.
+            </summary>
+            <param name="newVertices"></param>
+        </member>
+        <member name="M:Nucleus.Geometry.Cloud.SetPoints(System.Collections.Generic.IList{Nucleus.Geometry.Vector})">
+            <summary>
+            Replace all points in this cloud with a new set of points.
+            </summary>
+            <param name="newPoints"></param>
         </member>
         <member name="T:Nucleus.Geometry.DerivedGeometryDictionary">
             <summary>

@@ -24,11 +24,23 @@ The {SUBJECT(1)} creaks open.
 // =======
 
 ~~~Death
-{PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(die|fall|collapse)}{PERSON(1||s)}.
-{PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})} is)} {RANDOM(dead|no more|deceased)}.
+{PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(die|fall|collapse|crumple)}{PERSON(1||s)}.
+{PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})} is)} {RANDOM(dead|killed|deceased)}.
 
 ~~~Death_phantom
 {PERSON(1|I|You|The {SUBJECT(1)})} fade{PERSON(1||s)} away.
 
 ~~~Death_rat
 {PERSON(1|I am|You are|The {SUBJECT(1)} is)} {RANDOM(splatted|squashed)}!
+
+~~~Knockback_Impact
+{PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})} is)} sent {RANDOM(flying|hurtling|reeling|bouncing)} into {PERSON(2|me|you|a {SUBJECT(2)})}!
+{PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(collide|impact)}{PERSON(1||s)} with {PERSON(2|me|you|a {SUBJECT(2)})}!
+{PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(bump|reel|knock)}{PERSON(1||s)} into {PERSON(2|me|you|a {SUBJECT(2)})}!
+
+// ======
+// EVENTS
+// ======
+
+~~~Welcome
+{PERSON(0|I|You|A {SUBJECT(0)})} awake{PERSON(0||s)} to find {PERSON(0|myself|yourself|{GENDER(0|itself|himself|herself)})} in a strange place.

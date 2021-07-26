@@ -22,6 +22,8 @@ namespace Roli
             var stages = GenerateAllLevels();
             Stage = stages.First();
 
+            Log.WriteScripted("Welcome", Controlled);
+
             base.StartUp();
         }
 

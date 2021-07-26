@@ -651,6 +651,32 @@
             Status effect that disables certain actions
             </summary>
         </member>
+        <member name="T:Nucleus.Game.ElementWeight">
+            <summary>
+            Component which describes the weight of a game object
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ElementWeight.Weight">
+            <summary>
+            The base weight of the element
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ElementWeight.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ElementWeight.#ctor(System.Double)">
+            <summary>
+            Weight constructor
+            </summary>
+            <param name="weight"></param>
+        </member>
+        <member name="P:Nucleus.Game.ElementWeight.KnockbackModifier">
+            <summary>
+            Get the knockback modifier for the current weight 
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.EquipmentSlot">
             <summary>
             A slot which can hold an item of equipment
@@ -1222,6 +1248,13 @@
             <param name="cellIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Game.MapAwareness.AwareOf(Nucleus.Model.Element)">
+            <summary>
+            Is the owner of this component aware of the specified element?
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Game.MapAwareness.StageChanged(Nucleus.Game.GameStage)">
             <summary>
             Called when the stage is changed
@@ -1557,6 +1590,11 @@
             </summary>
             <param name="target"></param>
             <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.EffectContext.IsPlayerAwareOf(Nucleus.Model.Element)">
+            <summary>
+            Is the player aware of the status of the specified element?
+            </summary>
         </member>
         <member name="T:Nucleus.Game.KnockbackEffect">
             <summary>
@@ -2050,6 +2088,11 @@
         <member name="F:Nucleus.Game.SFXKeywords.Knock">
             <summary>
             The effect of one object knocking against another
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.SFXKeywords.Open">
+            <summary>
+            The effect when a door is opened
             </summary>
         </member>
         <member name="F:Nucleus.Game.SFXKeywords.Slash">

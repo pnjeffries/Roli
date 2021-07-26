@@ -43,7 +43,7 @@ namespace Roli
             {
                 return new WeightedTable<Create>
                    (
-                        Rat, Bat, Snake, Groblin, Phantom
+                        Rat, Bat, Snake, Groblin, Phantom, Troll
                    );
             }
         }
@@ -86,21 +86,26 @@ namespace Roli
         public GameElement Rat()
         {
             var result = Enemy("rat");
-            result.SetData(new ASCIIStyle("r"), new PrefabStyle("Meeple"), new MapAwareness(2), new HitPoints(1), new BumpAttackAbility());
+            result.SetData(new ASCIIStyle("r"), new PrefabStyle("Meeple"),
+                new MapAwareness(2), new HitPoints(1), new ElementWeight(15), new BumpAttackAbility());
             return result;
         }
 
         public GameElement Snake()
         {
             var result = Enemy("snake");
-            result.SetData(new ASCIIStyle("s"), new PrefabStyle("Meeple"), new MapAwareness(3), new HitPoints(2), new BumpAttackAbility(2,1));
+            result.SetData(new ASCIIStyle("s"), new PrefabStyle("Meeple"), 
+                new MapAwareness(3), new HitPoints(2), new ElementWeight(25),
+                new BumpAttackAbility(2,1));
             return result;
         }
 
         public GameElement Bat()
         {
             var result = Enemy("bat");
-            result.SetData(new ASCIIStyle("b"), new PrefabStyle("Meeple"), new MapAwareness(4), new HitPoints(1), new BumpAttackAbility());
+            result.SetData(new ASCIIStyle("b"), new PrefabStyle("Meeple"), 
+                new MapAwareness(4), new HitPoints(1), new ElementWeight(5),
+                new BumpAttackAbility());
             result.GetData<TurnCounter>().Speed = 2;
             return result;
         }
@@ -134,7 +139,10 @@ namespace Roli
         public GameElement Troll()
         {
             var result = Enemy("troll");
-            result.SetData(new ASCIIStyle("T"), new PrefabStyle("Meeple"), new MapAwareness(5), new HitPoints(10), new BumpAttackAbility(), new VisionBlocker());
+            result.SetData(new ASCIIStyle("T"), new PrefabStyle("Meeple"), 
+                new MapAwareness(4), new HitPoints(10), new ElementWeight(250),
+                new BumpAttackAbility(2,3));
+            result.GetData<TurnCounter>().Speed = 0.5;
             return result;
         }
     }
