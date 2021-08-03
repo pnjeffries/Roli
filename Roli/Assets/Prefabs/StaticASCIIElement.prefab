@@ -83,9 +83,17 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294770943
       objectReference: {fileID: 0}
+    - target: {fileID: 5350955787609023285, guid: d7bee9631e1d9db45ab48590edba3723, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6374024697941476190, guid: d7bee9631e1d9db45ab48590edba3723, type: 3}
       propertyPath: m_SortingOrder
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7548421946372794682, guid: d7bee9631e1d9db45ab48590edba3723, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7573023531222794778, guid: d7bee9631e1d9db45ab48590edba3723, type: 3}
       propertyPath: m_Name

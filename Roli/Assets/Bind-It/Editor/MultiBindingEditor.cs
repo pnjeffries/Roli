@@ -78,7 +78,11 @@ namespace Binding
                 }
                 //var resources = Resources.FindObjectsOfTypeAll(newType);
                 var converter = CreateInstance(newType);
-                AssetDatabase.AddObjectToAsset(converter, PrefabStageUtility.GetCurrentPrefabStage().assetPath);
+                var stage = PrefabStageUtility.GetCurrentPrefabStage();
+                if (stage != null)
+                {
+                    AssetDatabase.AddObjectToAsset(converter, stage.assetPath);
+                }
 
                 binding.Converter = converter as MultiValueConverter;
 

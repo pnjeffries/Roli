@@ -20119,6 +20119,36 @@
             <param name="key"></param>
             <param name="subjects"></param>
         </member>
+        <member name="T:Nucleus.Logs.LogDescription">
+            <summary>
+            Element data component which controls how the element should be described in scripted log entries
+            </summary>
+        </member>
+        <member name="F:Nucleus.Logs.LogDescription._SubjectPrefix">
+            <summary>
+            Private backer for SubjectPrefix
+            </summary>
+        </member>
+        <member name="P:Nucleus.Logs.LogDescription.SubjectPrefix">
+            <summary>
+            The prefix to be applied before subject names
+            </summary>
+        </member>
+        <member name="F:Nucleus.Logs.LogDescription._SubjectSuffix">
+            <summary>
+            Private backer for SubjectPrefix
+            </summary>
+        </member>
+        <member name="P:Nucleus.Logs.LogDescription.SubjectSuffix">
+            <summary>
+            The prefix to be applied before subject names
+            </summary>
+        </member>
+        <member name="M:Nucleus.Logs.LogDescription.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
         <member name="T:Nucleus.Logs.LogScriptMarkupParser">
             <summary>
             Class to parse markup tags in log script entries

@@ -19,6 +19,20 @@
             The index of the cell that is targeted for this action
             </summary>
         </member>
+        <member name="M:Nucleus.Game.Actions.UseItemAction.#ctor(System.String,Nucleus.Model.Element,Nucleus.Game.IEffect[])">
+            <summary>
+            Constructor for using an item.
+            If the item is consumable, will automatically add a consume effect.
+            </summary>
+            <param name="name"></param>
+            <param name="item"></param>
+            <param name="selfEffects"></param>
+        </member>
+        <member name="T:Nucleus.Game.Actions.OpenDoorAction">
+            <summary>
+            An action to open a door
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.ExitStageAction">
             <summary>
             Action which allows an actor to move between stages
@@ -105,6 +119,11 @@
             The keyword of the special effect to play at the source of the attack
             </summary>
         </member>
+        <member name="P:Nucleus.Game.AOEAttackActionFactory.Effects">
+            <summary>
+            The blueprint effects which will be applied by the 
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(Nucleus.Geometry.Vector[])">
             <summary>
             Creates an AOEAttackAction factory to create an attack pattern
@@ -125,6 +144,13 @@
             <param name="offsetComponents"></param>
         </member>
         <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(System.String,System.Double[])">
+            <summary>
+            Creates an AOEAttackAction factory to create an attack pattern
+            with the specified list of alternating X and Y offset components.
+            </summary>
+            <param name="offsetComponents"></param>
+        </member>
+        <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(System.Collections.Generic.IList{Nucleus.Game.IEffect},System.String,System.Double[])">
             <summary>
             Creates an AOEAttackAction factory to create an attack pattern
             with the specified list of alternating X and Y offset components.
@@ -199,11 +225,6 @@
         <member name="T:Nucleus.Game.MultiCellTargetingAction">
             <summary>
             Base class for actions which may target multiple map cells
-            </summary>
-        </member>
-        <member name="T:Nucleus.Game.Actions.OpenDoorAction">
-            <summary>
-            An action to open a door
             </summary>
         </member>
         <member name="T:Nucleus.Game.PickUpAction">
@@ -552,6 +573,17 @@
             Data component which confers the ability to open doors
             </summary>
         </member>
+        <member name="T:Nucleus.Game.Components.ConsumableItem">
+            <summary>
+            An item which has a limited number of uses, after which
+            it is destroyed.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Components.ConsumableItem.Uses">
+            <summary>
+            The remaining number of uses of the consumable
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.Components.Door">
             <summary>
             A data component which marks an element as a door which may be opened or closed
@@ -563,21 +595,6 @@
             </summary>
             <param name="context"></param>
             <returns></returns>
-        </member>
-        <member name="T:Nucleus.Game.Components.Inventory">
-            <summary>
-            The inventory of an element
-            </summary>
-        </member>
-        <member name="F:Nucleus.Game.Components.Inventory._Contents">
-            <summary>
-            Private backing member variable for the Contents property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.Components.Inventory.Contents">
-            <summary>
-            The items contained within this inventory
-            </summary>
         </member>
         <member name="T:Nucleus.Game.Components.IOutOfTurnMove">
             <summary>
@@ -679,35 +696,8 @@
         </member>
         <member name="T:Nucleus.Game.EquipmentSlot">
             <summary>
-            A slot which can hold an item of equipment
+            An item slot to which items may be equipped to put them into use
             </summary>
-        </member>
-        <member name="F:Nucleus.Game.EquipmentSlot._HotKey">
-            <summary>
-            Private backing member variable for the HotKey property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.EquipmentSlot.HotKey">
-            <summary>
-            The button bound to this equipment slot
-            </summary>
-        </member>
-        <member name="F:Nucleus.Game.EquipmentSlot._Item">
-            <summary>
-            Private backing member variable for the Item property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.EquipmentSlot.Item">
-            <summary>
-            The item of equipment contained within this slot
-            </summary>
-        </member>
-        <member name="M:Nucleus.Game.EquipmentSlot.#ctor(System.String,Nucleus.Game.InputFunction,Nucleus.Model.Element)">
-            <summary>
-            Creates a new equipment slot with the specified name, hotkey and starting item
-            </summary>
-            <param name="hotKey"></param>
-            <param name="item"></param>
         </member>
         <member name="M:Nucleus.Game.EquipmentSlot.CanHold(Nucleus.Model.Element)">
             <summary>
@@ -715,7 +705,45 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Nucleus.Game.EquipmentSlot.DropItem(Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+        <member name="T:Nucleus.Game.ItemSlot">
+            <summary>
+            A slot which can hold an inventory item
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.ItemSlot._HotKey">
+            <summary>
+            Private backing member variable for the HotKey property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ItemSlot.HotKey">
+            <summary>
+            The button bound to this equipment slot
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.ItemSlot._Item">
+            <summary>
+            Private backing member variable for the Item property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ItemSlot.Item">
+            <summary>
+            The item of equipment contained within this slot
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ItemSlot.#ctor(System.String,Nucleus.Game.InputFunction,Nucleus.Model.Element)">
+            <summary>
+            Creates a new equipment slot with the specified name, hotkey and starting item
+            </summary>
+            <param name="hotKey"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:Nucleus.Game.ItemSlot.CanHold(Nucleus.Model.Element)">
+            <summary>
+            Can this slot hold the specified item?
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.ItemSlot.DropItem(Nucleus.Model.Element,Nucleus.Game.EffectContext)">
             <summary>
             Drop the item held in this slot.
             This will remove the item from the slot.  If the
@@ -725,10 +753,54 @@
             <param name="context">The current context</param>
             <returns></returns>
         </member>
-        <member name="M:Nucleus.Game.EquipmentSlot.ToString">
+        <member name="M:Nucleus.Game.ItemSlot.ToString">
             <summary>
             Get a text description of this slot
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.ItemSlotExtensions">
+            <summary>
+            Extension methods for item slots and collections thereof
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ItemSlotExtensions.GetFirstEmpty``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Get the first equipment slot that is not currently occupied
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.ItemSlotExtensions.GetFirstAvailableFor``1(System.Collections.Generic.IList{``0},Nucleus.Model.Element)">
+            <summary>
+            Get the first equipment slot that is not currently occupied
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.ItemSlotExtensions.DropAll``1(System.Collections.Generic.IList{``0},Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+            <summary>
+            Drop all items in this collection
+            </summary>
+            <param name="dropper"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.ItemSlotExtensions.RemoveItem``1(System.Collections.Generic.IList{``0},Nucleus.Model.Element)">
+            <summary>
+            Remove the specified item from any slot which contains it in this collection
+            </summary>
+            <typeparam name="TSlot"></typeparam>
+            <param name="slots"></param>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.ItemSlotExtensions.ContainsItem``1(System.Collections.Generic.IList{``0},Nucleus.Model.Element)">
+            <summary>
+            Do any of the slots in this collection contain the specified item?
+            </summary>
+            <typeparam name="TSlot"></typeparam>
+            <param name="slots"></param>
+            <param name="item"></param>
             <returns></returns>
         </member>
         <member name="T:Nucleus.Game.EquipmentSlotCollection">
@@ -736,60 +808,11 @@
             A collection of equipment slots
             </summary>
         </member>
-        <member name="M:Nucleus.Game.EquipmentSlotCollection.GetFirstEmpty">
-            <summary>
-            Get the first equipment slot that is not currently occupied
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Nucleus.Game.EquipmentSlotCollection.GetFirstAvailableFor(Nucleus.Model.Element)">
-            <summary>
-            Get the first equipment slot that is not currently occupied
-            </summary>
-            <param name="item"></param>
-            <returns></returns>
-        </member>
         <member name="T:Nucleus.Game.EquippableItem">
             <summary>
             An element data component which can be used to tag items as
             being equippable
             </summary>
-        </member>
-        <member name="T:Nucleus.Game.Equipped">
-            <summary>
-            A data component to store the currently equipped items on a character
-            </summary>
-        </member>
-        <member name="F:Nucleus.Game.Equipped._Slots">
-            <summary>
-            Private backing member variable for the Slots property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.Equipped.Slots">
-            <summary>
-            The available equipment slots
-            </summary>
-        </member>
-        <member name="M:Nucleus.Game.Equipped.#ctor">
-            <summary>
-            Default constructor
-            </summary>
-        </member>
-        <member name="M:Nucleus.Game.Equipped.Equip(Nucleus.Model.Element)">
-            <summary>
-            Attempt to equip the specified item of equipment.
-            Returns true if the attempt was successful.
-            </summary>
-            <param name="equipment"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nucleus.Game.Equipped.DropAll(Nucleus.Model.Element,Nucleus.Game.EffectContext)">
-            <summary>
-            Drop all items in this
-            </summary>
-            <param name="dropper"></param>
-            <param name="context"></param>
-            <returns></returns>
         </member>
         <member name="T:Nucleus.Game.ExitStageAbility">
             <summary>
@@ -1177,6 +1200,89 @@
             Gets or sets whether this component is fixed and immovable
             </summary>
         </member>
+        <member name="T:Nucleus.Game.Inventory">
+            <summary>
+            The inventory of an element
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Inventory._Slots">
+            <summary>
+            Private backing member variable for the Slots property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Inventory.Slots">
+            <summary>
+            The items contained within this inventory
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Inventory._Equipped">
+            <summary>
+            Private backing member variable for the Slots property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Inventory.Equipped">
+            <summary>
+            The available equipment slots
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.#ctor(Nucleus.Game.ItemSlot[])">
+            <summary>
+            Slots constructor.
+            Any EquipmentSlots will form part of the Equipped collection,
+            otherwise it will be used as a standard inventory slot
+            </summary>
+            <param name="slots"></param>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.AddItem(Nucleus.Model.Element)">
+            <summary>
+            Add an item to the inventory in the next available slot.
+            Returns true if the attempt was successful.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.DropAll(Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+            <summary>
+            Drop all items in this
+            </summary>
+            <param name="dropper"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.RemoveItem(Nucleus.Model.Element)">
+            <summary>
+            Remove an item from this inventory
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.ContainsItem(Nucleus.Model.Element)">
+            <summary>
+            Does this inventory contain the specified item?
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.Equip(Nucleus.Model.Element)">
+            <summary>
+            Attempt to equip the specified item of equipment.
+            Returns true if the attempt was successful.
+            </summary>
+            <param name="equipment"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.IsEquipped(Nucleus.Model.Element)">
+            <summary>
+            Is the specified item currently equipped?
+            </summary>
+            <param name="equipment"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Game.IStartOfTurn">
             <summary>
             Interface for data components which process at the start of 
@@ -1191,7 +1297,7 @@
         </member>
         <member name="T:Nucleus.Game.ItemActions">
             <summary>
-            A data component for use on items which 
+            A data component for use on items which may be used via an action
             </summary>
         </member>
         <member name="F:Nucleus.Game.ItemActions._Prototype">
@@ -1214,6 +1320,11 @@
             Creates an ItemAction using the default 
             WindUpAction as a prototype followed by actions
             generated using the specified action factory
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.ItemSlotCollection">
+            <summary>
+            A collection of inventory item slots
             </summary>
         </member>
         <member name="T:Nucleus.Game.MapAwareness">
@@ -1248,11 +1359,13 @@
             <param name="cellIndex"></param>
             <returns></returns>
         </member>
-        <member name="M:Nucleus.Game.MapAwareness.AwareOf(Nucleus.Model.Element)">
+        <member name="M:Nucleus.Game.MapAwareness.AwareOf(Nucleus.Model.Element,System.Boolean)">
             <summary>
             Is the owner of this component aware of the specified element?
             </summary>
             <param name="element"></param>
+            <param name="includeAdjacent">If true, the element will be considered visible if any adjacent
+            cell is visible</param>
             <returns></returns>
         </member>
         <member name="M:Nucleus.Game.MapAwareness.StageChanged(Nucleus.Game.GameStage)">
@@ -1326,6 +1439,16 @@
         <member name="P:Nucleus.Game.StageExit.CellIndex">
             <summary>
             The index of the cell to move to in the next stage
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Status">
+            <summary>
+            Element status effects
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Status.Effects">
+            <summary>
+            Get the current collection of status effects acting on the parent object
             </summary>
         </member>
         <member name="T:Nucleus.Game.TemporaryStatus">
@@ -1449,6 +1572,11 @@
             of the target entity
             </summary>
         </member>
+        <member name="T:Nucleus.Game.Effects.ConsumeEffect">
+            <summary>
+            Consume a use of a consumable item, and remove it if spent
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.Effects.ExitStageEffect">
             <summary>
             Effect which will move the actor through the
@@ -1471,6 +1599,16 @@
             exit
             </summary>
             <param name="exit"></param>
+        </member>
+        <member name="T:Nucleus.Game.Effects.HealEffect">
+            <summary>
+            An effect which heals an actor
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Effects.HealEffect.Healing">
+            <summary>
+            The hitpoints which will be recovered
+            </summary>
         </member>
         <member name="T:Nucleus.Game.Effects.OpenDoorEffect">
             <summary>
@@ -1594,6 +1732,16 @@
         <member name="M:Nucleus.Game.EffectContext.IsPlayerAwareOf(Nucleus.Model.Element)">
             <summary>
             Is the player aware of the status of the specified element?
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.IDirectionalEffect">
+            <summary>
+            Interface for effects which act in a particular direction
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.IDirectionalEffect.Direction">
+            <summary>
+            The direction the effect acts in
             </summary>
         </member>
         <member name="T:Nucleus.Game.KnockbackEffect">
@@ -1722,6 +1870,16 @@
         <member name="T:Nucleus.Game.SFXImpactEffect">
             <summary>
             A SFX effect that produces an effect at a point on the target
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.IStatusEffect">
+            <summary>
+            Interface for status effects
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.StatusEffectCollection">
+            <summary>
+            A collection of status effects
             </summary>
         </member>
         <member name="T:Nucleus.Game.Faction">
@@ -2708,6 +2866,11 @@
             The random number generator used to provide randomisation
             </summary>
         </member>
+        <member name="P:Nucleus.Game.TurnContext.Log">
+            <summary>
+            The log to be used to record textual output
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.UpdateInfo">
             <summary>
             Information about an update cycle
@@ -2733,6 +2896,21 @@
             <summary>
             An interface for log objects which report on actions
             </summary>
+        </member>
+        <member name="T:Nucleus.Logs.IActionLogExtensions">
+            <summary>
+            Extension methods for the IActionLog interface
+            </summary>
+        </member>
+        <member name="M:Nucleus.Logs.IActionLogExtensions.WriteScripted(Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext,System.String,System.Object[])">
+            <summary>
+            Write a pre-scripted entry to the log based on a key and a set of subject objects,
+            if they are currently known to the player
+            </summary>
+            <param name="key"></param>
+            <param name="subjects"></param>
+            <remarks>To be written, at least one element in the subjects must be known to the player.
+            Any unknown subjects will be replaced with a dummy 'something' element.</remarks>
         </member>
     </members>
 </doc>

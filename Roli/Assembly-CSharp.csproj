@@ -58,6 +58,7 @@
     <Compile Include="Assets\Bind-It\Scripts\Extensions\StringExtensions.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\InvokeBoundFunction.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\TweenedDataBinding.cs" />
+    <Compile Include="Assets\Bind-It\Scripts\Bindings\TweenedMultiBinding.cs" />
     <Compile Include="Assets\Scripts\VFX\PlayAudioDelayed.cs" />
     <Compile Include="Assets\Nucleus\FromUnity.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\TriggerBindingBase.cs" />
@@ -67,12 +68,15 @@
     <Compile Include="Assets\Bind-It\Scripts\Base\ReflectionInfo.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\Binding.cs" />
     <Compile Include="Assets\Scripts\Input\UserInput.cs" />
+    <Compile Include="Assets\Scripts\VFX\ScalePulse.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\SourceBinding.cs" />
     <Compile Include="Assets\Scripts\Binding\StartTrigger.cs" />
     <Compile Include="Assets\Scripts\Binding\NucleusConverter.cs" />
     <Compile Include="Assets\Scripts\Binding\FogOfWarConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\MultiBindingBase.cs" />
+    <Compile Include="Assets\Bind-It\Scripts\Converters\ConcatenateStringConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\IncrementBoundValue.cs" />
+    <Compile Include="Assets\Scripts\StartUp\ResourceLoader.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\TypeTemplate.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Extensions\TypeExtensions.cs" />
     <Compile Include="Assets\Bind-It\Scripts\DataContext\DataContext.cs" />
@@ -105,10 +109,10 @@
     <Compile Include="Assets\Bind-It\Scripts\Bindings\EventTriggerBinding.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\SingleBindingBase.cs" />
     <Compile Include="Assets\Bind-It\Scripts\DataContext\AncestorDataContext.cs" />
+    <Compile Include="Assets\Scripts\Binding\InventorySlotConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\LoadResourceConverter.cs" />
-    <Compile Include="Assets\Bind-It\Scripts\Bindings\TweenedMultiBinding.cs" />
+    <Compile Include="Assets\Scripts\VFX\ColorFlash.cs" />
     <Compile Include="Assets\Scripts\Binding\BarSizeConverter.cs" />
-    <Compile Include="Assets\Scripts\StartUp\ResourceLoader.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Shapes\Shaders\Generated Shaders\Resources\Triangle Darken.shader" />

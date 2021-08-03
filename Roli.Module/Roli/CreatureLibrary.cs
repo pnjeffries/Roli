@@ -1,8 +1,10 @@
 ﻿using Nucleus.Extensions;
 using Nucleus.Game;
 using Nucleus.Game.Artitecture;
+using Nucleus.Game.Components;
 using Nucleus.Game.Components.Abilities;
 using Nucleus.Geometry;
+using Nucleus.Logs;
 using Nucleus.Model;
 using Nucleus.Rendering;
 using System;
@@ -19,7 +21,12 @@ namespace Roli
         /// <summary>
         /// The random number generator used to randomise certain creature features
         /// </summary>
-        public static Random RNG = new Random();
+        public Random RNG = new Random();
+
+        /// <summary>
+        /// The item library used to generate initial creature equipment
+        /// </summary>
+        public ItemLibrary Items = new ItemLibrary();
 
         /// <summary>
         /// The faction to which the player belongs
@@ -43,7 +50,7 @@ namespace Roli
             {
                 return new WeightedTable<Create>
                    (
-                        Rat, Bat, Snake, Groblin, Phantom, Troll
+                        Rat, Bat, Snake, Groblin, Phantom, Troll, Zombie
                    );
             }
         }
@@ -61,33 +68,47 @@ namespace Roli
                 new AvailableActions(), 
                 new TurnCounter(),
                 new WaitAbility(),
-                 new MapCellCollider(),
+                new MapCellCollider(),
                 new MapAwareness(5),
                 new Memorable(),
                 new BumpAttackAbility(),
                 new ExitStageAbility(),
                 new MoveCellAbility(),
                 new HitPoints(9),
-                new OpenDoorAbility());
+                new OpenDoorAbility(),
+                new Inventory(
+                    // Item slots
+                    new ItemSlot("1", InputFunction.Ability_1, null),
+                    new ItemSlot("2", InputFunction.Ability_2, null),
+                    new ItemSlot("3", InputFunction.Ability_3, null),
+                    new ItemSlot("4", InputFunction.Ability_4, null),
+                    new ItemSlot("5", InputFunction.Ability_5, null),
+                    new ItemSlot("6", InputFunction.Ability_6, null),
+                    // Equippable slots
+                    new EquipmentSlot("Hands")),
+                 new PickUpAbility(),
+                 new UseItemAbility()
+                 );
         }
 
         private GameElement Enemy(string name)
         {
             // Create enemy
-            return new ActiveElement(name ,
+            return new ActiveElement(name,
                 EnemyFaction,
                 new MapCellCollider(), new Memorable(),
                 new AvailableActions(), new TurnCounter(),
                 new WaitAbility(),
-                new MoveCellAbility()
-                );
+                new MoveCellAbility(),
+                new LogDescription("<color=#FF00FD>", "</color>")
+                ) ;
         }
 
         public GameElement Rat()
         {
             var result = Enemy("rat");
             result.SetData(new ASCIIStyle("r"), new PrefabStyle("Meeple"),
-                new MapAwareness(2), new HitPoints(1), new ElementWeight(15), new BumpAttackAbility());
+                new MapAwareness(2), new HitPoints(1), new ElementWeight(15), new BumpAttackAbility(1,0));
             return result;
         }
 
@@ -105,13 +126,14 @@ namespace Roli
             var result = Enemy("bat");
             result.SetData(new ASCIIStyle("b"), new PrefabStyle("Meeple"), 
                 new MapAwareness(4), new HitPoints(1), new ElementWeight(5),
-                new BumpAttackAbility());
+                new BumpAttackAbility(1,0));
             result.GetData<TurnCounter>().Speed = 2;
             return result;
         }
 
         public GameElement Groblin()
         {
+            var sword = Items.Sword();
             var result = Enemy("groblin");
             result.SetData(new ASCIIStyle("g"), 
                 new PrefabStyle("Meeple"), 
@@ -119,7 +141,12 @@ namespace Roli
                 new HitPoints(3),
                 new BumpAttackAbility(),
                 new OpenDoorAbility(),
-                new ElementGender(RNG.NextGender()));
+                new ElementGender(RNG.NextGender()),
+                new UseItemAbility(),
+                new Inventory(
+                    new ItemSlot("1", InputFunction.Ability_1, sword),
+                    // Equippable slots
+                    new EquipmentSlot("Hands", sword)));
             return result;
         }
 
@@ -142,6 +169,16 @@ namespace Roli
             result.SetData(new ASCIIStyle("T"), new PrefabStyle("Meeple"), 
                 new MapAwareness(4), new HitPoints(10), new ElementWeight(250),
                 new BumpAttackAbility(2,3));
+            result.GetData<TurnCounter>().Speed = 0.5;
+            return result;
+        }
+
+        public GameElement Zombie()
+        {
+            var result = Enemy("zombie");
+            result.SetData(new ASCIIStyle("z"), new PrefabStyle("Meeple"),
+                new MapAwareness(4), new HitPoints(6), new ElementWeight(70),
+                new BumpAttackAbility(1, 1));
             result.GetData<TurnCounter>().Speed = 0.5;
             return result;
         }

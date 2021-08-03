@@ -102,7 +102,9 @@ namespace Roli
 
             var features = new FeatureLibrary();
             var creatures = new CreatureLibrary();
+            var items = new ItemLibrary();
             var enemies = creatures.AllEnemies;
+            var allItems = items.AllItems;
             // Build dungeon from blueprint:
             Random rng = new Random();
             for (int i = 0; i < blueprint.CellCount; i++)
@@ -134,6 +136,12 @@ namespace Roli
                         if (rng.NextDouble() < 0.1)
                         {
                             var func = enemies.Roll(RNG);
+                            var element = func.Invoke();
+                            stage.AddElement(element, i);
+                        }
+                        else if (rng.NextDouble() < 0.05)
+                        {
+                            var func = allItems.Roll(RNG);
                             var element = func.Invoke();
                             stage.AddElement(element, i);
                         }

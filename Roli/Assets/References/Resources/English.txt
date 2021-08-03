@@ -5,9 +5,16 @@
 // ACTIONS
 // =======
 
+~~~AOEAttackAction
+...{PERSON(0|I|You|A {SUBJECT(0)})} strike{PERSON(0||s)}!
+...{PERSON(0|I|You|A {SUBJECT(0)})} unleash{PERSON(0||s)} a mighty attack!
+
 ~~~BumpAttackAction
 {PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(hit|strike|attack)}{PERSON(0||s)} {PERSON(1|me|you|a {SUBJECT(1)})}.
 {PERSON(1|I am|You are|A {SUBJECT(1)} is)} {RANDOM(hit|struck)}!
+
+~~~Drink
+{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(drink|quaff|sip)}{PERSON(0||s)} {PERSON(1|me|you|a {SUBJECT(1)})}.
 
 ~~~ExitStageAction
 {PERSON(0|I|You|A {SUBJECT(0)})} climb{PERSON(0||s)} down the stairs.
@@ -19,9 +26,23 @@
 The {SUBJECT(1)} opens.
 The {SUBJECT(1)} creaks open.
 
+~~~PickUpAction
+{PERSON(0|I|You|A {SUBJECT(0)})} pick{PERSON(0||s)} up {PERSON(1|me|you|a {SUBJECT(1)})}.
+
+~~~WindUp_mace
+{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} a powerful strike...
+{PERSON(0|I|You|A {SUBJECT(0)})} raise{PERSON(0||s)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} {RANDOM(weapon|mace)}...
+
+~~~WindUp_sword
+{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} a powerful strike...
+{PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|ready|readies)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} {RANDOM(blade|weapon|sword)}...
+
 // =======
 // EFFECTS
 // =======
+
+~~~Consumed
+{PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|It)} is)} {RANDOM(finished|used up)}.
 
 ~~~Death
 {PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(die|fall|collapse|crumple)}{PERSON(1||s)}.
@@ -37,6 +58,10 @@ The {SUBJECT(1)} creaks open.
 {PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})} is)} sent {RANDOM(flying|hurtling|reeling|bouncing)} into {PERSON(2|me|you|a {SUBJECT(2)})}!
 {PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(collide|impact)}{PERSON(1||s)} with {PERSON(2|me|you|a {SUBJECT(2)})}!
 {PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(bump|reel|knock)}{PERSON(1||s)} into {PERSON(2|me|you|a {SUBJECT(2)})}!
+
+~~~PickUp_Fail
+{RANDOM(But|However)} {PERSON(0|I|you|{RANDOM(the {SUBJECT(0)}|{GENDER(0|it|he|she)})})} cannot carry it.
+{RANDOM(But|However)} {PERSON(0|I have|you have|{RANDOM(the {SUBJECT(0)}|{GENDER(0|it|he|she)})} has)} no inventory space.
 
 // ======
 // EVENTS

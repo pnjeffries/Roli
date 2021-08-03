@@ -16,6 +16,10 @@ GameObject:
   - component: {fileID: 4421765897914544948}
   - component: {fileID: 1186594336963270948}
   - component: {fileID: 7548887833343305599}
+  - component: {fileID: 7548421946372794682}
+  - component: {fileID: 5350955787609023285}
+  - component: {fileID: 5752614623765086719}
+  - component: {fileID: 8568810567688282059}
   m_Layer: 0
   m_Name: ASCII
   m_TagString: Untagged
@@ -219,6 +223,7 @@ Animation:
   m_Animation: {fileID: 7400000, guid: 46bb249b08cbb354cbb8add65b9fb853, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 46bb249b08cbb354cbb8add65b9fb853, type: 2}
+  - {fileID: 7400000, guid: b09fddf747e1b60438f462759052e3f7, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -256,6 +261,85 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AncestorLevels: 1
+--- !u!114 &7548421946372794682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6060099236948074569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40f4212b91aeb3458a2099fedf88e2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CycleDuration: 0.2
+  Cycles: 5
+  FlashColour: {r: 0.8773585, g: 0, b: 0, a: 0.53333336}
+  Text: {fileID: 4461835780981762062}
+--- !u!114 &5350955787609023285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6060099236948074569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e0270aae76eb846bc7e633b2033521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 0}
+  Path: Data[HitPoints].Value
+  TriggerWhen: 2
+  ValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7548421946372794682}
+        m_TargetAssemblyTypeName: ColorFlash, Assembly-CSharp
+        m_MethodName: PlayFlash
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5752614623765086719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6060099236948074569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efdd08e49d7cb8249b7b747dfaeacb2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 0}
+  Path: Data[DirectionalItemUseAbility]
+  Target: {fileID: 8568810567688282059}
+  TargetPath: Play
+  Converter: {fileID: -2166362447057984333}
+--- !u!114 &8568810567688282059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6060099236948074569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc58e543c4ff7e4e9f925443710e415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CycleDuration: 0.5
+  ScaleMax: 1.2
+  ScaleMin: 1
+  Play: 0
 --- !u!1 &7573023531222794778
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +462,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9210ee43b27ea0479143a7c7ed6caf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2166362447057984333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0e0f9529706064cab304aea4ffb7b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1113141026153802966
