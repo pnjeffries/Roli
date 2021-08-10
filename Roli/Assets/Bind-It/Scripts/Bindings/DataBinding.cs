@@ -62,9 +62,14 @@ namespace Binding
             if (Target == null) return;
             var value = GetBoundValue();
             var converter = GetConverter();
-            Debug.Log("Updating Target with value " + (value?.ToString() ?? "null") +
-                " and Converter " + (converter?.ToString() ?? "null"));
-            TargetInfo.SetValue(value, converter.Convert);
+            try
+            {
+                TargetInfo.SetValue(value, converter.Convert);
+            }
+            catch
+            {
+                //TODO
+            }
         }
 
         /// <summary>

@@ -19,9 +19,24 @@ MonoBehaviour:
     Path: Item
   - Source: {fileID: 0}
     Path: Item.Data[ConsumableItem].Uses
+  - Source: {fileID: 732173026447536306}
+    Path: SourceObject.State.Controlled.Data[Inventory].EquippedItems
   Target: {fileID: 1006479621656957403}
   TargetPath: text
   Converter: {fileID: 5492839830327355236}
+--- !u!114 &732173026447536306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9076643294153175196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a528cc4c65c3d146a199657f0fd8540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AncestorLevels: 1
 --- !u!114 &8136865737079777767
 MonoBehaviour:
   m_ObjectHideFlags: 0

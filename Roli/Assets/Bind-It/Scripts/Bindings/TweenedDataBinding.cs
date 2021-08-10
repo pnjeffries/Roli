@@ -77,7 +77,8 @@ namespace Binding
             }
             else
             {
-                throw new NotSupportedException(string.Format("Cannot lerp between types '{0}' and '{1}'", startValue?.GetType().Name, endValue?.GetType().Name));
+                if (Application.isEditor) throw new NotSupportedException(string.Format("Cannot lerp between types '{0}' and '{1}'", startValue?.GetType().Name, endValue?.GetType().Name));
+                return startValue;
             }
         }
     }

@@ -29,7 +29,7 @@ namespace Roli
             {
                 return new WeightedTable<Create>
                    (
-                        Sword, Mace, HealthPotion
+                        Sword, Mace, Spear, Bow, HealthPotion, Poison
                    );
             }
         }
@@ -68,6 +68,7 @@ namespace Roli
             sword.SetData(
                 new ASCIIStyle("↑"),
                 new PrefabStyle("Sword"),
+                new QuickAttack(2, DamageType.Base, 1),
                 new ItemActions(
                     new WindUpAction("WindUp_sword",
                         new AOEAttackActionFactory(new IEffect[]
@@ -77,7 +78,8 @@ namespace Roli
                             new DamageEffect(3)
                         },
                         "Slash",
-                        1, 0)
+                        1, 0),
+                        new EquipItemEffect(sword)
                         )));
             return sword;
         }
@@ -92,6 +94,7 @@ namespace Roli
             sword.SetData(
                 new ASCIIStyle("↑"),
                 new PrefabStyle("Mace"),
+                new QuickAttack(1, DamageType.Base, 2),
                 new ItemActions(
                     new WindUpAction("WindUp_mace",
                         new AOEAttackActionFactory(new IEffect[]
@@ -101,7 +104,59 @@ namespace Roli
                             new DamageEffect(2)
                         },
                         "Slash",
-                        1, 0)
+                        1, 0),
+                        new EquipItemEffect(sword)
+                        )));
+            return sword;
+        }
+
+        /// <summary>
+        /// A standard spear
+        /// </summary>
+        /// <returns></returns>
+        public GameElement Spear()
+        {
+            var sword = Weapon("spear");
+            sword.SetData(
+                new ASCIIStyle("↑"),
+                new PrefabStyle("Spear"),
+                new QuickAttack(1, DamageType.Base, 1),
+                new ItemActions(
+                    new WindUpAction("WindUp_spear",
+                        new RangedAOEAttackActionFactory(2,new IEffect[]
+                        {
+                            new SFXImpactEffect(),
+                            new KnockbackEffect(Vector.UnitX, 2),
+                            new DamageEffect(1)
+                        },
+                        "SpearStab",
+                        2, 0, 1, 0),
+                        new EquipItemEffect(sword)
+                        )));
+            return sword;
+        }
+
+        /// <summary>
+        /// A bow
+        /// </summary>
+        /// <returns></returns>
+        public GameElement Bow()
+        {
+            var sword = Weapon("bow");
+            sword.SetData(
+                new ASCIIStyle(")"),
+                new PrefabStyle("Bow"),
+                //new QuickAttack(1, DamageType.Base, 1),
+                new ItemActions(
+                    new WindUpAction("WindUp_bow",
+                        new RangedAOEAttackActionFactory(6, new IEffect[]
+                        {
+                            new SFXImpactEffect(),
+                            new KnockbackEffect(Vector.UnitX, 1),
+                            new DamageEffect(1)
+                        },
+                        "SpearStab",
+                        0, 0)
                         )));
             return sword;
         }
@@ -117,6 +172,19 @@ namespace Roli
             item.SetData(
                 new ItemActions(
                     new UseItemAction("Drink", item, new HealEffect()))); //TODO
+            return item;
+        }
+
+        public GameElement Poison()
+        {
+            var item = Potion("poison");
+            item.SetData(
+                new ASCIIStyle("¡"),
+                new ConsumableItem(3));
+            // Item has to be set consumable before creating the use item action
+            item.SetData(
+                new ItemActions(
+                    new UseItemAction("Drink", item, new ApplyStatusEffect(new Poisoned())))); //TODO
             return item;
         }
     }

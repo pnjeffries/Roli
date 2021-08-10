@@ -69,6 +69,7 @@
     <Compile Include="Assets\Bind-It\Scripts\Base\Binding.cs" />
     <Compile Include="Assets\Scripts\Input\UserInput.cs" />
     <Compile Include="Assets\Scripts\VFX\ScalePulse.cs" />
+    <Compile Include="Assets\Scripts\Title\GridGenerator.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\SourceBinding.cs" />
     <Compile Include="Assets\Scripts\Binding\StartTrigger.cs" />
     <Compile Include="Assets\Scripts\Binding\NucleusConverter.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Assets\Bind-It\Scripts\Converters\LoadResourceConverter.cs" />
     <Compile Include="Assets\Scripts\VFX\ColorFlash.cs" />
     <Compile Include="Assets\Scripts\Binding\BarSizeConverter.cs" />
+    <Compile Include="Assets\Scripts\Binding\TranslationConverter.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Shapes\Shaders\Generated Shaders\Resources\Triangle Darken.shader" />

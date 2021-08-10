@@ -8676,6 +8676,20 @@
             <param name="condition"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Geometry.ICellMapExtensions.FirstCellInDirectionWhere``1(Nucleus.Geometry.ICellMap,System.Int32,Nucleus.Geometry.Vector,System.Func{``0,System.Boolean},System.Int32,System.Boolean)">
+            <summary>
+            Keep moving through the grid in the specified direction until a cell is found which
+            satisfies the specified condition
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="map"></param>
+            <param name="direction"></param>
+            <param name="startIndex"></param>
+            <param name="condition"></param>
+            <param name="maxRange">The maximum number of cells which may be visited before terminating</param>
+            <param name="returnLast">If the condition is not met before the max range or the end of the map is found, return the last cell visited</param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Geometry.IMapCell">
             <summary>
             Interface for objects which may be stored as map cells
@@ -8758,6 +8772,19 @@
             <typeparam name="TMapCell"></typeparam>
             <param name="cell"></param>
             <param name="direction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.MapCellExtensions.FirstCellInDirectionWhere``1(``0,Nucleus.Geometry.Vector,System.Func{``0,System.Boolean},System.Int32,System.Boolean)">
+            <summary>
+            Travels through the map in the specified direction until a cell meeting the specified condition
+            is encountered (or the limits are reached)
+            </summary>
+            <typeparam name="TMapCell"></typeparam>
+            <param name="cell"></param>
+            <param name="direction"></param>
+            <param name="condition"></param>
+            <param name="maxRange">The maximum number of cells which may be visited before terminating</param>
+            <param name="returnLast">If the condition is not met before the max range or the end of the map is found, return the last cell visited</param>
             <returns></returns>
         </member>
         <member name="T:Nucleus.Geometry.MapCellDataStore">
@@ -20575,7 +20602,8 @@
         </member>
         <member name="M:Nucleus.Logs.LogScript.GetText(System.String)">
             <summary>
-            Get the default unprocessed text record for the entry under 
+            Get the default unprocessed text record for the entry under the
+            specified key.  If no record is found the key itself will be returned.
             </summary>
             <param name="key"></param>
             <returns></returns>

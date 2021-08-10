@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Nucleus\Nucleus\Nucleus.Game\Nucleus.Game.csproj" />
     <ProjectReference Include="..\..\..\Nucleus\Nucleus\Nucleus\Nucleus.csproj" />
   </ItemGroup>

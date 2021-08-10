@@ -35,6 +35,7 @@ public class UserInput : MonoBehaviour
     {
         // TODO: Make static?
         // Default keymapping:
+        _KeyMapping.Add(KeyCode.Escape, InputFunction.Abort);
         _KeyMapping.Add(KeyCode.UpArrow, InputFunction.Up);
         _KeyMapping.Add(KeyCode.DownArrow, InputFunction.Down);
         _KeyMapping.Add(KeyCode.LeftArrow, InputFunction.Left);
@@ -61,6 +62,7 @@ public class UserInput : MonoBehaviour
         _KeyMapping.Add(KeyCode.B, InputFunction.Ability_5);
         _KeyMapping.Add(KeyCode.N, InputFunction.Ability_6);
         _KeyMapping.Add(KeyCode.G, InputFunction.PickUp);
+        _KeyMapping.Add(KeyCode.D, InputFunction.Drop);
 
         // Default axis mapping:
         _AxisMapping.Add("Vertical", new AxisFunctions(InputFunction.Up, InputFunction.Down));

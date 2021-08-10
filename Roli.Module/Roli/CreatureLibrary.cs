@@ -3,6 +3,7 @@ using Nucleus.Game;
 using Nucleus.Game.Artitecture;
 using Nucleus.Game.Components;
 using Nucleus.Game.Components.Abilities;
+using Nucleus.Game.Effects;
 using Nucleus.Geometry;
 using Nucleus.Logs;
 using Nucleus.Model;
@@ -78,7 +79,7 @@ namespace Roli
                 new OpenDoorAbility(),
                 new Inventory(
                     // Item slots
-                    new ItemSlot("1", InputFunction.Ability_1, null),
+                    new ItemSlot("1", InputFunction.Ability_1, Items.HealthPotion()),
                     new ItemSlot("2", InputFunction.Ability_2, null),
                     new ItemSlot("3", InputFunction.Ability_3, null),
                     new ItemSlot("4", InputFunction.Ability_4, null),
@@ -87,7 +88,9 @@ namespace Roli
                     // Equippable slots
                     new EquipmentSlot("Hands")),
                  new PickUpAbility(),
-                 new UseItemAbility()
+                 new UseItemAbility(),
+                 new Status(),
+                 new DropAbility()
                  );
         }
 
@@ -100,7 +103,8 @@ namespace Roli
                 new AvailableActions(), new TurnCounter(),
                 new WaitAbility(),
                 new MoveCellAbility(),
-                new LogDescription("<color=#FF00FD>", "</color>")
+                new LogDescription("<color=#FF00FD>", "</color>"),
+                new Status()
                 ) ;
         }
 
@@ -117,7 +121,7 @@ namespace Roli
             var result = Enemy("snake");
             result.SetData(new ASCIIStyle("s"), new PrefabStyle("Meeple"), 
                 new MapAwareness(3), new HitPoints(2), new ElementWeight(25),
-                new BumpAttackAbility(2,1));
+                new BumpAttackAbility(0,1, new ApplyStatusEffect(new Poisoned())));
             return result;
         }
 
@@ -133,7 +137,7 @@ namespace Roli
 
         public GameElement Groblin()
         {
-            var sword = Items.Sword();
+            var spear = Items.Spear();
             var result = Enemy("groblin");
             result.SetData(new ASCIIStyle("g"), 
                 new PrefabStyle("Meeple"), 
@@ -144,9 +148,9 @@ namespace Roli
                 new ElementGender(RNG.NextGender()),
                 new UseItemAbility(),
                 new Inventory(
-                    new ItemSlot("1", InputFunction.Ability_1, sword),
+                    new ItemSlot("1", InputFunction.Ability_1, spear),
                     // Equippable slots
-                    new EquipmentSlot("Hands", sword)));
+                    new EquipmentSlot("Hands", spear)));
             return result;
         }
 
