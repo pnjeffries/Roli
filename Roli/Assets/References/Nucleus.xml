@@ -5689,6 +5689,22 @@
             <param name="index"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Extensions.IListExtensions.ContainsAny(System.Collections.IList,System.Collections.IEnumerable)">
+            <summary>
+            Does this collection contain any of the specified values?
+            </summary>
+            <param name="col"></param>
+            <param name="anyOf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Extensions.IListExtensions.ContainsAny``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Does this collection contain any of the specified values?
+            </summary>
+            <param name="col"></param>
+            <param name="anyOf"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Extensions.IntExtensions">
             <summary>
             Extension methods for integers
@@ -8772,6 +8788,14 @@
             <typeparam name="TMapCell"></typeparam>
             <param name="cell"></param>
             <param name="direction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.MapCellExtensions.AdjacentCells``1(``0)">
+            <summary>
+            Get all cells adjacent to this one.
+            </summary>
+            <typeparam name="TMapCell"></typeparam>
+            <param name="cell"></param>
             <returns></returns>
         </member>
         <member name="M:Nucleus.Geometry.MapCellExtensions.FirstCellInDirectionWhere``1(``0,Nucleus.Geometry.Vector,System.Func{``0,System.Boolean},System.Int32,System.Boolean)">

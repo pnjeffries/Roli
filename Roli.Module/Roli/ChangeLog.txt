@@ -1,0 +1,11 @@
+﻿v0.1.2:
+- Ranged attacks added
+- New weapon: Bow
+- Spear rebalanced
+- New enemy: Archer
+- New enemy: Orc
+- Enemy special attack AI improved
+- New item: Shield
+- New enemy: Wolf
+- Level progression implemented
+- 14 Floors

@@ -51,5 +51,15 @@ namespace Roli
             return new RoomTemplate(RoomType.Exit, 1, 1, 1, 1)
             { MaxConnections = 1 };
         }
+
+        public RoomTemplate Crevice()
+        {
+            return new RoomTemplate(RoomType.Room, 1, 1, 1, 3);
+        }
+
+        public RoomTemplate Cavern()
+        {
+            return new RoomTemplate(RoomType.Circulation, 2, 10, 2, 10) { MaxConnections = 8 };
+        }
     }
 }

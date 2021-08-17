@@ -23,6 +23,15 @@
             <param name="item"></param>
             <param name="selfEffects"></param>
         </member>
+        <member name="M:Nucleus.Game.Actions.UseItemAction.#ctor(System.String,Nucleus.Model.Element,System.Collections.Generic.IList{Nucleus.Game.IEffect},System.Collections.Generic.IList{Nucleus.Game.IEffect})">
+            <summary>
+            Constructor for using an item.
+            If the item is consumable, will automatically add a consume effect.
+            </summary>
+            <param name="name"></param>
+            <param name="item"></param>
+            <param name="selfEffects"></param>
+        </member>
         <member name="T:Nucleus.Game.Actions.OpenDoorAction">
             <summary>
             An action to open a door
@@ -78,12 +87,31 @@
             Base class for objects which can be used to generate actions dynamically
             </summary>
         </member>
+        <member name="P:Nucleus.Game.ActionFactory.ActionName">
+            <summary>
+            The name to be assigned to the generated actions
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.ActionFactory.GenerateActions(Nucleus.Game.TurnContext,Nucleus.Game.AvailableActions)">
             <summary>
             Generate actions given the specified context and add them to the available actions
             </summary>
             <param name="context"></param>
             <param name="addTo"></param>
+        </member>
+        <member name="M:Nucleus.Game.ActionFactory.TargetableCells(Nucleus.Geometry.Vector,Nucleus.Geometry.Vector,Nucleus.Game.TurnContext)">
+            <summary>
+            Generate a list of the cells (if any) which may be targetted by the actions this
+            factory can produce from the specified position and in the specified direction.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.ActionFactory.TargetableCells(Nucleus.Game.TurnContext)">
+            <summary>
+            Generate a list of the cells (if any) which may be targetted by the actions this
+            factory can produce.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Nucleus.Game.ActionInputTrigger">
             <summary>
@@ -156,7 +184,12 @@
         </member>
         <member name="P:Nucleus.Game.AOEAttackActionFactory.Effects">
             <summary>
-            The blueprint effects which will be applied by the 
+            The blueprint effects which will be applied by actions
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.AOEAttackActionFactory.SelfEffects">
+            <summary>
+            The blueprint effects which will be applied by actions
             </summary>
         </member>
         <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(Nucleus.Geometry.Vector[])">
@@ -185,7 +218,14 @@
             </summary>
             <param name="offsetComponents"></param>
         </member>
-        <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(System.Collections.Generic.IList{Nucleus.Game.IEffect},System.String,System.Double[])">
+        <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(System.Collections.Generic.IList{Nucleus.Game.IEffect},System.String,System.String,System.Double[])">
+            <summary>
+            Creates an AOEAttackAction factory to create an attack pattern
+            with the specified list of alternating X and Y offset components.
+            </summary>
+            <param name="offsetComponents"></param>
+        </member>
+        <member name="M:Nucleus.Game.AOEAttackActionFactory.#ctor(System.Collections.Generic.IList{Nucleus.Game.IEffect},System.Collections.Generic.IList{Nucleus.Game.IEffect},System.String,System.String,System.Double[])">
             <summary>
             Creates an AOEAttackAction factory to create an attack pattern
             with the specified list of alternating X and Y offset components.
@@ -407,6 +447,44 @@
             <summary>
             Room type enum
             </summary>
+        </member>
+        <member name="T:Nucleus.Game.StageStyle">
+            <summary>
+            A style which holds data about a stage to be generated
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StageStyle.Templates">
+            <summary>
+            The collection of templates to be used to generate rooms
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StageStyle.DoorChance">
+            <summary>
+            The chance to generate a door on designated doorway tiles
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StageStyle.MinLoopSize">
+            <summary>
+            The minimum size of loop before two rooms will connect into one another
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.StageStyle.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.StageStyle.#ctor(Nucleus.Game.RoomTemplate[])">
+            <summary>
+            Templates constructor
+            </summary>
+            <param name="templates"></param>
+        </member>
+        <member name="M:Nucleus.Game.StageStyle.#ctor(System.String,Nucleus.Game.RoomTemplate[])">
+            <summary>
+            Templates constructor
+            </summary>
+            <param name="name"></param>
+            <param name="templates"></param>
         </member>
         <member name="T:Nucleus.Game.Artitecture.WeightedTable`1">
             <summary>
@@ -675,7 +753,7 @@
         </member>
         <member name="T:Nucleus.Game.DamageVulnerabilities">
             <summary>
-            Data component to store the vulnerabilities of elements to different
+            Data component to store the vulnerabilities and resistances of elements to different
             forms of damage.
             </summary>
         </member>
@@ -726,6 +804,12 @@
             </summary>
             <param name="damageType">The damage type</param>
             <param name="vulnerability">The damage multiplication factor</param>
+        </member>
+        <member name="M:Nucleus.Game.DamageVulnerabilities.Defend(Nucleus.Game.Damage)">
+            <summary>
+            Adjust the specified damage value based on this defense
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Nucleus.Game.DisableActions">
             <summary>
@@ -1021,6 +1105,12 @@
             The number of rooms typically found between the entry and exit
             </summary>
         </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.MinLoopSize">
+            <summary>
+            The minimum number of rooms on a route between two others
+            before which a new connection will be considered
+            </summary>
+        </member>
         <member name="P:Nucleus.Game.DungeonArtitect.PreventParallelCorridors">
             <summary>
             If set to true, parallel corridors will be detected and prevented
@@ -1032,6 +1122,15 @@
             </summary>
             <param name="iSize"></param>
             <param name="jSize"></param>
+        </member>
+        <member name="M:Nucleus.Game.DungeonArtitect.#ctor(System.Int32,System.Int32,Nucleus.Game.StageStyle)">
+            <summary>
+            Creates a new dungeon artitect to work within the specified bounds
+            using the specified style
+            </summary>
+            <param name="iSize"></param>
+            <param name="jSize"></param>
+            <param name="style"></param>
         </member>
         <member name="M:Nucleus.Game.DungeonArtitect.TakeSnapshot">
             <summary>
@@ -1615,6 +1714,12 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Game.Status.Defend(Nucleus.Game.Damage)">
+            <summary>
+            Adjust the specified damage value based on this defense
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Game.TemporaryStatus">
             <summary>
             A base class for status ailments or buffs which are temporary in
@@ -1745,6 +1850,23 @@
             Consume a use of a consumable item, and remove it if spent
             </summary>
         </member>
+        <member name="P:Nucleus.Game.Effects.ConsumeEffect.TargetOverride">
+            <summary>
+            The item to be consumed.
+            If null, the contextual target will be used instead.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Effects.ConsumeEffect.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Effects.ConsumeEffect.#ctor(Nucleus.Model.Element)">
+            <summary>
+            Target item constructor
+            </summary>
+            <param name="targetItem">The item to be consumed</param>
+        </member>
         <member name="T:Nucleus.Game.Effects.DropItemEffect">
             <summary>
             Effect which drops an item
@@ -1813,6 +1935,18 @@
             <summary>
             An effect which attempts to open a door
             </summary>
+        </member>
+        <member name="T:Nucleus.Game.Effects.StatusEffects.IDefense">
+            <summary>
+            Interface for status effects, items etc. that
+            defend against damage
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Effects.StatusEffects.IDefense.Defend(Nucleus.Game.Damage)">
+            <summary>
+            Adjust the specified damage value based on this defense
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Nucleus.Game.BasicEffect">
             <summary>
@@ -2095,6 +2229,42 @@
             Should be set to double.NaN for those which
             will apply indefinitely.
             </summary>
+        </member>
+        <member name="T:Nucleus.Game.Shielded">
+            <summary>
+            Status effect applied when a character is being shielded from harm
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Shielded.Defend(Nucleus.Game.Damage)">
+            <summary>
+            Adjust the specified damage value based on this defense
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.StatusEffect">
+            <summary>
+            Base class for status effects which provides a simple implementation
+            of the IStatusEffect interface.  Note that not all status effects need
+            inherit from this class - check the interface instead.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StatusEffect.TimeRemaining">
+            <summary>
+            The time remaining for this status effect.
+            Should be set to double.NaN for those which
+            will apply indefinitely.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.StatusEffect.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.StatusEffect.#ctor(System.Double)">
+            <summary>
+            Duration constructor
+            </summary>
+            <param name="duration"></param>
         </member>
         <member name="T:Nucleus.Game.StatusEffectCollection">
             <summary>
@@ -3112,6 +3282,21 @@
             </summary>
             <param name="value"></param>
             <param name="damageType"></param>
+        </member>
+        <member name="M:Nucleus.Game.Damage.WithValue(System.Double)">
+            <summary>
+            Create a copy of this damage with the specified new value
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Damage.op_Multiply(Nucleus.Game.Damage,System.Double)">
+            <summary>
+            Multiplication operator
+            </summary>
+            <param name="d"></param>
+            <param name="scalar"></param>
+            <returns></returns>
         </member>
         <member name="T:Nucleus.Game.IModifier`1">
             <summary>

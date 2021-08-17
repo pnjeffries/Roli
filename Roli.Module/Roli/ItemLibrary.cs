@@ -29,10 +29,10 @@ namespace Roli
             {
                 return new WeightedTable<Create>
                    (
-                        Sword, Mace, Spear, Bow, HealthPotion, Poison
+                        Sword, Mace, Spear, Bow, HealthPotion, Shield // Poison,
                    );
             }
-        }
+        } 
 
         /// <summary>
         /// Base setup for all weapons
@@ -59,6 +59,23 @@ namespace Roli
         }
 
         /// <summary>
+        /// A shield
+        /// </summary>
+        /// <returns></returns>
+        public GameElement Shield()
+        {
+            var result = new StaticElement("shield");
+            result.SetData(
+                new PickUp(),
+                new LogDescription("<color=#FF00FD>", "</color>"),
+                new ASCIIStyle("○"),
+                new ItemActions(
+                    new UseItemAction("defend", result, new ApplyStatusEffect(new Shielded())))
+                );
+            return result;
+        }
+
+        /// <summary>
         /// A standard sword
         /// </summary>
         /// <returns></returns>
@@ -77,6 +94,7 @@ namespace Roli
                             new KnockbackEffect(Vector.UnitX, 2),
                             new DamageEffect(3)
                         },
+                        "Attack_sword",
                         "Slash",
                         1, 0),
                         new EquipItemEffect(sword)
@@ -103,6 +121,7 @@ namespace Roli
                             new KnockbackEffect(Vector.UnitX, 3),
                             new DamageEffect(2)
                         },
+                        "Attack_mace",
                         "Slash",
                         1, 0),
                         new EquipItemEffect(sword)
@@ -126,11 +145,12 @@ namespace Roli
                         new RangedAOEAttackActionFactory(2,new IEffect[]
                         {
                             new SFXImpactEffect(),
-                            new KnockbackEffect(Vector.UnitX, 2),
+                            new KnockbackEffect(Vector.UnitX, 1),
                             new DamageEffect(1)
                         },
+                        "Attack_spear",
                         "SpearStab",
-                        2, 0, 1, 0),
+                        0,0),//2, 0, 1, 0),
                         new EquipItemEffect(sword)
                         )));
             return sword;
@@ -142,10 +162,11 @@ namespace Roli
         /// <returns></returns>
         public GameElement Bow()
         {
-            var sword = Weapon("bow");
-            sword.SetData(
+            var weapon = Weapon("bow");
+            weapon.SetData(
                 new ASCIIStyle(")"),
                 new PrefabStyle("Bow"),
+                new ConsumableItem(6),
                 //new QuickAttack(1, DamageType.Base, 1),
                 new ItemActions(
                     new WindUpAction("WindUp_bow",
@@ -155,10 +176,15 @@ namespace Roli
                             new KnockbackEffect(Vector.UnitX, 1),
                             new DamageEffect(1)
                         },
+                        new IEffect[]
+                        {
+                            new ConsumeEffect(weapon)
+                        },
+                        "Attack_bow",
                         "SpearStab",
                         0, 0)
                         )));
-            return sword;
+            return weapon;
         }
 
 

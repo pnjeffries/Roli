@@ -15,9 +15,25 @@ Aborted.
 ~~~AOEAttackAction_Target
 {PERSON(1|I am|You are|A {SUBJECT(1)} is)} {RANDOM(hit|struck)}!
 
+~~~Attack_bow
+...{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(release|fire)}{PERSON(0||s)} an arrow!
+...An arrow flies from {PERSON(0|my|your|the {SUBJECT(0)}'s)} bow!
+
+~~~Attack_mace
+...{PERSON(0|I|You|A {SUBJECT(0)})} swing{PERSON(0||s)} {PERSON(0|my|your|{GENDER(1|its|his|her)})} mace!
+...{PERSON(0|I|You|A {SUBJECT(0)})} thump{PERSON(0||s)} down {PERSON(0|my|your|{GENDER(1|its|his|her)})} mace!
+
+~~~Attack_spear
+...{PERSON(0|I|You|A {SUBJECT(0)})} thrust{PERSON(0||s)} {PERSON(0|my|your|{GENDER(1|its|his|her)})} spear forwards!
+...{PERSON(0|I|You|A {SUBJECT(0)})} stab{PERSON(0||s)} with {PERSON(0|my|your|{GENDER(1|its|his|her)})} spear!
+
+~~~Attack_sword
+...{PERSON(0|I|You|A {SUBJECT(0)})} swing{PERSON(0||s)} {PERSON(0|my|your|{GENDER(1|its|his|her)})} sword!
+...{PERSON(0|I|You|A {SUBJECT(0)})} hack{PERSON(0||s)} with {PERSON(0|my|your|{GENDER(1|its|his|her)})} sword!
+...{PERSON(0|I|You|A {SUBJECT(0)})} slash{PERSON(0||es)} with {PERSON(0|my|your|{GENDER(1|its|his|her)})} sword!
+
 ~~~BumpAttackAction
 {PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(hit|strike|attack)}{PERSON(0||s)} {PERSON(1|me|you|a {SUBJECT(1)})}.
-{PERSON(1|I am|You are|A {SUBJECT(1)} is)} {RANDOM(hit|struck)}!
 
 ~~~DropItemAction
 {PERSON(0|I|You|A {SUBJECT(0)})} drop{PERSON(0||s)} {PERSON(1|me|you|a {SUBJECT(1)})}.
@@ -44,15 +60,15 @@ The {SUBJECT(1)} creaks open.
 {PERSON(0|I|You|A {SUBJECT(0)})} draw{PERSON(0||s)} back {PERSON(0|my|your|{GENDER(0|its|his|her)})} bowstring...
 
 ~~~WindUp_mace
-{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} a powerful strike...
+{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to strike...
 {PERSON(0|I|You|A {SUBJECT(0)})} raise{PERSON(0||s)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} {RANDOM(weapon|mace)}...
 
 ~~~WindUp_sword
-{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} a powerful strike...
+{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to strike...
 {PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|ready|readies)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} {RANDOM(blade|weapon|sword)}...
 
 ~~~WindUp_spear
-{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} a powerful strike...
+{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to strike...
 {PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|ready|readies)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} {RANDOM(spear|weapon|polearm)}...
 
 // =======
@@ -62,8 +78,14 @@ The {SUBJECT(1)} creaks open.
 ~~~ApplyStatusEffect_Poisoned
 {PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|It)} is)} poisoned!
 
+~~~ApplyStatusEffect_Shielded
+{PERSON(1|I|You|The {SUBJECT(1)})} raise{PERSON(1||s)} {PERSON(1|my|your|{GENDER(1|its|his|her)})} shield.
+
 ~~~Consumed
 {PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|It)} is)} {RANDOM(finished|used up)}.
+
+~~~Consumed_bow
+The bow is out of ammunition.
 
 ~~~Death
 {PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(die|fall|collapse|crumple)}{PERSON(1||s)}.

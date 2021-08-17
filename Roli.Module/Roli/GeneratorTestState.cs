@@ -27,7 +27,7 @@ namespace Roli
 
             //RNG = new Random(1);
 
-            _Artitect = DesignDungeon(map, true);
+            _Artitect = DesignDungeon(map, new StageLibrary().Dungeon("Test"), true);
 
             ShowGenerationStage(0);
         }

@@ -45,13 +45,16 @@ namespace Roli
         /// <returns></returns>
         public delegate GameElement Create();
 
+        /// <summary>
+        /// A collection of all enemy creation 
+        /// </summary>
         public WeightedTable<Create> AllEnemies
         {
             get
             {
                 return new WeightedTable<Create>
                    (
-                        Rat, Bat, Snake, Groblin, Phantom, Troll, Zombie
+                        Rat, Bat, Snake, Goblin, Phantom, Troll, Zombie, Archer, Orc, Wolf
                    );
             }
         }
@@ -79,7 +82,7 @@ namespace Roli
                 new OpenDoorAbility(),
                 new Inventory(
                     // Item slots
-                    new ItemSlot("1", InputFunction.Ability_1, Items.HealthPotion()),
+                    new ItemSlot("1", InputFunction.Ability_1, null),
                     new ItemSlot("2", InputFunction.Ability_2, null),
                     new ItemSlot("3", InputFunction.Ability_3, null),
                     new ItemSlot("4", InputFunction.Ability_4, null),
@@ -135,10 +138,39 @@ namespace Roli
             return result;
         }
 
-        public GameElement Groblin()
+        public GameElement Wolf()
+        {
+            var result = Enemy("wolf");
+            result.SetData(new ASCIIStyle("w"), new PrefabStyle("Meeple"),
+                new MapAwareness(8), new HitPoints(3), new ElementWeight(60),
+                new BumpAttackAbility(1, 0));
+            result.GetData<TurnCounter>().Speed = 2;
+            return result;
+        }
+
+        public GameElement Archer()
+        {
+            var bow = Items.Bow();
+            var result = Enemy("archer");
+            result.SetData(new ASCIIStyle("a"),
+                new PrefabStyle("Meeple"),
+                new MapAwareness(6),
+                new HitPoints(3),
+                new BumpAttackAbility(),
+                new OpenDoorAbility(),
+                new ElementGender(RNG.NextGender()),
+                new UseItemAbility(),
+                new Inventory(
+                    new ItemSlot("1", InputFunction.Ability_1, bow),
+                    // Equippable slots
+                    new EquipmentSlot("Hands", bow)));
+            return result;
+        }
+
+        public GameElement Goblin()
         {
             var spear = Items.Spear();
-            var result = Enemy("groblin");
+            var result = Enemy("goblin");
             result.SetData(new ASCIIStyle("g"), 
                 new PrefabStyle("Meeple"), 
                 new MapAwareness(5), 
@@ -151,6 +183,25 @@ namespace Roli
                     new ItemSlot("1", InputFunction.Ability_1, spear),
                     // Equippable slots
                     new EquipmentSlot("Hands", spear)));
+            return result;
+        }
+
+        public GameElement Orc()
+        {
+            var weapon = Items.Mace();
+            var result = Enemy("orc");
+            result.SetData(new ASCIIStyle("o"),
+                new PrefabStyle("Meeple"),
+                new MapAwareness(5),
+                new HitPoints(6),
+                new BumpAttackAbility(),
+                new OpenDoorAbility(),
+                new ElementGender(RNG.NextGender()),
+                new UseItemAbility(),
+                new Inventory(
+                    new ItemSlot("1", InputFunction.Ability_1, weapon),
+                    // Equippable slots
+                    new EquipmentSlot("Hands", weapon)));
             return result;
         }
 
