@@ -20632,6 +20632,21 @@
             <param name="key"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Logs.LogScript.GetText(System.String,System.Random,System.Object[])">
+            <summary>
+            Get the processed text record for the entry under the
+            specified key.  If no record is found the key itself will be returned.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Logs.LogScript.HasEntryFor(System.String)">
+            <summary>
+            Does this script have a pre-defined entry for the specified key?
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Logs.LogScriptEntry">
             <summary>
             An entry in a log script which defines variations on a message.

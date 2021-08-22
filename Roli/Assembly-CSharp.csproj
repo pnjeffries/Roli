@@ -73,6 +73,7 @@
     <Compile Include="Assets\Bind-It\Scripts\Base\SourceBinding.cs" />
     <Compile Include="Assets\Scripts\Binding\StartTrigger.cs" />
     <Compile Include="Assets\Scripts\Binding\NucleusConverter.cs" />
+    <Compile Include="Assets\Scripts\UI\FollowMousePosition.cs" />
     <Compile Include="Assets\Scripts\Binding\FogOfWarConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\MultiBindingBase.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\ConcatenateStringConverter.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets\Bind-It\Scripts\DataContext\DataContext.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\DefaultMultiConverter.cs" />
     <Compile Include="Assets\Scripts\Binding\ElementFOVConverter.cs" />
+    <Compile Include="Assets\Scripts\UI\TooltipDisplay.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\IValueConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\IMultiValueConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\TriggeredDataBinding.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Assets\Bind-It\Scripts\Bindings\GroupContainer.cs" />
     <Compile Include="Assets\Scripts\VFX\VFXCreator.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\NotNullConverter.cs" />
+    <Compile Include="Assets\Scripts\UI\Tooltip.cs" />
     <Compile Include="Assets\Bind-It\Scripts\DataContext\DataContextSourceBinding.cs" />
     <Compile Include="Assets\Scripts\Binding\SetDataContext.cs" />
     <Compile Include="Assets\Nucleus\NucleusAngleExtensions.cs" />

@@ -9,3 +9,8 @@
 - New enemy: Wolf
 - Level progression implemented
 - 14 Floors
+
+v0.1.3:
+- Bugfix: Removed input prompt for non-player chaged actions.
+- New: Ability to select (and use selected) inventory slots added.
+- Full gamepad support implemented.

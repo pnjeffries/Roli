@@ -26,20 +26,21 @@ namespace Binding
         IEnumerator Tween()
         {
             object startValue = Binding.GetFromPath(Target, TargetPath);
-            if (startValue == null) yield break;
-
             Type type = startValue.GetType();
             object endValue = GetBoundValue(type, GetConverter());
 
-            float time = 0f;
-
-            while (time < Duration)
+            if (startValue != null)
             {
-                time += Time.deltaTime;
-                float t = time / Duration;
-                if (Curve != null) t = Curve.Evaluate(t);
-                Binding.SetByPath(Target, TargetPath, Lerp(startValue, endValue, t));
-                yield return null;
+                float time = 0f;
+
+                while (time < Duration)
+                {
+                    time += Time.deltaTime;
+                    float t = time / Duration;
+                    if (Curve != null) t = Curve.Evaluate(t);
+                    Binding.SetByPath(Target, TargetPath, Lerp(startValue, endValue, t));
+                    yield return null;
+                }
             }
 
             Binding.SetByPath(Target, TargetPath, endValue);

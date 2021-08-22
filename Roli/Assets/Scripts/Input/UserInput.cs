@@ -46,6 +46,7 @@ public class UserInput : MonoBehaviour
         _KeyMapping.Add(KeyCode.Keypad4, InputFunction.Left);
         _KeyMapping.Add(KeyCode.Keypad6, InputFunction.Right);
         _KeyMapping.Add(KeyCode.Keypad5, InputFunction.Wait);
+        _KeyMapping.Add(KeyCode.KeypadPeriod, InputFunction.Wait);
         _KeyMapping.Add(KeyCode.Alpha1, InputFunction.Ability_1);
         _KeyMapping.Add(KeyCode.Alpha2, InputFunction.Ability_2);
         _KeyMapping.Add(KeyCode.Alpha3, InputFunction.Ability_3);
@@ -62,12 +63,26 @@ public class UserInput : MonoBehaviour
         _KeyMapping.Add(KeyCode.B, InputFunction.Ability_5);
         _KeyMapping.Add(KeyCode.N, InputFunction.Ability_6);
         _KeyMapping.Add(KeyCode.G, InputFunction.PickUp);
+        _KeyMapping.Add(KeyCode.Keypad0, InputFunction.PickUp);
         _KeyMapping.Add(KeyCode.D, InputFunction.Drop);
-
+        _KeyMapping.Add(KeyCode.Minus, InputFunction.SelectPrevious);
+        _KeyMapping.Add(KeyCode.KeypadMinus, InputFunction.SelectPrevious);
+        _KeyMapping.Add(KeyCode.Equals, InputFunction.SelectNext);
+        _KeyMapping.Add(KeyCode.KeypadPlus, InputFunction.SelectNext);
+        _KeyMapping.Add(KeyCode.Return, InputFunction.UseSelected);
+        _KeyMapping.Add(KeyCode.KeypadEnter, InputFunction.UseSelected);
+        _KeyMapping.Add(KeyCode.KeypadDivide, InputFunction.DropSelected);
+        _KeyMapping.Add(KeyCode.Backspace, InputFunction.DropSelected);
+        _KeyMapping.Add(KeyCode.KeypadMultiply, InputFunction.ShowInfo);
         // Default axis mapping:
         _AxisMapping.Add("Vertical", new AxisFunctions(InputFunction.Up, InputFunction.Down));
         _AxisMapping.Add("Horizontal", new AxisFunctions(InputFunction.Right, InputFunction.Left));
         _AxisMapping.Add("Jump", new AxisFunctions(InputFunction.Wait));
+        _AxisMapping.Add("Fire1", new AxisFunctions(InputFunction.UseSelected));
+        _AxisMapping.Add("Fire2", new AxisFunctions(InputFunction.DropSelected));
+        _AxisMapping.Add("Fire3", new AxisFunctions(InputFunction.PickUp));
+        _AxisMapping.Add("Select Item", new AxisFunctions(InputFunction.SelectPrevious, InputFunction.SelectNext));
+        _AxisMapping.Add("Inspect Item", new AxisFunctions(InputFunction.ShowInfo, InputFunction.Abort));
     }
 
     // Update is called once per frame

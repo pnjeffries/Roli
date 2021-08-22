@@ -110,6 +110,90 @@ At {PERSON(0|my|your|the {SUBJECT(0)}'s)} feet there is a {SUBJECT(1)}.
 {RANDOM(But|However)} {PERSON(0|I|you|{RANDOM(the {SUBJECT(0)}|{GENDER(0|it|he|she)})})} cannot carry it.
 {RANDOM(But|However)} {PERSON(0|I have|you have|{RANDOM(the {SUBJECT(0)}|{GENDER(0|it|he|she)})} has)} no inventory space.
 
+~~~Shield_Block
+The {RANDOM(attack|blow|strike)} is {RANDOM(deflected|blocked)}!
+{PERSON(1|I|You|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})})} {RANDOM(block|deflect)}{PERSON(1||s)} the {Random(blow|attack|strike)}!
+The {RANDOM(attack|blow|strike)} {RANDOM(bounces|slides|deflects)} harmlessly off {PERSON(1|my|your|{GENDER(1|its|his|her)})} shield!
+
+// ===================
+// EFFECT DESCRIPTIONS
+// ===================
+
+~~~DamageEffect_Description
+DMG: {SUBJECT(0|Damage.Value)}
+
+~~~KnockbackEffect_Description
+►► {SUBJECT(0|Power)}
+
+// =============
+// ITEM KEYWORDS
+// =============
+
+~~~ConsumableItem_Keyword
+Consumable
+
+~~~EquippableItem_Keyword
+Equippable
+
+~~~ItemActions_Keyword
+Usable
+
+// =================
+// ITEM DESCRIPTIONS
+// =================
+
+~~~bow_ActionHeader
+Charged Attack: Shoot
+
+~~~bow_ActionDescription
+Draw back the bow and fire!  Ranged attack.  Requires arrows as ammunition.
+
+~~~bow_Description
+A low-tech but effective missile weapon designed to launch pointy sticks at high velocity.
+
+~~~health potion_ActionHeader
+Drink
+
+~~~health potion_ActionDescription
+Take a sip from the bottle to soothe your wounds.
+
+~~~health potion_Description
+This sparkling elixir will heal your wounds and soothe your worries away.  Refreshing and lemony.
+
+~~~mace_ActionHeader
+Charged Attack: Smash
+
+~~~mace_Description
+A stout metal stick.  For hitting things and making them go away.
+
+~~~shield_ActionHeader
+Block
+
+~~~shield_ActionDescription
+Raise the shield.  Resist all incoming phyiscal damage until your next turn.
+
+~~~shield_Description
+A robust metal shield.
+
+~~~spear_ActionHeader
+Charged Attack: Thrust
+
+~~~spear_Description
+A polearm with a pointy end.  Reaches the places other weapons can't.
+
+~~~sword_ActionHeader
+Charged Attack: Power Slash
+
+~~~sword_Description
+A sturdy metal sword.  The blunt bit goes in your hand and the sharp bit goes in your enemies.
+
+// ============
+// ITEM HEADERS
+// ============
+
+~~~QuickAttack_Header
+Quick Attack
+
 // ======
 // EVENTS
 // ======

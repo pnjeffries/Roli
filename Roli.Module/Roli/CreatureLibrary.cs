@@ -82,7 +82,7 @@ namespace Roli
                 new OpenDoorAbility(),
                 new Inventory(
                     // Item slots
-                    new ItemSlot("1", InputFunction.Ability_1, null),
+                    new ItemSlot("1", InputFunction.Ability_1, Items.Sword()),
                     new ItemSlot("2", InputFunction.Ability_2, null),
                     new ItemSlot("3", InputFunction.Ability_3, null),
                     new ItemSlot("4", InputFunction.Ability_4, null),
@@ -93,7 +93,8 @@ namespace Roli
                  new PickUpAbility(),
                  new UseItemAbility(),
                  new Status(),
-                 new DropAbility()
+                 new DropAbility(),
+                 new ChangeSelectedItemAbility()
                  );
         }
 
@@ -143,7 +144,7 @@ namespace Roli
             var result = Enemy("wolf");
             result.SetData(new ASCIIStyle("w"), new PrefabStyle("Meeple"),
                 new MapAwareness(8), new HitPoints(3), new ElementWeight(60),
-                new BumpAttackAbility(1, 0));
+                new BumpAttackAbility(1, 1));
             result.GetData<TurnCounter>().Speed = 2;
             return result;
         }

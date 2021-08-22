@@ -77,6 +77,18 @@
             An action which prepares to drop an item
             </summary>
         </member>
+        <member name="T:Nucleus.Game.ChangeSelectedItemAction">
+            <summary>
+            An action which changes the selected item in the actor's inventory
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ChangeSelectedItemAction.#ctor(Nucleus.Game.IEffect,Nucleus.Game.ActionInputTrigger)">
+            <summary>
+            Effect + trigger constructor
+            </summary>
+            <param name="effect"></param>
+            <param name="trigger"></param>
+        </member>
         <member name="T:Nucleus.Game.ExitStageAction">
             <summary>
             Action which allows an actor to move between stages
@@ -683,6 +695,11 @@
             Other effects to be applied to the target (besides standard damage and knockback)
             </summary>
         </member>
+        <member name="T:Nucleus.Game.ChangeSelectedItemAbility">
+            <summary>
+            Ability which allows the actor to cycle through their selected item slot
+            </summary>
+        </member>
         <member name="F:Nucleus.Game.DirectionalItemUseAbility._ActionFactory">
             <summary>
             Private backing member variable for the ActionFactory property
@@ -805,7 +822,7 @@
             <param name="damageType">The damage type</param>
             <param name="vulnerability">The damage multiplication factor</param>
         </member>
-        <member name="M:Nucleus.Game.DamageVulnerabilities.Defend(Nucleus.Game.Damage)">
+        <member name="M:Nucleus.Game.DamageVulnerabilities.Defend(Nucleus.Game.Damage,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
             <summary>
             Adjust the specified damage value based on this defense
             </summary>
@@ -1414,6 +1431,11 @@
             Generated as-needed.
             </summary>
         </member>
+        <member name="P:Nucleus.Game.Inventory.Selected">
+            <summary>
+            The currently selected item slot
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.Inventory.#ctor">
             <summary>
             Default constructor
@@ -1480,6 +1502,16 @@
             </summary>
             <param name="equipment"></param>
             <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.SelectNext">
+            <summary>
+            Select the next item slot after the currently selected one
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.SelectPrevious">
+            <summary>
+            Select the previous item slot before the currently selected one
+            </summary>
         </member>
         <member name="T:Nucleus.Game.IStartOfTurn">
             <summary>
@@ -1714,7 +1746,7 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:Nucleus.Game.Status.Defend(Nucleus.Game.Damage)">
+        <member name="M:Nucleus.Game.Status.Defend(Nucleus.Game.Damage,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
             <summary>
             Adjust the specified damage value based on this defense
             </summary>
@@ -1790,6 +1822,11 @@
             Ability data component which allows an element to take a 'wait' action
             </summary>
         </member>
+        <member name="T:Nucleus.Game.ActorOrientationEffect">
+            <summary>
+            Effect which changes the actor's orientation
+            </summary>
+        </member>
         <member name="F:Nucleus.Game.ActorOrientationEffect._OrientTo">
             <summary>
             Private backing member variable for the OrientTo property
@@ -1814,6 +1851,12 @@
             </summary>
             <param name="direction"></param>
         </member>
+        <member name="M:Nucleus.Game.ActorOrientationEffect.#ctor(Nucleus.Game.ActorOrientationEffect)">
+            <summary>
+            Duplication constructor
+            </summary>
+            <param name="other"></param>
+        </member>
         <member name="T:Nucleus.Game.Effects.AddAbilityEffect">
             <summary>
             An effect which adds an ability to an 
@@ -1827,12 +1870,6 @@
         <member name="P:Nucleus.Game.Effects.AddAbilityEffect.Ability">
             <summary>
             The ability to be added to the target
-            </summary>
-        </member>
-        <member name="T:Nucleus.Game.Effects.AnimationEffect">
-            <summary>
-            An effect which triggers a predefined animation
-            of the target entity
             </summary>
         </member>
         <member name="T:Nucleus.Game.Effects.ApplyStatusEffect">
@@ -1867,6 +1904,12 @@
             </summary>
             <param name="targetItem">The item to be consumed</param>
         </member>
+        <member name="M:Nucleus.Game.Effects.ConsumeEffect.#ctor(Nucleus.Game.Effects.ConsumeEffect)">
+            <summary>
+            Duplication constructor
+            </summary>
+            <param name="other"></param>
+        </member>
         <member name="T:Nucleus.Game.Effects.DropItemEffect">
             <summary>
             Effect which drops an item
@@ -1897,6 +1940,12 @@
             Item constructor
             </summary>
             <param name="item"></param>
+        </member>
+        <member name="M:Nucleus.Game.Effects.EquipItemEffect.#ctor(Nucleus.Game.Effects.EquipItemEffect)">
+            <summary>
+            Duplication constructor
+            </summary>
+            <param name="effect"></param>
         </member>
         <member name="T:Nucleus.Game.Effects.ExitStageEffect">
             <summary>
@@ -1936,13 +1985,24 @@
             An effect which attempts to open a door
             </summary>
         </member>
+        <member name="T:Nucleus.Game.Effects.ShowItemInfoEffect">
+            <summary>
+            Effect which displays item information to the user via a modal window
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Effects.ShowItemInfoEffect.#ctor(Nucleus.Game.Effects.ShowItemInfoEffect)">
+            <summary>
+            Duplication constructor
+            </summary>
+            <param name="other"></param>
+        </member>
         <member name="T:Nucleus.Game.Effects.StatusEffects.IDefense">
             <summary>
             Interface for status effects, items etc. that
             defend against damage
             </summary>
         </member>
-        <member name="M:Nucleus.Game.Effects.StatusEffects.IDefense.Defend(Nucleus.Game.Damage)">
+        <member name="M:Nucleus.Game.Effects.StatusEffects.IDefense.Defend(Nucleus.Game.Damage,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
             <summary>
             Adjust the specified damage value based on this defense
             </summary>
@@ -2116,10 +2176,26 @@
             <param name="direction"></param>
             <param name="power"></param>
         </member>
+        <member name="M:Nucleus.Game.KnockbackEffect.#ctor(Nucleus.Game.KnockbackEffect)">
+            <summary>
+            Duplication constructor
+            </summary>
+            <param name="other"></param>
+        </member>
         <member name="T:Nucleus.Game.PickUpItemEffect">
             <summary>
             An effect which picks up the target item and adds it to
             the inventory of the actor
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.SelectNextItemEffect">
+            <summary>
+            Effect which will select the next item slot in the target's inventory
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.SelectPreviousItemEffect">
+            <summary>
+            Effect to select the previous item slot in the target's inventory
             </summary>
         </member>
         <member name="T:Nucleus.Game.SFXEffect">
@@ -2206,6 +2282,12 @@
             <param name="useTargetPosition"></param>
             <param name="direction"></param>
         </member>
+        <member name="M:Nucleus.Game.SFXEffect.#ctor(Nucleus.Game.SFXEffect)">
+            <summary>
+            Duplication constructor
+            </summary>
+            <param name="other"></param>
+        </member>
         <member name="T:Nucleus.Game.SFXImpactEffect">
             <summary>
             A SFX effect that produces an effect at a point on the target
@@ -2235,7 +2317,7 @@
             Status effect applied when a character is being shielded from harm
             </summary>
         </member>
-        <member name="M:Nucleus.Game.Shielded.Defend(Nucleus.Game.Damage)">
+        <member name="M:Nucleus.Game.Shielded.Defend(Nucleus.Game.Damage,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
             <summary>
             Adjust the specified damage value based on this defense
             </summary>
@@ -2385,6 +2467,11 @@
             Drop an item
             </summary>
         </member>
+        <member name="F:Nucleus.Game.InputFunction.DropSelected">
+            <summary>
+            Drop the currently selected item
+            </summary>
+        </member>
         <member name="F:Nucleus.Game.InputFunction.Ability_1">
             <summary>
             Use special ability 1
@@ -2428,6 +2515,26 @@
         <member name="F:Nucleus.Game.InputFunction.Ability_9">
             <summary>
             Use special ability 9
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.SelectNext">
+            <summary>
+            Select next menu item
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.SelectPrevious">
+            <summary>
+            Select previous menu item
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.ShowInfo">
+            <summary>
+            Show information about an item or option
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.UseSelected">
+            <summary>
+            Use the selected menu item
             </summary>
         </member>
         <member name="T:Nucleus.Game.InputFunctionExtensions">
@@ -2734,6 +2841,44 @@
         <member name="T:Nucleus.Game.MapState">
             <summary>
             Base class for states which contains a MapStage
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.ModalState">
+            <summary>
+            A game state which features modal interface elements (i.e. message boxes,
+            inventory screens, etc.)
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ModalState.Modals">
+            <summary>
+            The collection of modal windows currently open within this state.
+            Do not modify this collection directly, use OpenModal and CloseModal
+            functions instead.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ModalState.ActiveModal">
+            <summary>
+            Get the currently active modal window which has input
+            focus.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ModalState.OpenModal(Nucleus.Modals.ModalWindow)">
+            <summary>
+            Open a new modal window.  This will become the new active modal.
+            </summary>
+            <param name="modal"></param>
+        </member>
+        <member name="M:Nucleus.Game.ModalState.CloseModal(Nucleus.Modals.ModalWindow)">
+            <summary>
+            Close the specified modal window, or if no window
+            is specified, the currently active one.
+            Focus will pass to the next topmost modal.
+            </summary>
+            <param name="modal"></param>
+        </member>
+        <member name="M:Nucleus.Game.ModalState.CloseAllModals">
+            <summary>
+            Close all currently open modals
             </summary>
         </member>
         <member name="T:Nucleus.Game.RLState">
@@ -3283,6 +3428,12 @@
             <param name="value"></param>
             <param name="damageType"></param>
         </member>
+        <member name="M:Nucleus.Game.Damage.#ctor(Nucleus.Game.Damage)">
+            <summary>
+            Duplication constructor
+            </summary>
+            <param name="other"></param>
+        </member>
         <member name="M:Nucleus.Game.Damage.WithValue(System.Double)">
             <summary>
             Create a copy of this damage with the specified new value
@@ -3375,6 +3526,13 @@
             The log to be used to record textual output
             </summary>
         </member>
+        <member name="M:Nucleus.Game.TurnContext.IsPlayerControlled(Nucleus.Model.Element)">
+            <summary>
+            Is the specified element player-controlled?
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Game.UpdateInfo">
             <summary>
             Information about an update cycle
@@ -3395,6 +3553,73 @@
             Initialise a new UpdateInfo
             </summary>
             <param name="timeStep"></param>
+        </member>
+        <member name="T:Nucleus.Modals.Header">
+            <summary>
+            A header-style segment of text
+            </summary>
+        </member>
+        <member name="M:Nucleus.Modals.Header.#ctor(System.String)">
+            <summary>
+            Text constructor
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="T:Nucleus.Modals.Keywords">
+            <summary>
+            A paragraph which displays a list of keywords or tags
+            </summary>
+        </member>
+        <member name="M:Nucleus.Modals.Keywords.#ctor(System.String)">
+            <summary>
+            Text constructor
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="T:Nucleus.Modals.ModalWindow">
+            <summary>
+            A back-end representation of a modal window.
+            This allows for window content and functionality to be defined
+            within the 'business logic', however the display and implementation
+            of the window itself is the responsibility of the front-end
+            </summary>
+        </member>
+        <member name="P:Nucleus.Modals.ModalWindow.Contents">
+            <summary>
+            The main contents of the window
+            </summary>
+        </member>
+        <member name="M:Nucleus.Modals.ModalWindow.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Modals.ModalWindow.#ctor(System.String)">
+            <summary>
+            Title constructor
+            </summary>
+            <param name="title"></param>
+        </member>
+        <member name="T:Nucleus.Modals.ModalWindowCollection">
+            <summary>
+            A collection of modal windows
+            </summary>
+        </member>
+        <member name="T:Nucleus.Modals.Paragraph">
+            <summary>
+            A paragraph of text to be displayed as part of a document
+            </summary>
+        </member>
+        <member name="P:Nucleus.Modals.Paragraph.Text">
+            <summary>
+            The text to be displayed in the paragraph
+            </summary>
+        </member>
+        <member name="M:Nucleus.Modals.Paragraph.#ctor(System.String)">
+            <summary>
+            Text constructor
+            </summary>
+            <param name="text"></param>
         </member>
         <member name="T:Nucleus.Logs.IActionLog">
             <summary>

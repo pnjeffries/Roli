@@ -93,6 +93,7 @@ namespace Roli
             return generator;
         }
 
+
         private int BuildDungeon(SquareCellMap<BlueprintCell> blueprint, MapStage stage, RoliStageStyle style, StageExit exit)
         {
             int result = 0;

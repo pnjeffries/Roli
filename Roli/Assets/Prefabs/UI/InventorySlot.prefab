@@ -21,6 +21,10 @@ MonoBehaviour:
     Path: Item.Data[ConsumableItem].Uses
   - Source: {fileID: 732173026447536306}
     Path: SourceObject.State.Controlled.Data[Inventory].EquippedItems
+  - Source: {fileID: 732173026447536306}
+    Path: SourceObject.State.Controlled.Data[Inventory].Selected
+  - Source: {fileID: 0}
+    Path: 
   Target: {fileID: 1006479621656957403}
   TargetPath: text
   Converter: {fileID: 5492839830327355236}

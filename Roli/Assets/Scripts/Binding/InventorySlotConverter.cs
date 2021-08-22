@@ -1,4 +1,5 @@
 using Binding;
+using Nucleus.Game;
 using Nucleus.Model;
 using System;
 using System.Collections;
@@ -22,6 +23,14 @@ public class InventorySlotConverter : MultiValueConverter
             {
                 //The item is equipped
                 result = "<B>" + result + " [E]</B>";
+            }
+        }
+        if (values.Length > 5)
+        {
+            if (values[4] == values[5])
+            {
+                //The item is selected
+                result = "<U>" + result + "</U>";
             }
         }
         return result;
