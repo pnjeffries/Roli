@@ -1,4 +1,5 @@
 ﻿using Nucleus.Game;
+using Nucleus.Game.Debug;
 using Nucleus.Geometry;
 using Nucleus.Logs;
 using Nucleus.Rendering;
@@ -15,6 +16,11 @@ namespace Roli
     /// </summary>
     public class RoliGameState : RLState
     {
+        /// <summary>
+        /// Get the Roli-state specific command library for debugging
+        /// </summary>
+        protected override DebugCommandLibrary DebugCommands => new RoliDebugCommandLibrary();
+
         #region Methods
 
         public override void StartUp()

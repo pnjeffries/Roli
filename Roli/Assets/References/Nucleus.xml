@@ -26934,6 +26934,16 @@
             relevant component.</param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Model.ElementCollection`2.LastWithDataComponent``1(`0)">
+            <summary>
+            Get the last element in this collection with an attached data component
+            of the specified type.
+            </summary>
+            <typeparam name="TDataComponent">The type of attached data component.</typeparam>
+            <param name="ignore">Ignore this element in the collection, even if it has the
+            relevant component.</param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Model.ElementCollection`2.AllWithDataComponent``1(`0)">
             <summary>
             Get all elements in this collection with an attached data component

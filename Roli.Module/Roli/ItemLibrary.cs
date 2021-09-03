@@ -29,10 +29,28 @@ namespace Roli
             {
                 return new WeightedTable<Create>
                    (
-                        Sword, Mace, Spear, Bow, HealthPotion, Shield // Poison,
+                        Sword, Mace, Spear, Bow, HealthPotion, Shield, InvincibilityPotion, StrengthPotion, Coins, Arrows // Poison,
                    );
             }
         } 
+
+        /// <summary>
+        /// Generate a new item element by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public GameElement ByName(string name)
+        {
+            name = name.Replace('_', ' ');
+            foreach (var create in AllItems)
+            {
+                // This is a bit inefficient, but Mono throws a wobbly
+                // if we try to access the Method name itself
+                var element = create.Key.Invoke();
+                if (element.Name == name) return element;
+            }
+            return null;
+        }
 
         /// <summary>
         /// Base setup for all weapons
@@ -56,6 +74,16 @@ namespace Roli
                 new PickUp(),
                 new LogDescription("<color=#FF00FD>", "</color>"));
             return result;
+        }
+
+        /// <summary>
+        /// Create a resource pickup to represent the given resource quantity
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        public GameElement Resource(Resource resource)
+        {
+            return resource.CreatePickup();
         }
 
         /// <summary>
@@ -146,7 +174,7 @@ namespace Roli
                         {
                             new SFXImpactEffect(),
                             new KnockbackEffect(Vector.UnitX, 1),
-                            new DamageEffect(1)
+                            new DamageEffect(2)
                         },
                         "Attack_spear",
                         "SpearStab",
@@ -166,19 +194,19 @@ namespace Roli
             weapon.SetData(
                 new ASCIIStyle(")"),
                 new PrefabStyle("Bow"),
-                new ConsumableItem(6),
+                //new ConsumableItem(6),
                 //new QuickAttack(1, DamageType.Base, 1),
                 new ItemActions(
-                    new WindUpAction("WindUp_bow",
+                    new WindUpAction("WindUp_bow", new Resource(ResourceTypes.Arrows,1),
                         new RangedAOEAttackActionFactory(6, new IEffect[]
                         {
                             new SFXImpactEffect(),
                             new KnockbackEffect(Vector.UnitX, 1),
-                            new DamageEffect(1)
+                            new DamageEffect(2)
                         },
                         new IEffect[]
                         {
-                            new ConsumeEffect(weapon)
+                            new ConsumeResourceEffect(new Resource(ResourceTypes.Arrows, 1))
                         },
                         "Attack_bow",
                         "SpearStab",
@@ -201,6 +229,32 @@ namespace Roli
             return item;
         }
 
+        public GameElement InvincibilityPotion()
+        {
+            var item = Potion("invincibility potion");
+            item.SetData(
+                new ASCIIStyle("¡"),
+                new ConsumableItem(3));
+            // Item has to be set consumable before creating the use item action
+            item.SetData(
+                new ItemActions(
+                    new UseItemAction("Drink", item, new ApplyStatusEffect(new Invincible()), new SFXEffect(SFXKeywords.Heal)))); //TODO
+            return item;
+        }
+
+        public GameElement StrengthPotion()
+        {
+            var item = Potion("strength potion");
+            item.SetData(
+                new ASCIIStyle("¡"),
+                new ConsumableItem(3));
+            // Item has to be set consumable before creating the use item action
+            item.SetData(
+                new ItemActions(
+                    new UseItemAction("Drink", item, new ApplyStatusEffect(new Strong()), new SFXEffect(SFXKeywords.Heal)))); //TODO
+            return item;
+        }
+
         public GameElement Poison()
         {
             var item = Potion("poison");
@@ -212,6 +266,16 @@ namespace Roli
                 new ItemActions(
                     new UseItemAction("Drink", item, new ApplyStatusEffect(new Poisoned())))); //TODO
             return item;
+        }
+
+        public GameElement Arrows()
+        {
+            return Resource(new Resource(ResourceTypes.Arrows, 6));
+        }
+
+        public GameElement Coins()
+        {
+            return Resource(new Resource(ResourceTypes.Coins, 10));
         }
     }
 }

@@ -14,3 +14,6 @@ v0.1.3:
 - Bugfix: Removed input prompt for non-player chaged actions.
 - New: Ability to select (and use selected) inventory slots added.
 - Full gamepad support implemented.
+- Item information display implemented.
+- Bugfix: Character movement tweening sometimes failing.
+- New item: Invincibility Potion

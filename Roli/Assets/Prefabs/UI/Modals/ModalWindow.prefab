@@ -187,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 60.625, y: 0}
+  m_AnchoredPosition: {x: 70.625, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3371023536877424504
@@ -241,10 +241,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
+    m_Left: 20
+    m_Right: 20
+    m_Top: 20
+    m_Bottom: 20
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -377,7 +377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4217727957069824962, guid: 859d64bf65802f44dabc49e59b3e8e6e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4217727957069824962, guid: 859d64bf65802f44dabc49e59b3e8e6e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -405,7 +405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7346692662822916834, guid: 859d64bf65802f44dabc49e59b3e8e6e, type: 3}
       propertyPath: m_margin.w
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7346692662822916834, guid: 859d64bf65802f44dabc49e59b3e8e6e, type: 3}
       propertyPath: m_margin.x
@@ -413,7 +413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7346692662822916834, guid: 859d64bf65802f44dabc49e59b3e8e6e, type: 3}
       propertyPath: m_margin.y
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7346692662822916834, guid: 859d64bf65802f44dabc49e59b3e8e6e, type: 3}
       propertyPath: m_margin.z
@@ -421,7 +421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7346692662822916834, guid: 859d64bf65802f44dabc49e59b3e8e6e, type: 3}
       propertyPath: m_fontStyle
-      value: 37
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 7346692662822916834, guid: 859d64bf65802f44dabc49e59b3e8e6e, type: 3}
       propertyPath: m_fontSizeBase

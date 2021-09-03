@@ -369,8 +369,11 @@ namespace Binding
             if (_ItemRepresentationMap.ContainsKey(item))
             {
                 var representation = _ItemRepresentationMap[item];
-                Destroy(representation);
-                representation.transform.SetParent(null);
+                if (representation != null)
+                {
+                    Destroy(representation);
+                    representation.transform.SetParent(null);
+                }
                 _ItemRepresentationMap.Remove(item);
                 return true;
             }

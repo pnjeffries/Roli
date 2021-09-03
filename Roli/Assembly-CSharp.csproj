@@ -53,12 +53,14 @@
     <UnityVersion>2020.2.7f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Input\DebugConsole.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\OrConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\MultiValueConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Extensions\StringExtensions.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\InvokeBoundFunction.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\TweenedDataBinding.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\TweenedMultiBinding.cs" />
+    <Compile Include="Assets\Bind-It\Scripts\Bindings\ActivationBinding.cs" />
     <Compile Include="Assets\Scripts\VFX\PlayAudioDelayed.cs" />
     <Compile Include="Assets\Nucleus\FromUnity.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\TriggerBindingBase.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Assets\Scripts\Binding\FogOfWarConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\MultiBindingBase.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\ConcatenateStringConverter.cs" />
+    <Compile Include="Assets\Scripts\VFX\AlphaPulse.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\IncrementBoundValue.cs" />
     <Compile Include="Assets\Scripts\StartUp\ResourceLoader.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\TypeTemplate.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Assets\Bind-It\Scripts\Bindings\MultiBinding.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Extensions\AssemblyExtensions.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\AllEqualConverter.cs" />
+    <Compile Include="Assets\Bind-It\Scripts\Base\ConverterBindingBase.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\GroupContainer.cs" />
     <Compile Include="Assets\Scripts\VFX\VFXCreator.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\NotNullConverter.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="Assets\Nucleus\NucleusAngleExtensions.cs" />
     <Compile Include="Assets\Scripts\VFX\VFXDestroyer.cs" />
     <Compile Include="Assets\Scripts\StartUp\ArtitectureTestSetup.cs" />
+    <Compile Include="Assets\Scripts\UI\LimitChildCount.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\CollectionBinding.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\ValueConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\AndConverter.cs" />
@@ -118,6 +123,8 @@
     <Compile Include="Assets\Scripts\VFX\ColorFlash.cs" />
     <Compile Include="Assets\Scripts\Binding\BarSizeConverter.cs" />
     <Compile Include="Assets\Scripts\Binding\TranslationConverter.cs" />
+    <Compile Include="Assets\Scripts\VFX\Shaker.cs" />
+    <Compile Include="Assets\Scripts\VFX\ScreenShakeTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Shapes\Shaders\Generated Shaders\Resources\Triangle Darken.shader" />

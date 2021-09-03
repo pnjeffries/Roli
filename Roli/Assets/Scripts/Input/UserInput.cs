@@ -28,7 +28,7 @@ public class UserInput : MonoBehaviour
     /// <summary>
     /// The amount of time before the key press will be repeated
     /// </summary>
-    public float RepeatTime = 0.3f;
+    public float RepeatTime = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +74,8 @@ public class UserInput : MonoBehaviour
         _KeyMapping.Add(KeyCode.KeypadDivide, InputFunction.DropSelected);
         _KeyMapping.Add(KeyCode.Backspace, InputFunction.DropSelected);
         _KeyMapping.Add(KeyCode.KeypadMultiply, InputFunction.ShowInfo);
+        _KeyMapping.Add(KeyCode.Tab, InputFunction.Debug);
+
         // Default axis mapping:
         _AxisMapping.Add("Vertical", new AxisFunctions(InputFunction.Up, InputFunction.Down));
         _AxisMapping.Add("Horizontal", new AxisFunctions(InputFunction.Right, InputFunction.Left));

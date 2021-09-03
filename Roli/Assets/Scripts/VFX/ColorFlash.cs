@@ -18,14 +18,18 @@ public class ColorFlash : MonoBehaviour
 
     private Color _Original;
 
+    public bool PlayOnStart = false;
+
     // Start is called before the first frame update
     void Start()
     {
         _Original = Text.color;
+        if (PlayOnStart) PlayFlash();
     }
 
     public void PlayFlash()
     {
+        StopAllCoroutines();
         StartCoroutine(Flash());
     }
 

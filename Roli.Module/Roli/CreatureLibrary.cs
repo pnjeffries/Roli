@@ -60,6 +60,24 @@ namespace Roli
         }
 
         /// <summary>
+        /// Generate a new creature element by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public GameElement ByName(string name)
+        {
+            name = name.Replace('_', ' ').Trim();
+            foreach (var create in AllEnemies)
+            {
+                // This is a bit inefficient, but Mono throws a wobbly
+                // if we try to access the Method name itself
+                var element = create.Key.Invoke();
+                if (element.Name.EqualsIgnoreCase(name)) return element;
+            }
+            return null;
+        }
+
+        /// <summary>
         /// The game's hero
         /// </summary>
         /// <returns></returns>
@@ -82,19 +100,23 @@ namespace Roli
                 new OpenDoorAbility(),
                 new Inventory(
                     // Item slots
-                    new ItemSlot("1", InputFunction.Ability_1, Items.Sword()),
+                    new ItemSlot("1", InputFunction.Ability_1, null),
                     new ItemSlot("2", InputFunction.Ability_2, null),
                     new ItemSlot("3", InputFunction.Ability_3, null),
                     new ItemSlot("4", InputFunction.Ability_4, null),
                     new ItemSlot("5", InputFunction.Ability_5, null),
                     new ItemSlot("6", InputFunction.Ability_6, null),
                     // Equippable slots
-                    new EquipmentSlot("Hands")),
+                    new EquipmentSlot("Hands"),
+                    // Resources
+                    new Resource(ResourceTypes.Coins, 0),
+                    new Resource(ResourceTypes.Arrows, 0)),
                  new PickUpAbility(),
                  new UseItemAbility(),
                  new Status(),
                  new DropAbility(),
-                 new ChangeSelectedItemAbility()
+                 new ChangeSelectedItemAbility(),
+                 new CritHitter() { BaseChance = 0.1}
                  );
         }
 
@@ -108,7 +130,8 @@ namespace Roli
                 new WaitAbility(),
                 new MoveCellAbility(),
                 new LogDescription("<color=#FF00FD>", "</color>"),
-                new Status()
+                new Status(),
+                new CritHitter() { BaseChance = 0.1 }
                 ) ;
         }
 
@@ -164,7 +187,9 @@ namespace Roli
                 new Inventory(
                     new ItemSlot("1", InputFunction.Ability_1, bow),
                     // Equippable slots
-                    new EquipmentSlot("Hands", bow)));
+                    new EquipmentSlot("Hands", bow),
+                    // Resources
+                    new Resource(ResourceTypes.Arrows, 6)));
             return result;
         }
 

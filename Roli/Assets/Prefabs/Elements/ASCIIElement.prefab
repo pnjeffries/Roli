@@ -192,9 +192,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Source: {fileID: 0}
   Path: Data[ASCIIStyle].Symbol
+  Converter: {fileID: -5589001841855201952}
   Target: {fileID: 4461835780981762062}
   TargetPath: text
-  Converter: {fileID: -5589001841855201952}
 --- !u!114 &4594789636359327545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +277,7 @@ MonoBehaviour:
   Cycles: 5
   FlashColour: {r: 0.8773585, g: 0, b: 0, a: 0.53333336}
   Text: {fileID: 4461835780981762062}
+  PlayOnStart: 0
 --- !u!114 &5350955787609023285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,9 +322,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Source: {fileID: 0}
   Path: Data[DirectionalItemUseAbility]
+  Converter: {fileID: -2166362447057984333}
   Target: {fileID: 8568810567688282059}
   TargetPath: Play
-  Converter: {fileID: -2166362447057984333}
 --- !u!114 &8568810567688282059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +371,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2513342750235525410}
+  - {fileID: 9111034947687155902}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -400,9 +402,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Source: {fileID: 0}
   Path: Data[MapData].Position
+  Converter: {fileID: 8122031764295337898}
   Target: {fileID: 4273979015719635022}
   TargetPath: position
-  Converter: {fileID: 8122031764295337898}
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -428,6 +430,64 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   Duration: 0.2
+--- !u!1 &8989420193130580170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9111034947687155902}
+  - component: {fileID: 3801726830253760567}
+  m_Layer: 0
+  m_Name: Status Effects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9111034947687155902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989420193130580170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4273979015719635022}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3801726830253760567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8989420193130580170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ae8d6cd5d287d44b24e644bb797338, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Source: {fileID: 0}
+  Path: Data[Status].Effects
+  ItemTemplates:
+  - _FullTypeName: 
+    TypeShortName: 
+    AllEnums: 0
+    Template: {fileID: 0}
+  - _FullTypeName: Nucleus.Game.Poisoned, Nucleus.Game, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    TypeShortName: 
+    AllEnums: 0
+    Template: {fileID: 6627630139461093398, guid: 8f1807ac8e977bd47b90f7a553924c6b, type: 3}
+  Group: 0
+  GroupPath: 
+  GroupTemplate: {fileID: 0}
 --- !u!114 &-5863260565291233284
 MonoBehaviour:
   m_ObjectHideFlags: 0

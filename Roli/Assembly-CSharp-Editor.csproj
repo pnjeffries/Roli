@@ -59,6 +59,7 @@
     <Compile Include="Assets\Bind-It\Editor\TweenedDataBindingEditor.cs" />
     <Compile Include="Assets\Bind-It\Editor\BindingEditorBase.cs" />
     <Compile Include="Assets\Bind-It\Editor\CollectionBindingEditor.cs" />
+    <Compile Include="Assets\Bind-It\Editor\ActivationBindingEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

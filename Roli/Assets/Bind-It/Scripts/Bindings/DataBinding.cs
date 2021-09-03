@@ -13,31 +13,19 @@ namespace Binding
     /// property to a field of a target component
     /// </summary>
     [AddComponentMenu("Binding/Data Binding")]
-    public class DataBinding : SingleBindingBase
+    public class DataBinding : ConverterBindingBase
     {
         /// <summary>
         /// The target Unity component to bind to
         /// </summary>
         [Tooltip("The target Unity component to bind to.")]
-        public Component Target;
+        public UnityEngine.Object Target;
 
         /// <summary>
         /// The path on the target component to bind to
         /// </summary>
         [Tooltip("The path on the target component to bind to.")]
         public string TargetPath;
-
-        /// <summary>
-        /// The converter to use to convert the bound value to the type of the target field and back again.
-        /// </summary>
-        [HideInInspector]
-        public ValueConverter Converter;
-
-        protected IValueConverter GetConverter()
-        {
-            if (Converter == null) return DefaultConverter.Instance;
-            return Converter;
-        }
 
         private ReflectionInfo _TargetInfo = null;
 

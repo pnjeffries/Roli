@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2932776126743895098, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2932776126743895098, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
       propertyPath: m_LocalPosition.x
@@ -97,15 +97,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7956568537038778593, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
       propertyPath: Path
-      value: GetType().Name
+      value: Description
       objectReference: {fileID: 0}
     - target: {fileID: 7956568537038778593, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
       propertyPath: Converter
       value: 
       objectReference: {fileID: 3170871762532409063}
     - target: {fileID: 7988028927643983647, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
+      propertyPath: m_VerticalFit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988028927643983647, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
       propertyPath: m_HorizontalFit
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8633263524022717722, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8633263524022717722, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
       propertyPath: m_fontSize
@@ -121,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8633263524022717722, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
       propertyPath: m_fontStyle
-      value: 32
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8633263524022717722, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
       propertyPath: m_lineSpacing
@@ -135,6 +143,18 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 24
       objectReference: {fileID: 0}
+    - target: {fileID: 8633263524022717722, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 8633263524022717722, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8633263524022717722, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6393bafc6758745a475b36d247d461, type: 3}
 --- !u!114 &3170871762532409063
@@ -147,5 +167,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8fcccd684ff5724e8794ba554a8ee8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3413388018463334886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0e0f9529706064cab304aea4ffb7b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

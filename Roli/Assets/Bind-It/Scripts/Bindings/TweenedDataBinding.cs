@@ -17,9 +17,16 @@ namespace Binding
         [Tooltip("The duration of the tween, in seconds.")]
         public float Duration = 1.0f;
 
+        protected override void InitialiseBinding()
+        {
+            // Set initial position without tweening
+            base.UpdateTargetValue();
+        }
+
         public override void UpdateTargetValue()
         {
             if (Target == null) return;
+            StopAllCoroutines(); //Stop any previous tweens
             StartCoroutine(Tween());
         }
 

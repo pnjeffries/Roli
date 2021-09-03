@@ -15,6 +15,9 @@ Aborted.
 ~~~AOEAttackAction_Target
 {PERSON(1|I am|You are|A {SUBJECT(1)} is)} {RANDOM(hit|struck)}!
 
+~~~AOEAttackAction_Target_Crit
+Critical hit on {PERSON(1|me|you|a {SUBJECT(1)})}!
+
 ~~~Attack_bow
 ...{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(release|fire)}{PERSON(0||s)} an arrow!
 ...An arrow flies from {PERSON(0|my|your|the {SUBJECT(0)}'s)} bow!
@@ -35,6 +38,9 @@ Aborted.
 ~~~BumpAttackAction
 {PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(hit|strike|attack)}{PERSON(0||s)} {PERSON(1|me|you|a {SUBJECT(1)})}.
 
+~~~BumpAttackAction_Crit
+Critical hit!
+
 ~~~DropItemAction
 {PERSON(0|I|You|A {SUBJECT(0)})} drop{PERSON(0||s)} {PERSON(1|me|you|a {SUBJECT(1)})}.
 
@@ -54,6 +60,9 @@ The {SUBJECT(1)} creaks open.
 ~~~PickUpAction
 {PERSON(0|I|You|A {SUBJECT(0)})} pick{PERSON(0||s)} up {PERSON(1|me|you|a {SUBJECT(1)})}.
 
+~~~ResourceAction_Fail
+{PERSON(0|I don't|You don't|The {SUBJECT(0)} doesn't)} have enough {SUBJECT(1|ResourceType)}.
+{PERSON(0|I am|You are|The {SUBJECT(0)} is)} out of {SUBJECT(1|ResourceType)}. 
 
 ~~~WindUp_bow
 {PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to fire...
@@ -75,11 +84,17 @@ The {SUBJECT(1)} creaks open.
 // EFFECTS
 // =======
 
+~~~ApplyStatusEffect_Invincible
+{PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|It)} is)} enveloped in a protective aura!
+
 ~~~ApplyStatusEffect_Poisoned
 {PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|It)} is)} poisoned!
 
 ~~~ApplyStatusEffect_Shielded
 {PERSON(1|I|You|The {SUBJECT(1)})} raise{PERSON(1||s)} {PERSON(1|my|your|{GENDER(1|its|his|her)})} shield.
+
+~~~ApplyStatusEffect_Strong
+{PERSON(1|My|Your|The {SUBJECT(1)}'s)} muscles swell with might!
 
 ~~~Consumed
 {PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|It)} is)} {RANDOM(finished|used up)}.
@@ -138,9 +153,15 @@ Equippable
 ~~~ItemActions_Keyword
 Usable
 
+~~~ResourcePickUp_Keyword
+Resource
+
 // =================
 // ITEM DESCRIPTIONS
 // =================
+
+~~~arrows_Description
+Used as ammunition for bows.
 
 ~~~bow_ActionHeader
 Charged Attack: Shoot
@@ -155,10 +176,19 @@ A low-tech but effective missile weapon designed to launch pointy sticks at high
 Drink
 
 ~~~health potion_ActionDescription
-Take a sip from the bottle to soothe your wounds.
+Take a sip from the bottle to soothe your wounds.  Gain +1HP.  Cures poison.
 
 ~~~health potion_Description
 This sparkling elixir will heal your wounds and soothe your worries away.  Refreshing and lemony.
+
+~~~invincibility potion_ActionHeader
+Drink
+
+~~~invincibility potion_ActionDescription
+Take a sip from the bottle to gain temporary invulnerability.
+
+~~~invincibility potion_Description
+This magical draught will protect you from all damage for a limited time.
 
 ~~~mace_ActionHeader
 Charged Attack: Smash
@@ -170,7 +200,7 @@ A stout metal stick.  For hitting things and making them go away.
 Block
 
 ~~~shield_ActionDescription
-Raise the shield.  Resist all incoming phyiscal damage until your next turn.
+Raise the shield.  Resist all incoming physical damage until your next turn.
 
 ~~~shield_Description
 A robust metal shield.
@@ -178,14 +208,29 @@ A robust metal shield.
 ~~~spear_ActionHeader
 Charged Attack: Thrust
 
+~~~spear_ActionDescription
+Has a reach of 2 tiles.
+
 ~~~spear_Description
 A polearm with a pointy end.  Reaches the places other weapons can't.
+
+~~~strength potion_ActionHeader
+Drink
+
+~~~strength potion_ActionDescription
+Take a sip from the bottle to temporarily boost your strength, increasing knockback distance.
+
+~~~strength potion_Description
+This thick syrupy potion grants great strength for a short period of time.
 
 ~~~sword_ActionHeader
 Charged Attack: Power Slash
 
 ~~~sword_Description
 A sturdy metal sword.  The blunt bit goes in your hand and the sharp bit goes in your enemies.
+
+~~~Consumable_Uses
+{SUBJECT(0)} uses left.
 
 // ============
 // ITEM HEADERS

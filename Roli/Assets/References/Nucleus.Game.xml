@@ -89,6 +89,16 @@
             <param name="effect"></param>
             <param name="trigger"></param>
         </member>
+        <member name="T:Nucleus.Game.ResourceAction">
+            <summary>
+            An abstract base action which requires a resource 
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ResourceAction.ResourceRequired">
+            <summary>
+            The resource required to execute this action
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.ExitStageAction">
             <summary>
             Action which allows an actor to move between stages
@@ -755,6 +765,12 @@
             <param name="context"></param>
             <returns></returns>
         </member>
+        <member name="T:Nucleus.Game.Components.IInventoryContainer">
+            <summary>
+            Interface for things which act as containers for other items/resources 
+            in an inventory
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.Components.IOutOfTurnMove">
             <summary>
             Interface for components which should be processed when
@@ -767,6 +783,87 @@
             turn order
             </summary>
             <param name="context"></param>
+        </member>
+        <member name="T:Nucleus.Game.Components.ResourceCollection">
+            <summary>
+            A collection of resources
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Components.ResourceCollection.AddResourceQuantity(Nucleus.Game.Resource)">
+            <summary>
+            Add the specified resource to the collection.
+            If an entry of the given type already exists in the collection,
+            the quantities will be combined instead.  If the maximum resource
+            is capped the remainder will be returned.
+            </summary>
+            <param name="resource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Components.ResourceCollection.ResourceQuantity(Nucleus.Game.ResourceType)">
+            <summary>
+            Find the quantity of the specified resourceType held in this collection
+            </summary>
+            <param name="resourceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Components.ResourceCollection.HasResourceQuantity(Nucleus.Game.Resource)">
+            <summary>
+            Does this collection contain at least the specified amount of the
+            specified resource?
+            </summary>
+            <param name="resource"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Components.ResourceCollection.ReduceResourceQuantity(Nucleus.Game.ResourceType,System.Int32)">
+            <summary>
+            Reduce the quantity of the specified resource in this collection by the specified
+            amount.
+            </summary>
+            <param name="resourceType"></param>
+            <param name="amount"></param>
+            <returns>True if sufficient quantity of resource existed in the collection to meet the full amount</returns>
+        </member>
+        <member name="M:Nucleus.Game.Components.ResourceCollection.DropResource(Nucleus.Game.Resource,Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+            <summary>
+            Drop a specified amount of resource from that held in this collection.
+            If the full amount cannot be dropped as much as is held will be dropped instead.
+            </summary>
+            <param name="resource"></param>
+            <param name="dropper"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Components.ResourceCollection.DropAll(Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+            <summary>
+            Drop all resources held in this collection
+            </summary>
+            <param name="dropper"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.CritHitter">
+            <summary>
+            Component which allows the element to which it is attached to perform critical hits
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.CritHitter.BaseChance">
+            <summary>
+            The base chance of this element performing a critical hit
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.CritHitter.CombinedCritChance(Nucleus.Game.EffectContext)">
+            <summary>
+            Determine the overall critical success chance
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.CritHitter.RollToCrit(Nucleus.Game.EffectContext)">
+            <summary>
+            Roll randomly to determine whether a critical success has been achieved
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
         </member>
         <member name="T:Nucleus.Game.DamageVulnerabilities">
             <summary>
@@ -868,6 +965,34 @@
             <summary>
             Can this slot hold the specified item?
             </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.ICritChanceModifier">
+            <summary>
+            Interface for components, status effects, items etc. that
+            modify critical hit chance
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ICritChanceModifier.ModifyCritChance(System.Double,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Modify a critical success chance
+            </summary>
+            <param name="critChance"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.IKnockbackModifier">
+            <summary>
+            Interface for components, items, status effects etc. which modify
+            the amount of knockback done by an actor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.IKnockbackModifier.ModifyKnockback(System.Int32,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Modify the specified base knockback
+            </summary>
+            <param name="knockback"></param>
+            <param name="log"></param>
+            <param name="context"></param>
             <returns></returns>
         </member>
         <member name="T:Nucleus.Game.ItemSlot">
@@ -1436,12 +1561,18 @@
             The currently selected item slot
             </summary>
         </member>
+        <member name="P:Nucleus.Game.Inventory.Resources">
+            <summary>
+            The resources within this inventory.  These are stackable items such 
+            as money and ammunition which do not take up an inventory slot.
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.Inventory.#ctor">
             <summary>
             Default constructor
             </summary>
         </member>
-        <member name="M:Nucleus.Game.Inventory.#ctor(Nucleus.Game.ItemSlot[])">
+        <member name="M:Nucleus.Game.Inventory.#ctor(Nucleus.Game.Components.IInventoryContainer[])">
             <summary>
             Slots constructor.
             Any EquipmentSlots will form part of the Equipped collection,
@@ -1459,7 +1590,7 @@
         </member>
         <member name="M:Nucleus.Game.Inventory.DropAll(Nucleus.Model.Element,Nucleus.Game.EffectContext)">
             <summary>
-            Drop all items in this
+            Drop all items and resourrces in this inventory
             </summary>
             <param name="dropper"></param>
             <param name="context"></param>
@@ -1467,11 +1598,27 @@
         </member>
         <member name="M:Nucleus.Game.Inventory.DropItem(Nucleus.Model.Element,Nucleus.Model.Element,Nucleus.Game.EffectContext)">
             <summary>
-            Drop a specifiec item held in this inventory
+            Drop a specified item held in this inventory
             </summary>
             <param name="item"></param>
             <param name="dropper"></param>
             <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.DropResource(Nucleus.Game.Resource,Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+            <summary>
+            Drop a quantity of a specified resource
+            </summary>
+            <param name="resource"></param>
+            <param name="dropper"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.RemoveResource(Nucleus.Game.Resource)">
+            <summary>
+            Remove the specified amount of a resource from this inventory (if possible)
+            </summary>
+            <param name="resource"></param>
             <returns></returns>
         </member>
         <member name="M:Nucleus.Game.Inventory.RemoveItem(Nucleus.Model.Element)">
@@ -1679,183 +1826,12 @@
             <param name="damageType"></param>
             <param name="knockback"></param>
         </member>
-        <member name="T:Nucleus.Game.StageExit">
+        <member name="T:Nucleus.Game.Effects.ApplyActorStatusEffect">
             <summary>
-            A component which tags an object as a gate between different stages
+            Effect which applies a status effect to the actor when a target
+            is valid.  Used in preference to a standard SelfEffect when the
+            status to be applied works per target hit (for example, with combos)
             </summary>
-        </member>
-        <member name="F:Nucleus.Game.StageExit._TravelTo">
-            <summary>
-            Private backing member variable for the TravelTo property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.StageExit.TravelTo">
-            <summary>
-            The stage which this exit allows travel to
-            </summary>
-        </member>
-        <member name="F:Nucleus.Game.StageExit._CellIndex">
-            <summary>
-            Private backing member variable for the CellIndex property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.StageExit.CellIndex">
-            <summary>
-            The index of the cell to move to in the next stage
-            </summary>
-        </member>
-        <member name="T:Nucleus.Game.Status">
-            <summary>
-            Element status effects
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.Status.Effects">
-            <summary>
-            Get the current collection of status effects acting on the parent object
-            </summary>
-        </member>
-        <member name="M:Nucleus.Game.Status.#ctor">
-            <summary>
-            Default constructor
-            </summary>
-        </member>
-        <member name="M:Nucleus.Game.Status.#ctor(Nucleus.Game.IStatusEffect[])">
-            <summary>
-            Initial status effects constructor
-            </summary>
-            <param name="effects"></param>
-        </member>
-        <member name="M:Nucleus.Game.Status.AddEffect(Nucleus.Game.IStatusEffect)">
-            <summary>
-            Apply a new status effect to the parent element
-            </summary>
-            <param name="statusEffect"></param>
-        </member>
-        <member name="M:Nucleus.Game.Status.ClearEffects``1">
-            <summary>
-            Clear all effects of the specified type from the status
-            </summary>
-            <typeparam name="TEffect"></typeparam>
-            <returns>True if any effects were successfully removed</returns>
-        </member>
-        <member name="M:Nucleus.Game.Status.GetEffect(System.Type)">
-            <summary>
-            Get the first status effect of the specified type currently
-            applied to this component
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nucleus.Game.Status.Defend(Nucleus.Game.Damage,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
-            <summary>
-            Adjust the specified damage value based on this defense
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Nucleus.Game.TemporaryStatus">
-            <summary>
-            A base class for status ailments or buffs which are temporary in
-            nature and will expire after a number of turns.
-            </summary>
-        </member>
-        <member name="F:Nucleus.Game.TemporaryStatus._LifeSpan">
-            <summary>
-            Private backing member variable for the LifeSpan property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.TemporaryStatus.LifeSpan">
-            <summary>
-            The number of turns remaining until this status effect should end.
-            </summary>
-        </member>
-        <member name="T:Nucleus.Game.TurnCounter">
-            <summary>
-            Element data component which indicates that an element is able to take
-            a turn, either directed by the player or by AI, and keeps track of the
-            order in which these turns are taken.
-            </summary>
-        </member>
-        <member name="F:Nucleus.Game.TurnCounter._CountDown">
-            <summary>
-            Private backing member variable for the CountDown property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.TurnCounter.CountDown">
-            <summary>
-            The count down until the element can take its next turn
-            </summary>
-        </member>
-        <member name="F:Nucleus.Game.TurnCounter._Speed">
-            <summary>
-            Private backer for speed
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.TurnCounter.Speed">
-            <summary>
-            The relative speed of action of the element
-            </summary>
-        </member>
-        <member name="T:Nucleus.Game.UseItemAbility">
-            <summary>
-            Ability which enables the use of items
-            </summary>
-        </member>
-        <member name="T:Nucleus.Game.VisionBlocker">
-            <summary>
-            An element data component that can be used to indicate that a cell blocks vision
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.VisionBlocker.Opaque">
-            <summary>
-            Is this vision blocker currently blocking vision?
-            </summary>
-        </member>
-        <member name="M:Nucleus.Game.VisionBlocker.IsTransparent(Nucleus.Model.Element)">
-            <summary>
-            Does this block LOS to the specified element
-            </summary>
-            <param name="toElement"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Nucleus.Game.WaitAbility">
-            <summary>
-            Ability data component which allows an element to take a 'wait' action
-            </summary>
-        </member>
-        <member name="T:Nucleus.Game.ActorOrientationEffect">
-            <summary>
-            Effect which changes the actor's orientation
-            </summary>
-        </member>
-        <member name="F:Nucleus.Game.ActorOrientationEffect._OrientTo">
-            <summary>
-            Private backing member variable for the OrientTo property
-            </summary>
-        </member>
-        <member name="P:Nucleus.Game.ActorOrientationEffect.OrientTo">
-            <summary>
-            The orientation angle (anticlockwise from +X) to set
-            </summary>
-        </member>
-        <member name="M:Nucleus.Game.ActorOrientationEffect.#ctor(Nucleus.Model.Element,Nucleus.Geometry.MapCell)">
-            <summary>
-            Creates an orientation effect such that the specified element would
-            face towards the specified cell
-            </summary>
-            <param name="actor"></param>
-            <param name="cell"></param>
-        </member>
-        <member name="M:Nucleus.Game.ActorOrientationEffect.#ctor(Nucleus.Geometry.Vector)">
-            <summary>
-            Creates an orientation effect to face in the specified direction
-            </summary>
-            <param name="direction"></param>
-        </member>
-        <member name="M:Nucleus.Game.ActorOrientationEffect.#ctor(Nucleus.Game.ActorOrientationEffect)">
-            <summary>
-            Duplication constructor
-            </summary>
-            <param name="other"></param>
         </member>
         <member name="T:Nucleus.Game.Effects.AddAbilityEffect">
             <summary>
@@ -1909,6 +1885,11 @@
             Duplication constructor
             </summary>
             <param name="other"></param>
+        </member>
+        <member name="T:Nucleus.Game.Effects.ConsumeResourceEffect">
+            <summary>
+            Effect which consumes a resource
+            </summary>
         </member>
         <member name="T:Nucleus.Game.Effects.DropItemEffect">
             <summary>
@@ -1990,23 +1971,313 @@
             Effect which displays item information to the user via a modal window
             </summary>
         </member>
+        <member name="P:Nucleus.Game.Effects.ShowItemInfoEffect.Item">
+            <summary>
+            The item to show info for.  If left null the selected item from the
+            actor's inventory will be displayed instead.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Effects.ShowItemInfoEffect.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Effects.ShowItemInfoEffect.#ctor(Nucleus.Model.Element)">
+            <summary>
+            Item constructor
+            </summary>
+            <param name="item"></param>
+        </member>
         <member name="M:Nucleus.Game.Effects.ShowItemInfoEffect.#ctor(Nucleus.Game.Effects.ShowItemInfoEffect)">
             <summary>
             Duplication constructor
             </summary>
             <param name="other"></param>
         </member>
-        <member name="T:Nucleus.Game.Effects.StatusEffects.IDefense">
+        <member name="T:Nucleus.Game.Combo">
             <summary>
-            Interface for status effects, items etc. that
-            defend against damage
+            Status effect which describes the state of having scored multiple hits
+            in quick succession
             </summary>
         </member>
-        <member name="M:Nucleus.Game.Effects.StatusEffects.IDefense.Defend(Nucleus.Game.Damage,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+        <member name="P:Nucleus.Game.Combo.Hits">
+            <summary>
+            The number of hits in this combo
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Combo.Description">
+            <summary>
+            Description of the combo
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Strong">
+            <summary>
+            Status effect which increases knockback power
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Resource">
+            <summary>
+            A specific quantity of a specific type of collectable resource
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Resource.ResourceType">
+            <summary>
+            Get the type of resource this represents
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Resource.Quantity">
+            <summary>
+            The quantity of the resource
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Resource.CreatePickup">
+            <summary>
+            Create a game element to represent a pickup for this resource
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.ResourcePickUp">
+            <summary>
+            Pickup item which represents a quantity of a certain resource
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ResourcePickUp.Resource">
+            <summary>
+            The resource represented by this pickup
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.ResourceType">
+            <summary>
+            Represents a type of resource.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ResourceType.Symbol">
+            <summary>
+            The shorthand symbol used to represent the resource type
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ResourceType.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Nucleus.Game.ResourceType.#ctor(System.String,System.String)">
+            <summary>
+            Name + symbol constructor
+            </summary>
+            <param name="name"></param>
+            <param name="symbol"></param>
+        </member>
+        <member name="T:Nucleus.Game.StageExit">
+            <summary>
+            A component which tags an object as a gate between different stages
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.StageExit._TravelTo">
+            <summary>
+            Private backing member variable for the TravelTo property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StageExit.TravelTo">
+            <summary>
+            The stage which this exit allows travel to
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.StageExit._CellIndex">
+            <summary>
+            Private backing member variable for the CellIndex property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StageExit.CellIndex">
+            <summary>
+            The index of the cell to move to in the next stage
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Status">
+            <summary>
+            Element status effects
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Status.Effects">
+            <summary>
+            Get the current collection of status effects acting on the parent object
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Status.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Status.#ctor(Nucleus.Game.IStatusEffect[])">
+            <summary>
+            Initial status effects constructor
+            </summary>
+            <param name="effects"></param>
+        </member>
+        <member name="M:Nucleus.Game.Status.AddEffect(Nucleus.Game.IStatusEffect)">
+            <summary>
+            Apply a new status effect to the parent element
+            </summary>
+            <param name="statusEffect"></param>
+        </member>
+        <member name="M:Nucleus.Game.Status.ClearEffects``1">
+            <summary>
+            Clear all effects of the specified type from the status
+            </summary>
+            <typeparam name="TEffect"></typeparam>
+            <returns>True if any effects were successfully removed</returns>
+        </member>
+        <member name="M:Nucleus.Game.Status.GetEffect(System.Type)">
+            <summary>
+            Get the first status effect of the specified type currently
+            applied to this component
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Status.Defend(Nucleus.Game.Damage,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
             <summary>
             Adjust the specified damage value based on this defense
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Status.ModifyCritChance(System.Double,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Adjust a critical 
+            </summary>
+            <param name="critChance"></param>
+            <param name="log"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.TemporaryStatus">
+            <summary>
+            A base class for status ailments or buffs which are temporary in
+            nature and will expire after a number of turns.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.TemporaryStatus._LifeSpan">
+            <summary>
+            Private backing member variable for the LifeSpan property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TemporaryStatus.LifeSpan">
+            <summary>
+            The number of turns remaining until this status effect should end.
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.TurnCounter">
+            <summary>
+            Element data component which indicates that an element is able to take
+            a turn, either directed by the player or by AI, and keeps track of the
+            order in which these turns are taken.
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.TurnCounter._CountDown">
+            <summary>
+            Private backing member variable for the CountDown property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TurnCounter.CountDown">
+            <summary>
+            The count down until the element can take its next turn
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.TurnCounter._Speed">
+            <summary>
+            Private backer for speed
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.TurnCounter.Speed">
+            <summary>
+            The relative speed of action of the element
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.UseItemAbility">
+            <summary>
+            Ability which enables the use of items
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.VisionBlocker">
+            <summary>
+            An element data component that can be used to indicate that a cell blocks vision
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.VisionBlocker.Opaque">
+            <summary>
+            Is this vision blocker currently blocking vision?
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.VisionBlocker.IsTransparent(Nucleus.Model.Element)">
+            <summary>
+            Does this block LOS to the specified element
+            </summary>
+            <param name="toElement"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.WaitAbility">
+            <summary>
+            Ability data component which allows an element to take a 'wait' action
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Debug.DebugCommandLibrary">
+            <summary>
+            A class of debug commands which can be invoked to aid with testing and debugging
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Debug.DebugCommandLibrary.reset">
+            <summary>
+            Reset the game engine
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Debug.DebugCommandLibraryExtensions">
+            <summary>
+            Extension methods for DebugCommandLibrary
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Debug.DebugCommandLibraryExtensions.RunCommand``1(``0,System.String)">
+            <summary>
+            Attempt to execute the command string
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="debug"></param>
+            <param name="command"></param>
+        </member>
+        <member name="T:Nucleus.Game.ActorOrientationEffect">
+            <summary>
+            Effect which changes the actor's orientation
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.ActorOrientationEffect._OrientTo">
+            <summary>
+            Private backing member variable for the OrientTo property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ActorOrientationEffect.OrientTo">
+            <summary>
+            The orientation angle (anticlockwise from +X) to set
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ActorOrientationEffect.#ctor(Nucleus.Model.Element,Nucleus.Geometry.MapCell)">
+            <summary>
+            Creates an orientation effect such that the specified element would
+            face towards the specified cell
+            </summary>
+            <param name="actor"></param>
+            <param name="cell"></param>
+        </member>
+        <member name="M:Nucleus.Game.ActorOrientationEffect.#ctor(Nucleus.Geometry.Vector)">
+            <summary>
+            Creates an orientation effect to face in the specified direction
+            </summary>
+            <param name="direction"></param>
+        </member>
+        <member name="M:Nucleus.Game.ActorOrientationEffect.#ctor(Nucleus.Game.ActorOrientationEffect)">
+            <summary>
+            Duplication constructor
+            </summary>
+            <param name="other"></param>
         </member>
         <member name="T:Nucleus.Game.BasicEffect">
             <summary>
@@ -2026,6 +2297,11 @@
         <member name="P:Nucleus.Game.DamageEffect.Damage">
             <summary>
             The value of the damage to be inflicted
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.ResourceElement">
+            <summary>
+            A special subtype of GameElement which represents a resource.
             </summary>
         </member>
         <member name="T:Nucleus.Game.DamageType">
@@ -2098,6 +2374,11 @@
         <member name="P:Nucleus.Game.EffectContext.RNG">
             <summary>
             The random number generator to be used to resolve stochastic effects
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.EffectContext.Critical">
+            <summary>
+            Is this effect part of a critical success?
             </summary>
         </member>
         <member name="M:Nucleus.Game.EffectContext.CloneWithTarget(Nucleus.Model.Element)">
@@ -2293,6 +2574,23 @@
             A SFX effect that produces an effect at a point on the target
             </summary>
         </member>
+        <member name="T:Nucleus.Game.IDefense">
+            <summary>
+            Interface for components, status effects, items etc. that
+            defend against damage
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.IDefense.Defend(Nucleus.Game.Damage,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Adjust the specified damage value based on this defense
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.Invincible">
+            <summary>
+            Temporary invincibility
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.IStatusEffect">
             <summary>
             Interface for status effects
@@ -2303,6 +2601,23 @@
             The time remaining for this status effect.
             Should be set to double.NaN for those which
             will apply indefinitely.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.IStatusEffect.Description">
+            <summary>
+            The description string for the status effect (usually the effect's name)
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.IStatusEffect.Merge(Nucleus.Game.IStatusEffect)">
+            <summary>
+            Merge another status effect into this one
+            </summary>
+            <param name="other"></param>
+        </member>
+        <member name="T:Nucleus.Game.Poisoned">
+            <summary>
+            Poisoned status effect.
+            Does damage over time.
             </summary>
         </member>
         <member name="P:Nucleus.Game.Poisoned.TimeRemaining">
@@ -2335,6 +2650,11 @@
             The time remaining for this status effect.
             Should be set to double.NaN for those which
             will apply indefinitely.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StatusEffect.Description">
+            <summary>
+            The description of this status effect
             </summary>
         </member>
         <member name="M:Nucleus.Game.StatusEffect.#ctor">
@@ -2535,6 +2855,11 @@
         <member name="F:Nucleus.Game.InputFunction.UseSelected">
             <summary>
             Use the selected menu item
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.InputFunction.Debug">
+            <summary>
+            Toggle debug mode
             </summary>
         </member>
         <member name="T:Nucleus.Game.InputFunctionExtensions">
@@ -2744,6 +3069,11 @@
             A 'bash' effect when one object strikes another
             </summary>
         </member>
+        <member name="F:Nucleus.Game.SFXKeywords.CritBash">
+            <summary>
+            A 'bash' effect when a critical hit is performed
+            </summary>
+        </member>
         <member name="F:Nucleus.Game.SFXKeywords.Dust">
             <summary>
             A dusty 'footprint' effect
@@ -2860,6 +3190,11 @@
             <summary>
             Get the currently active modal window which has input
             focus.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.ModalState.IsModalOpen">
+            <summary>
+            Is any modal open?
             </summary>
         </member>
         <member name="M:Nucleus.Game.ModalState.OpenModal(Nucleus.Modals.ModalWindow)">
@@ -3084,7 +3419,15 @@
             </summary>
             <param name="context"></param>
         </member>
-        <member name="M:Nucleus.Game.GameAction.ApplyEffects(Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+        <member name="M:Nucleus.Game.GameAction.RollToCrit(Nucleus.Game.EffectContext)">
+            <summary>
+            Test whether this set of effects from this action should be
+            treated as a critical success.
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.GameAction.ApplyEffects(Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext,System.Boolean)">
             <summary>
             Apply the effects of the action to the target
             </summary>
@@ -3234,6 +3577,22 @@
             The collection of currently active game elements
             </summary>
         </member>
+        <member name="F:Nucleus.Game.GameState._DebugModeOn">
+            <summary>
+            Private backing field for DebugModeOn
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameState.DebugModeOn">
+            <summary>
+            Is debug mode currently active?  Debug mode enables extra developer functionality
+            to aid with testing and debugging
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.GameState.DebugCommands">
+            <summary>
+            Get the current library of debug commands
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.GameState.StartUp">
             <summary>
             Perform state initialisation
@@ -3259,6 +3618,12 @@
             <param name="input">The input function pressed</param>
             <param name="direction">The direction associated with the input,
             if applicable.</param>
+        </member>
+        <member name="M:Nucleus.Game.GameState.RunDebugCommand(System.String)">
+            <summary>
+            Run a debug command
+            </summary>
+            <param name="command"></param>
         </member>
         <member name="T:Nucleus.Game.IEffect">
             <summary>

@@ -36,33 +36,38 @@ namespace Binding
         {
             base.BasicProperties();
 
-            DataBinding binding = target as DataBinding;
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DataBinding.Target)));
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(DataBinding.TargetPath)), GUILayout.ExpandWidth(true));
-
-            var targetPaths = new List<string>();
-            if (binding.Target != null)
+            var targetPathProp = serializedObject.FindProperty(nameof(DataBinding.TargetPath));
+            if (targetPathProp != null)
             {
-                var targetType = binding.Target.GetType();
-                var members = targetType.GetMembers();
-                foreach (var member in members)
+                DataBinding dbinding = target as DataBinding;
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.PropertyField(targetPathProp, GUILayout.ExpandWidth(true));
+
+                var targetPaths = new List<string>();
+                if (dbinding.Target != null)
                 {
-                    if ((member is FieldInfo fInfo && !fInfo.IsInitOnly) || (member is PropertyInfo pInfo && pInfo.CanWrite))
+                    var targetType = dbinding.Target.GetType();
+                    var members = targetType.GetMembers();
+                    foreach (var member in members)
                     {
-                        targetPaths.Add(member.Name);
+                        if ((member is FieldInfo fInfo && !fInfo.IsInitOnly) || (member is PropertyInfo pInfo && pInfo.CanWrite))
+                        {
+                            targetPaths.Add(member.Name);
+                        }
                     }
                 }
+                var pathsArr = targetPaths.ToArray();
+                int pathIndex = EditorGUILayout.Popup(-1, pathsArr, GUILayout.Width(20));
+                if (pathIndex >= 0)
+                {
+                    dbinding.TargetPath = targetPaths[pathIndex];
+                }
+                EditorGUILayout.EndHorizontal();
             }
-            var pathsArr = targetPaths.ToArray();
-            int pathIndex = EditorGUILayout.Popup(-1, pathsArr, GUILayout.Width(20));
-            if (pathIndex >= 0)
-            {
-                binding.TargetPath = targetPaths[pathIndex];
-            }
-            EditorGUILayout.EndHorizontal();
 
+            var binding = target as ConverterBindingBase;
             // Converters:
             Type oldType = binding.Converter?.GetType();
             int index = Array.IndexOf(_Converters, oldType ?? typeof(DefaultConverter));
@@ -85,6 +90,7 @@ namespace Binding
         {
             base.GenerateWarningMessages(warnings);
             var binding = target as DataBinding;
+            if (binding == null) return;
 
             if (binding.Target == null)
             {
