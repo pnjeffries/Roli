@@ -453,6 +453,21 @@
             A collection of rooms
             </summary>
         </member>
+        <member name="T:Nucleus.Game.RoomMapCell">
+            <summary>
+            A MapCell which forms part of a particular Room
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomMapCell.Room">
+            <summary>
+            The room which contains this cell (if any)
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.RoomMapCell.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.RoomTemplateCollection">
             <summary>
             A collection of room templates
@@ -967,6 +982,21 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Nucleus.Game.IAddActionEffect">
+            <summary>
+            Interface for components, items etc. which add additional
+            effects to specific types of action
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.IAddActionEffect.AdditionalEffectsFor(Nucleus.Game.GameAction,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
+            <summary>
+            Generate a list of additional effects to be applied
+            for the specified action.  Returns null if the action is
+            of an incorrect type.
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Game.ICritChanceModifier">
             <summary>
             Interface for components, status effects, items etc. that
@@ -993,6 +1023,19 @@
             <param name="knockback"></param>
             <param name="log"></param>
             <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.ISpeedModifier">
+            <summary>
+            Interface for components, status effects, items etc.
+            which modify an actor's speed
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.ISpeedModifier.ModifySpeed(System.Double)">
+            <summary>
+            Adjust the specified speed value
+            </summary>
+            <param name="speed"></param>
             <returns></returns>
         </member>
         <member name="T:Nucleus.Game.ItemSlot">
@@ -2010,6 +2053,21 @@
             Description of the combo
             </summary>
         </member>
+        <member name="T:Nucleus.Game.Evoking">
+            <summary>
+            Status effect which represents evocation of a particular magical effect.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Evoking.Effects">
+            <summary>
+            The effects which this evocation will apply
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Quickened">
+            <summary>
+            A Quickened status effect which doubles the actor's speed
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.Strong">
             <summary>
             Status effect which increases knockback power
@@ -2191,8 +2249,16 @@
         </member>
         <member name="P:Nucleus.Game.TurnCounter.Speed">
             <summary>
-            The relative speed of action of the element
+            The relative base speed of action of the element
             </summary>
+        </member>
+        <member name="M:Nucleus.Game.TurnCounter.ResetCountdown(Nucleus.Model.Element,System.Int32)">
+            <summary>
+            Reset the turn countdown to the specified value, adjusted for
+            the given element's speed.
+            </summary>
+            <param name="element"></param>
+            <param name="value"></param>
         </member>
         <member name="T:Nucleus.Game.UseItemAbility">
             <summary>

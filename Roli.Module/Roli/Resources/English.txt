@@ -18,6 +18,10 @@ Aborted.
 ~~~AOEAttackAction_Target_Crit
 Critical hit on {PERSON(1|me|you|a {SUBJECT(1)})}!
 
+~~~Attack_axe
+...{PERSON(0|I|You|A {SUBJECT(0)})} swing{PERSON(0||s)} {PERSON(0|my|your|{GENDER(1|its|his|her)})} axe!
+...{PERSON(0|I|You|A {SUBJECT(0)})} chop{PERSON(0||s)} with {PERSON(0|my|your|{GENDER(1|its|his|her)})} axe!
+
 ~~~Attack_bow
 ...{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(release|fire)}{PERSON(0||s)} an arrow!
 ...An arrow flies from {PERSON(0|my|your|the {SUBJECT(0)}'s)} bow!
@@ -64,6 +68,10 @@ The {SUBJECT(1)} creaks open.
 {PERSON(0|I don't|You don't|The {SUBJECT(0)} doesn't)} have enough {SUBJECT(1|ResourceType)}.
 {PERSON(0|I am|You are|The {SUBJECT(0)} is)} out of {SUBJECT(1|ResourceType)}. 
 
+~~~WindUp_axe
+{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to strike...
+{PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|ready|readies)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} {RANDOM(axe|weapon)}...
+
 ~~~WindUp_bow
 {PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to fire...
 {PERSON(0|I|You|A {SUBJECT(0)})} draw{PERSON(0||s)} back {PERSON(0|my|your|{GENDER(0|its|his|her)})} bowstring...
@@ -89,6 +97,9 @@ The {SUBJECT(1)} creaks open.
 
 ~~~ApplyStatusEffect_Poisoned
 {PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|It)} is)} poisoned!
+
+~~~ApplyStatusEffect_Quickened
+{PERSON(1|I|You|The {SUBJECT(1)})} start{PERSON(1||s)} to speed up!
 
 ~~~ApplyStatusEffect_Shielded
 {PERSON(1|I|You|The {SUBJECT(1)})} raise{PERSON(1||s)} {PERSON(1|my|your|{GENDER(1|its|his|her)})} shield.
@@ -163,6 +174,12 @@ Resource
 ~~~arrows_Description
 Used as ammunition for bows.
 
+~~~axe_ActionHeader
+Charged Attack: Cleave
+
+~~~axe_Description
+A brutal war axe.
+
 ~~~bow_ActionHeader
 Charged Attack: Shoot
 
@@ -214,6 +231,16 @@ Has a reach of 2 tiles.
 ~~~spear_Description
 A polearm with a pointy end.  Reaches the places other weapons can't.
 
+~~~speed tonic_ActionHeader
+Drink
+
+~~~speed tonic_ActionDescription
+Take a sip from the bottle to gain a temporary speed-boost.
+
+~~~speed tonic_Description
+This isotonic sports drink grants the user the ability to move much more quickly for a limited time.  Highly illegal.
+
+
 ~~~strength potion_ActionHeader
 Drink
 
@@ -245,6 +272,57 @@ Quick Attack
 
 ~~~Welcome
 {PERSON(0|I|You|A {SUBJECT(0)})} awake{PERSON(0||s)} to find {PERSON(0|myself|yourself|{GENDER(0|itself|himself|herself)})} in a strange place.
+
+// ===============
+// ROOM ATMOSPHERE
+// ===============
+
+// +++ CAVE +++
+
+~~~cavern_Atmosphere
+{PERSON(0|I|You|A {SUBJECT(0)})} find {PERSON(0|myself|yourself|{GENDER(0|itself|himself|herself)})} in a large natural {RANDOM(cavern|cave)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(enter|move|step)}{PERSON(0||s)} into a large natural {RANDOM(cavern|cave)}.
+Water drips down from the stalagtites above.
+Slime coats the cavern walls.
+
+~~~crevice_Atmosphere
+{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(enter|move|squeeze|duck)}{PERSON(0||s)} into a {RANDOM(narrow|tight|jagged|cramped)} {RANDOM(crevice|crack)}.
+
+// +++ DUNGEON +++
+
+~~~cell_Atmosphere
+{PERSON(0|I|You|A {SUBJECT(0)})} find {PERSON(0|myself|yourself|{GENDER(0|itself|himself|herself)})} in a {RANDOM(small|cramped)} {RANDOM(disused |dusty |dank |)}{RANDOM(chamber|room|cell)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(enter|move|step)}{PERSON(0||s)} into a {RANDOM(small|cramped)} {RANDOM(disused |dusty |dank |)}{RANDOM(chamber|room|cell)}.
+Bones crunch beneath {PERSON(0|my|your|the {SUBJECT(0)}'s)} feet.
+The walls here are covered in {RANDOM(tallymarks|graffiti)}.
+
+~~~corridor_Atmosphere
+{PERSON(0|I|You|A {SUBJECT(0)})} find {PERSON(0|myself|yourself|{GENDER(0|itself|himself|herself)})} in a {RANDOM(narrow|tight|cramped)} {RANDOM(corridor|passageway)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(enter|move|step)}{PERSON(0||s)} into a {RANDOM(narrow|tight|gloomy|cramped)} {RANDOM(corridor|passageway)}.
+{PERSON(0|My|Your|The {SUBJECT(0)}'s)} footsteps echo down the {RANDOM(corridor|passageway)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} press{PERSON(0||es)} on into the {RANDOM(gloom|darkness)}...
+{PERSON(0|I|You|A {SUBJECT(0)})} cautiously advance{PERSON(0||s)}...
+Water drips from the ceiling.
+
+~~~hall_Atmosphere
+{PERSON(0|I|You|A {SUBJECT(0)})} find {PERSON(0|myself|yourself|{GENDER(0|itself|himself|herself)})} in a{RANDOM( high | )}{RANDOM(hallway|passageway)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(enter|move|step)}{PERSON(0||s)} into a {RANDOM(narrow|tight|gloomy)} {RANDOM(hallway|passageway)}.
+{PERSON(0|My|Your|The {SUBJECT(0)}'s)} footsteps echo down the {RANDOM(hallway|passageway)}.
+The flagstones here have been worn down by the passage of many feet.
+
+~~~large room_Atmosphere
+{PERSON(0|I|You|A {SUBJECT(0)})} find {PERSON(0|myself|yourself|{GENDER(0|itself|himself|herself)})} in a large {RANDOM(chamber|room)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(enter|move|step)}{PERSON(0||s)} into a large {RANDOM(chamber|room)}.
+{RANDOM(Tattered|Ragged|Faded)} {RANDOM(tapestries|banners|paintings)} {RANDOM(hang from|decorate)} the walls here.
+The floor is strewn with the decayed remnants of ancient furniture.
+
+~~~room_Atmosphere
+{PERSON(0|I|You|A {SUBJECT(0)})} find {PERSON(0|myself|yourself|{GENDER(0|itself|himself|herself)})} in a small{RANDOM( disused | dusty | dank | )}{RANDOM(chamber|room)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(enter|move|step)}{PERSON(0||s)} into a small{RANDOM( disused | dusty | dank | )}{RANDOM(chamber|room)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} brush{PERSON(0||es)} aside a curtain of cobwebs.
+Deep scratches are carved into the stonework here.
+The smell of {RANDOM(decay|rot)} fills the air.
+Smashed {RANDOM(crates|boxes|containers|pots)} litter the floor.
 
 // =====
 // HINTS

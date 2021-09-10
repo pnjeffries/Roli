@@ -29,7 +29,10 @@ namespace Roli
             {
                 return new WeightedTable<Create>
                    (
-                        Sword, Mace, Spear, Bow, HealthPotion, Shield, InvincibilityPotion, StrengthPotion, Coins, Arrows // Poison,
+                        Sword, Axe, Mace, Spear, Bow, 
+                        HealthPotion, InvincibilityPotion, StrengthPotion, SpeedTonic,
+                        Shield,
+                        Coins, Arrows // Poison,
                    );
             }
         } 
@@ -128,6 +131,33 @@ namespace Roli
                         new EquipItemEffect(sword)
                         )));
             return sword;
+        }
+
+        /// <summary>
+        /// A standard axe
+        /// </summary>
+        /// <returns></returns>
+        public GameElement Axe()
+        {
+            var weapon = Weapon("axe");
+            weapon.SetData(
+                new ASCIIStyle("↑"),
+                new PrefabStyle("Axe"),
+                new QuickAttack(2, DamageType.Base, 1),
+                new ItemActions(
+                    new WindUpAction("WindUp_axe",
+                        new AOEAttackActionFactory(new IEffect[]
+                        {
+                            new SFXImpactEffect(),
+                            new KnockbackEffect(Vector.UnitX, 0),
+                            new DamageEffect(4)
+                        },
+                        "Attack_axe",
+                        "Slash",
+                        1, 0),
+                        new EquipItemEffect(weapon)
+                        )));
+            return weapon;
         }
 
         /// <summary>
@@ -239,6 +269,19 @@ namespace Roli
             item.SetData(
                 new ItemActions(
                     new UseItemAction("Drink", item, new ApplyStatusEffect(new Invincible()), new SFXEffect(SFXKeywords.Heal)))); //TODO
+            return item;
+        }
+
+        public GameElement SpeedTonic()
+        {
+            var item = Potion("speed tonic");
+            item.SetData(
+                new ASCIIStyle("¡"),
+                new ConsumableItem(3));
+            // Item has to be set consumable before creating the use item action
+            item.SetData(
+                new ItemActions(
+                    new UseItemAction("Drink", item, new ApplyStatusEffect(new Quickened()), new SFXEffect(SFXKeywords.Heal)))); //TODO
             return item;
         }
 

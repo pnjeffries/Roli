@@ -62,6 +62,7 @@
     <Compile Include="Assets\Bind-It\Scripts\Bindings\TweenedMultiBinding.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\ActivationBinding.cs" />
     <Compile Include="Assets\Scripts\VFX\PlayAudioDelayed.cs" />
+    <Compile Include="Assets\Scripts\VFX\ScreenShakeTrigger.cs" />
     <Compile Include="Assets\Nucleus\FromUnity.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\TriggerBindingBase.cs" />
     <Compile Include="Assets\Scripts\StartUp\StartUp.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Assets\Scripts\UI\LimitChildCount.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\CollectionBinding.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\ValueConverter.cs" />
+    <Compile Include="Assets\Scripts\VFX\Shaker.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Converters\AndConverter.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Bindings\EventTriggerBinding.cs" />
     <Compile Include="Assets\Bind-It\Scripts\Base\SingleBindingBase.cs" />
@@ -123,8 +125,6 @@
     <Compile Include="Assets\Scripts\VFX\ColorFlash.cs" />
     <Compile Include="Assets\Scripts\Binding\BarSizeConverter.cs" />
     <Compile Include="Assets\Scripts\Binding\TranslationConverter.cs" />
-    <Compile Include="Assets\Scripts\VFX\Shaker.cs" />
-    <Compile Include="Assets\Scripts\VFX\ScreenShakeTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Shapes\Shaders\Generated Shaders\Resources\Triangle Darken.shader" />

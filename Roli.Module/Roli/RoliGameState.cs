@@ -67,7 +67,7 @@ namespace Roli
             int mapX = 24;
             int mapY = 24;
             var stage = new MapStage();
-            var map = new SquareCellMap<MapCell>(mapX, mapY);
+            var map = new SquareCellMap<RoomMapCell>(mapX, mapY);
             stage.Map = map;
 
             var generator = DesignDungeon(map, style, exit != null);
@@ -78,7 +78,7 @@ namespace Roli
             return stage;
         }
 
-        public DungeonArtitect DesignDungeon(SquareCellMap<MapCell> map, RoliStageStyle style, bool includeExit, bool record = false)
+        public DungeonArtitect DesignDungeon(SquareCellMap<RoomMapCell> map, RoliStageStyle style, bool includeExit, bool record = false)
         {
             int mapX = map.SizeX;
             int mapY = map.SizeY;
@@ -103,7 +103,7 @@ namespace Roli
         private int BuildDungeon(SquareCellMap<BlueprintCell> blueprint, MapStage stage, RoliStageStyle style, StageExit exit)
         {
             int result = 0;
-            var map = stage.Map as SquareCellMap<MapCell>;
+            var map = stage.Map as SquareCellMap<RoomMapCell>;
             map.InitialiseCells();
 
             var features = new FeatureLibrary();
@@ -116,6 +116,7 @@ namespace Roli
             Random rng = new Random();
             for (int i = 0; i < blueprint.CellCount; i++)
             {
+                map.GetCell(i).Room = blueprint[i].Room;
                 CellGenerationType cGT = blueprint[i].GenerationType;
                 if (cGT.IsWall()) //|| cGT == CellGenerationType.Untouched)
                 {

@@ -5697,7 +5697,7 @@
             <param name="anyOf"></param>
             <returns></returns>
         </member>
-        <member name="M:Nucleus.Extensions.IListExtensions.ContainsAny``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:Nucleus.Extensions.IListExtensions.ContainsAny``1(System.Collections.Generic.IList{``0},System.Collections.IEnumerable)">
             <summary>
             Does this collection contain any of the specified values?
             </summary>
@@ -8599,6 +8599,15 @@
             <returns></returns>
         </member>
         <member name="M:Nucleus.Geometry.ICellMapExtensions.AdjacentCells``1(Nucleus.Geometry.ICellMap{``0},System.Int32)">
+            <summary>
+            Retrieve a list of all cells adjacent to the one with the specified index
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="map"></param>
+            <param name="cellIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.ICellMapExtensions.AdjacentCells``1(Nucleus.Geometry.ICellMap,System.Int32)">
             <summary>
             Retrieve a list of all cells adjacent to the one with the specified index
             </summary>

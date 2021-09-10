@@ -54,7 +54,7 @@ namespace Roli
         public RoliStageStyle Dungeon(string name)
         {
             var result = new RoliStageStyle(name,
-                Rooms.Corridor(), Rooms.Hall(), Rooms.StandardRoom(), Rooms.LargeRoom(), Rooms.Exit());
+                Rooms.Corridor(), Rooms.Hall(), Rooms.StandardRoom(), Rooms.LargeRoom(), Rooms.Exit(), Rooms.Cell());
             return result;
         }
 
