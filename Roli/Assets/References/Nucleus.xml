@@ -8701,6 +8701,16 @@
             <param name="condition"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Geometry.ICellMapExtensions.RandomIndexWhere``1(Nucleus.Geometry.ICellMap{``0},System.Func{``0,System.Boolean},System.Random)">
+            <summary>
+            Return a random cell index from this map which meets the specified conditions
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="map"></param>
+            <param name="condition"></param>
+            <param name="rng"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Geometry.ICellMapExtensions.FirstCellInDirectionWhere``1(Nucleus.Geometry.ICellMap,System.Int32,Nucleus.Geometry.Vector,System.Func{``0,System.Boolean},System.Int32,System.Boolean)">
             <summary>
             Keep moving through the grid in the specified direction until a cell is found which

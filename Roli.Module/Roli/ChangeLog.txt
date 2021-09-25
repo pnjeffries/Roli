@@ -1,4 +1,9 @@
-﻿v0.1.3.2:
+﻿v0.1.3.3:
+- Locked doors implemented.
+- New status effect: Weakened
+- Phantoms now apply Weakened status when they attack.
+
+v0.1.3.2:
 - Spear quick-attack knockback increased.
 - New weapon: Axe.
 - New potion: Speed Tonic.

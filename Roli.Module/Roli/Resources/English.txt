@@ -56,10 +56,8 @@ Critical hit!
 {PERSON(0|I|You|A {SUBJECT(0)})} descend{PERSON(0||s)}.
 
 ~~~OpenDoorAction
-{PERSON(0|I|You|A {SUBJECT(0)})} open{PERSON(0||s)} the {SUBJECT(1)}.
-{PERSON(0|I|You|A {SUBJECT(0)})} push{PERSON(0||es)} open the {SUBJECT(1)}.
-The {SUBJECT(1)} opens.
-The {SUBJECT(1)} creaks open.
+{PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|try|tries)} the {SUBJECT(1)}.
+{PERSON(0|I|You|A {SUBJECT(0)})} push{PERSON(0||es)} against the {SUBJECT(1)}.
 
 ~~~PickUpAction
 {PERSON(0|I|You|A {SUBJECT(0)})} pick{PERSON(0||s)} up {PERSON(1|me|you|a {SUBJECT(1)})}.
@@ -107,6 +105,9 @@ The {SUBJECT(1)} creaks open.
 ~~~ApplyStatusEffect_Strong
 {PERSON(1|My|Your|The {SUBJECT(1)}'s)} muscles swell with might!
 
+~~~ApplyStatusEffect_Weakened
+{PERSON(1|I|You|The {SUBJECT(1)})} feel{PERSON(1||s)} weaker...
+
 ~~~Consumed
 {PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|It)} is)} {RANDOM(finished|used up)}.
 
@@ -131,6 +132,16 @@ The bow is out of ammunition.
 ~~~MoveCellEffect_Item
 {PERSON(0|I am|You are|{RANDOM(The {SUBJECT(0)}|{GENDER(0|It|He|She)})} is)} standing over a {SUBJECT(1)}.
 At {PERSON(0|my|your|the {SUBJECT(0)}'s)} feet there is a {SUBJECT(1)}.
+
+~~~OpenDoorEffect_Locked
+{RANDOM(It|The {SUBJECT(1)})} is locked.
+
+~~~OpenDoorEffect_Unlocked
+Unlocked with {SUBJECT(2)}.
+
+~~~OpenDoorEffect_Open
+{RANDOM(It|The {SUBJECT(1)})} opens.
+{RANDOM(It|The {SUBJECT(1)})} creaks open.
 
 ~~~PickUp_Fail
 {RANDOM(But|However)} {PERSON(0|I|you|{RANDOM(the {SUBJECT(0)}|{GENDER(0|it|he|she)})})} cannot carry it.
@@ -206,6 +217,9 @@ Take a sip from the bottle to gain temporary invulnerability.
 
 ~~~invincibility potion_Description
 This magical draught will protect you from all damage for a limited time.
+
+~~~key_Description
+A small metal key.  Perhaps it unlocks something on the floor where it was found...
 
 ~~~mace_ActionHeader
 Charged Attack: Smash

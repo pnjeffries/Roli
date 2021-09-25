@@ -234,12 +234,16 @@ namespace Roli
         public GameElement Phantom()
         {
             var result = Enemy("phantom");
-            result.SetData(new ASCIIStyle("p"), new PrefabStyle("Meeple"), new MapAwareness(4), new HitPoints(3), new BumpAttackAbility());
+            result.SetData(new ASCIIStyle("p"), 
+                new PrefabStyle("Meeple"), 
+                new MapAwareness(4), 
+                new HitPoints(3), 
+                new BumpAttackAbility(1,1, new ApplyStatusEffect(new Weakened())));
             
             // Phantoms can move through non-living elements
             result.GetData<MapCellCollider>().BlockingCheck = el =>
             (el.GetData<MapCellCollider>()?.Solid ?? false) &&
-            (el.HasData<Faction>());
+            el.HasData<Faction>();
             
             return result;
         }

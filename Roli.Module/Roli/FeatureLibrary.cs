@@ -30,6 +30,14 @@ namespace Roli
                 new MapCellCollider(), new Door());
         }
 
+        public GameElement LockedDoor(string keyCode)
+        {
+            var door = Door();
+            var doorDat = door.GetData<Door>();
+            doorDat.Locked = true;
+            doorDat.KeyCode = keyCode;
+            return door;
+        }
         public GameElement Exit(StageExit exit)
         {
             return new StaticElement("exit",

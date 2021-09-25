@@ -439,6 +439,11 @@
             The rooms which connect to this one
             </summary>
         </member>
+        <member name="P:Nucleus.Game.Room.SecurityLevel">
+            <summary>
+            The level of security of this room
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.Room.IsConnectedTo(Nucleus.Game.Room,System.Int32)">
             <summary>
             Is this room connected to the other within a specified number of degrees
@@ -453,17 +458,17 @@
             A collection of rooms
             </summary>
         </member>
-        <member name="T:Nucleus.Game.RoomMapCell">
+        <member name="T:Nucleus.Game.GameMapCell">
             <summary>
-            A MapCell which forms part of a particular Room
+            A MapCell used for game map representation
             </summary>
         </member>
-        <member name="P:Nucleus.Game.RoomMapCell.Room">
+        <member name="P:Nucleus.Game.GameMapCell.Room">
             <summary>
             The room which contains this cell (if any)
             </summary>
         </member>
-        <member name="M:Nucleus.Game.RoomMapCell.#ctor">
+        <member name="M:Nucleus.Game.GameMapCell.#ctor">
             <summary>
             Constructor
             </summary>
@@ -483,6 +488,23 @@
         <member name="T:Nucleus.Game.RoomType">
             <summary>
             Room type enum
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.SecurityPlan">
+            <summary>
+            Class to represent security feature generation parameters
+            for a dungeon artitect
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.SecurityPlan.MinLockDistance">
+            <summary>
+            The minimum number of rooms that must be placed before a locked
+            door may be placed
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.SecurityPlan.AllowLockedExit">
+            <summary>
+            Can the exit be behind a locked door?
             </summary>
         </member>
         <member name="T:Nucleus.Game.StageStyle">
@@ -773,7 +795,18 @@
             A data component which marks an element as a door which may be opened or closed
             </summary>
         </member>
-        <member name="M:Nucleus.Game.Components.Door.TryToOpen(Nucleus.Game.EffectContext)">
+        <member name="P:Nucleus.Game.Components.Door.Locked">
+            <summary>
+            Is this door currently locked?
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Components.Door.KeyCode">
+            <summary>
+            The keycode of this door.  Keys with a matching keycode
+            may unlock this door.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.Components.Door.TryToOpen(Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
             <summary>
             Attempt to open this door
             </summary>
@@ -1301,6 +1334,11 @@
             If set to true, parallel corridors will be detected and prevented
             </summary>
         </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.SecurityLevelCount">
+            <summary>
+            The highest security level created so far
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.DungeonArtitect.#ctor(System.Int32,System.Int32)">
             <summary>
             Creates a new dungeon artitect to work within the specified bounds
@@ -1442,7 +1480,7 @@
             Check whether there is a corridor running parallel to this region
             </summary>
         </member>
-        <member name="M:Nucleus.Game.DungeonArtitect.GenerateDoorway(System.Int32,System.Int32,Nucleus.Geometry.CompassDirection,System.Int32)">
+        <member name="M:Nucleus.Game.DungeonArtitect.GenerateDoorway(System.Int32,System.Int32,Nucleus.Geometry.CompassDirection,System.Int32,Nucleus.Game.Room,Nucleus.Game.CellGenerationType)">
             <summary>
             Generate a (possibly multi-tile) doorway
             </summary>
@@ -1610,6 +1648,11 @@
             as money and ammunition which do not take up an inventory slot.
             </summary>
         </member>
+        <member name="P:Nucleus.Game.Inventory.Keys">
+            <summary>
+            The collection of key items held within this inventory.
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.Inventory.#ctor">
             <summary>
             Default constructor
@@ -1655,6 +1698,21 @@
             <param name="resource"></param>
             <param name="dropper"></param>
             <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.DropAllKeys(Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+            <summary>
+            Drop all keys held in this inventory
+            </summary>
+            <param name="dropper"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:Nucleus.Game.Inventory.DropKey(Nucleus.Model.Element,Nucleus.Model.Element,Nucleus.Game.EffectContext)">
+            <summary>
+            Drop the specified key item.
+            </summary>
+            <param name="dropper">The element dropping the item</param>
+            <param name="context">The current context</param>
             <returns></returns>
         </member>
         <member name="M:Nucleus.Game.Inventory.RemoveResource(Nucleus.Game.Resource)">
@@ -1703,6 +1761,14 @@
             Select the previous item slot before the currently selected one
             </summary>
         </member>
+        <member name="M:Nucleus.Game.Inventory.GetKey(System.String)">
+            <summary>
+            Get the key from this inventory with the specified keyCode,
+            if one is currently held.  Else will return null.
+            </summary>
+            <param name="keyCode"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nucleus.Game.IStartOfTurn">
             <summary>
             Interface for data components which process at the start of 
@@ -1745,6 +1811,17 @@
         <member name="T:Nucleus.Game.ItemSlotCollection">
             <summary>
             A collection of inventory item slots
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Key">
+            <summary>
+            A data component representing a key item which may be used to unlock a Door
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Key.KeyCode">
+            <summary>
+            The keycode of this key.  Doors with a matching keycode
+            may be unlocked by this key.
             </summary>
         </member>
         <member name="T:Nucleus.Game.MapAwareness">
@@ -2070,7 +2147,12 @@
         </member>
         <member name="T:Nucleus.Game.Strong">
             <summary>
-            Status effect which increases knockback power
+            Status effect which increases knockback power and cures 
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Weakened">
+            <summary>
+            Status effect which decreases knockback
             </summary>
         </member>
         <member name="T:Nucleus.Game.Resource">
@@ -2192,6 +2274,13 @@
             applied to this component
             </summary>
             <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Status.GetEffect``1">
+            <summary>
+            Get the first status effect of the specified type currently
+            applied to this component
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Nucleus.Game.Status.Defend(Nucleus.Game.Damage,Nucleus.Logs.IActionLog,Nucleus.Game.EffectContext)">
@@ -3073,6 +3162,11 @@
         <member name="P:Nucleus.Game.RoomTemplate.DoorChance">
             <summary>
             The chance of creating a door between this and connected rooms.  The maximum chance of the two room templates will be used.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.LockChance">
+            <summary>
+            The chance that, if a door is generated, it will be locked
             </summary>
         </member>
         <member name="M:Nucleus.Game.RoomTemplate.GenTypeForCell(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">

@@ -19,7 +19,7 @@ namespace Roli
 
         public RoomTemplate Cell()
         {
-            return new RoomTemplate("cell", RoomType.Room, 3, 4, 3, 4) { MaxConnections = 1 };
+            return new RoomTemplate("cell", RoomType.Room, 3, 4, 3, 4) { MaxConnections = 1 , LockChance = 0.25};
         }
 
         public RoomTemplate Corridor()
@@ -49,7 +49,7 @@ namespace Roli
         public RoomTemplate Exit()
         {
             return new RoomTemplate("exit", RoomType.Exit, 1, 1, 1, 1)
-            { MaxConnections = 1 };
+            { MaxConnections = 1 , LockChance = 0.25};
         }
 
         public RoomTemplate Crevice()

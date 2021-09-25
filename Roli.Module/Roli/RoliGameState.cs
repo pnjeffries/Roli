@@ -67,7 +67,7 @@ namespace Roli
             int mapX = 24;
             int mapY = 24;
             var stage = new MapStage();
-            var map = new SquareCellMap<RoomMapCell>(mapX, mapY);
+            var map = new SquareCellMap<GameMapCell>(mapX, mapY);
             stage.Map = map;
 
             var generator = DesignDungeon(map, style, exit != null);
@@ -78,7 +78,7 @@ namespace Roli
             return stage;
         }
 
-        public DungeonArtitect DesignDungeon(SquareCellMap<RoomMapCell> map, RoliStageStyle style, bool includeExit, bool record = false)
+        public DungeonArtitect DesignDungeon(SquareCellMap<GameMapCell> map, RoliStageStyle style, bool includeExit, bool record = false)
         {
             int mapX = map.SizeX;
             int mapY = map.SizeY;
@@ -103,7 +103,7 @@ namespace Roli
         private int BuildDungeon(SquareCellMap<BlueprintCell> blueprint, MapStage stage, RoliStageStyle style, StageExit exit)
         {
             int result = 0;
-            var map = stage.Map as SquareCellMap<RoomMapCell>;
+            var map = stage.Map as SquareCellMap<GameMapCell>;
             map.InitialiseCells();
 
             var features = new FeatureLibrary();
@@ -116,7 +116,8 @@ namespace Roli
             Random rng = new Random();
             for (int i = 0; i < blueprint.CellCount; i++)
             {
-                map.GetCell(i).Room = blueprint[i].Room;
+                var room = blueprint[i].Room;
+                map.GetCell(i).Room = room;
                 CellGenerationType cGT = blueprint[i].GenerationType;
                 if (cGT.IsWall()) //|| cGT == CellGenerationType.Untouched)
                 {
@@ -126,6 +127,22 @@ namespace Roli
                 {
                     // Create door
                     stage.AddElement(features.Door(), i);
+                }
+                else if (cGT == CellGenerationType.LockedDoor)
+                {
+                    int secLevel = room?.SecurityLevel ?? 1;
+                    var iKey = stage.Map.RandomIndexWhere(
+                        cell => 
+                        cell.Room != null && cell.Room.SecurityLevel < secLevel && 
+                        blueprint[cell.Index].GenerationType == CellGenerationType.Void, 
+                        rng);
+                    if (stage.Map.Exists(iKey)) //Only create if key can be placed
+                    {
+                        var keyCode = Guid.NewGuid().ToString();
+                        var key = items.Key("key", keyCode);
+                        stage.AddElement(key, iKey);
+                        stage.AddElement(features.LockedDoor(keyCode), i);
+                    }
                 }
                 else if (cGT == CellGenerationType.Void)
                 {
@@ -170,7 +187,7 @@ namespace Roli
         {
             // Build (initial) wall lines:
             bool rocky = style.Roughness > 0;
-            var polys = blueprint.Contour(cell => cell.GenerationType == CellGenerationType.Void || cell.GenerationType == CellGenerationType.Door);
+            var polys = blueprint.Contour(cell => cell.GenerationType == CellGenerationType.Void || cell.GenerationType == CellGenerationType.Door || cell.GenerationType == CellGenerationType.LockedDoor);
             for (int i = 0; i < polys.Count; i++)
             {
                 // Bevel

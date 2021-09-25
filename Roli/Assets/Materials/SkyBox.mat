@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: SkyBox
   m_Shader: {fileID: 106, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _SUNDISK_NONE
+  m_ShaderKeywords: _SUNDISK_HIGH_QUALITY
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -77,7 +77,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
-    - _AtmosphereThickness: 0.72
+    - _AtmosphereThickness: 0.16
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -88,7 +88,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Exposure: 0
+    - _Exposure: 0.08
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -101,9 +101,9 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SunDisk: 0
-    - _SunSize: 0.139
-    - _SunSizeConvergence: 10
+    - _SunDisk: 2
+    - _SunSize: 0.038
+    - _SunSizeConvergence: 2.34
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1

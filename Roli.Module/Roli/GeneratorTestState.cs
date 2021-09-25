@@ -21,7 +21,7 @@ namespace Roli
             int mapX = 32;
             int mapY = 32;
             var stage = new MapStage();
-            var map = new SquareCellMap<RoomMapCell>(mapX, mapY);
+            var map = new SquareCellMap<GameMapCell>(mapX, mapY);
             stage.Map = map;
             Stage = stage;
 

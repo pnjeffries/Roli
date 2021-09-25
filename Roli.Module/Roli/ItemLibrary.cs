@@ -79,6 +79,17 @@ namespace Roli
             return result;
         }
 
+        public GameElement Key(string name, string keyCode)
+        {
+            var result = new StaticElement(name);
+            result.SetData(
+                new PickUp(),
+                new LogDescription("<color=#FF00FD>", "</color>"),
+                new ASCIIStyle("ϙ"),
+                new Key(keyCode));
+            return result;
+        }
+
         /// <summary>
         /// Create a resource pickup to represent the given resource quantity
         /// </summary>
