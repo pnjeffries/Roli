@@ -29,7 +29,7 @@ namespace Roli
             {
                 return new WeightedTable<Create>
                    (
-                        Sword, Axe, Mace, Spear, Bow, 
+                        Sword, Axe, Mace, Spear, Bow, Scythe,
                         HealthPotion, InvincibilityPotion, StrengthPotion, SpeedTonic,
                         Shield,
                         Coins, Arrows // Poison,
@@ -208,7 +208,7 @@ namespace Roli
             sword.SetData(
                 new ASCIIStyle("↑"),
                 new PrefabStyle("Spear"),
-                new QuickAttack(1, DamageType.Base, 1),
+                //new QuickAttack(1, DamageType.Base, 1),
                 new ItemActions(
                     new WindUpAction("WindUp_spear",
                         new RangedAOEAttackActionFactory(2,new IEffect[]
@@ -223,6 +223,33 @@ namespace Roli
                         new EquipItemEffect(sword)
                         )));
             return sword;
+        }
+
+        /// <summary>
+        /// A scythe
+        /// </summary>
+        /// <returns></returns>
+        public GameElement Scythe()
+        {
+            var weapon = Weapon("scythe");
+            weapon.SetData(
+                new ASCIIStyle("↑"),
+                new PrefabStyle("Scythe"),
+                //new QuickAttack(1, DamageType.Base, 1),
+                new ItemActions(
+                    new WindUpAction("WindUp_scythe",
+                        new AOEAttackActionFactory(new IEffect[]
+                        {
+                            new SFXImpactEffect(),
+                            new KnockbackEffect(Vector.UnitX, 1),
+                            new DamageEffect(2)
+                        },
+                        "Attack_scythe",
+                        "Sweep",
+                        1, -1, 1, 0, 1, 1),//2, 0, 1, 0),
+                        new EquipItemEffect(weapon)
+                        )));
+            return weapon;
         }
 
         /// <summary>

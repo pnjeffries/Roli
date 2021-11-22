@@ -22,22 +22,34 @@ Critical hit on {PERSON(1|me|you|a {SUBJECT(1)})}!
 ...{PERSON(0|I|You|A {SUBJECT(0)})} swing{PERSON(0||s)} {PERSON(0|my|your|{GENDER(1|its|his|her)})} axe!
 ...{PERSON(0|I|You|A {SUBJECT(0)})} chop{PERSON(0||s)} with {PERSON(0|my|your|{GENDER(1|its|his|her)})} axe!
 
+~~~Attack_bat
+{PERSON(0|I|You|A {SUBJECT(0)})} bite{PERSON(0||s)}!
+
 ~~~Attack_bow
 ...{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(release|fire)}{PERSON(0||s)} an arrow!
 ...An arrow flies from {PERSON(0|my|your|the {SUBJECT(0)}'s)} bow!
 
+~~~Attack_drake
+...{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(release|breathe)}{PERSON(0||s)} {RANDOM(fire|a gout of flame)}!
+
 ~~~Attack_mace
-...{PERSON(0|I|You|A {SUBJECT(0)})} swing{PERSON(0||s)} {PERSON(0|my|your|{GENDER(1|its|his|her)})} mace!
-...{PERSON(0|I|You|A {SUBJECT(0)})} thump{PERSON(0||s)} down {PERSON(0|my|your|{GENDER(1|its|his|her)})} mace!
+...{PERSON(0|I|You|A {SUBJECT(0)})} swing{PERSON(0||s)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} mace!
+...{PERSON(0|I|You|A {SUBJECT(0)})} thump{PERSON(0||s)} down {PERSON(0|my|your|{GENDER(0|its|his|her)})} mace!
+
+~~~Attack_serpentra
+...{PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(release|spit)}{PERSON(0||s)} {RANDOM(venom|a spray of venom)}!
+
+~~~Attack_scythe
+...{PERSON(0|I|You|A {SUBJECT(0)})} swing{PERSON(0||s)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} scythe!
 
 ~~~Attack_spear
-...{PERSON(0|I|You|A {SUBJECT(0)})} thrust{PERSON(0||s)} {PERSON(0|my|your|{GENDER(1|its|his|her)})} spear forwards!
-...{PERSON(0|I|You|A {SUBJECT(0)})} stab{PERSON(0||s)} with {PERSON(0|my|your|{GENDER(1|its|his|her)})} spear!
+...{PERSON(0|I|You|A {SUBJECT(0)})} thrust{PERSON(0||s)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} spear forwards!
+...{PERSON(0|I|You|A {SUBJECT(0)})} stab{PERSON(0||s)} with {PERSON(0|my|your|{GENDER(0|its|his|her)})} spear!
 
 ~~~Attack_sword
-...{PERSON(0|I|You|A {SUBJECT(0)})} swing{PERSON(0||s)} {PERSON(0|my|your|{GENDER(1|its|his|her)})} sword!
-...{PERSON(0|I|You|A {SUBJECT(0)})} hack{PERSON(0||s)} with {PERSON(0|my|your|{GENDER(1|its|his|her)})} sword!
-...{PERSON(0|I|You|A {SUBJECT(0)})} slash{PERSON(0||es)} with {PERSON(0|my|your|{GENDER(1|its|his|her)})} sword!
+...{PERSON(0|I|You|A {SUBJECT(0)})} swing{PERSON(0||s)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} sword!
+...{PERSON(0|I|You|A {SUBJECT(0)})} hack{PERSON(0||s)} with {PERSON(0|my|your|{GENDER(0|its|his|her)})} sword!
+...{PERSON(0|I|You|A {SUBJECT(0)})} slash{PERSON(0||es)} with {PERSON(0|my|your|{GENDER(0|its|his|her)})} sword!
 
 ~~~BumpAttackAction
 {PERSON(0|I|You|A {SUBJECT(0)})} {RANDOM(hit|strike|attack)}{PERSON(0||s)} {PERSON(1|me|you|a {SUBJECT(1)})}.
@@ -70,13 +82,27 @@ Critical hit!
 {PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to strike...
 {PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|ready|readies)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} {RANDOM(axe|weapon)}...
 
+~~~WindUp_bat
+{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to strike...
+{PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|bare|bares)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} fangs...
+
 ~~~WindUp_bow
 {PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to fire...
 {PERSON(0|I|You|A {SUBJECT(0)})} draw{PERSON(0||s)} back {PERSON(0|my|your|{GENDER(0|its|his|her)})} bowstring...
 
+~~~WindUp_drake
+{PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|draw|draws)} in {PERSON(0|my|your|{GENDER(0|its|his|her)})} breath...
+
 ~~~WindUp_mace
 {PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to strike...
 {PERSON(0|I|You|A {SUBJECT(0)})} raise{PERSON(0||s)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} {RANDOM(weapon|mace)}...
+
+~~~WindUp_scythe
+{PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to strike...
+{PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|raise|raises)} {PERSON(0|my|your|{GENDER(0|its|his|her)})} {RANDOM(weapon|scythe)}...
+
+~~~WindUp_serpentra
+{PERSON(0|I|You|A {SUBJECT(0)})} {PERSON(0|hiss|hisses)} menacingly...
 
 ~~~WindUp_sword
 {PERSON(0|I|You|A {SUBJECT(0)})} prepare{PERSON(0||s)} to strike...
@@ -123,6 +149,9 @@ The bow is out of ammunition.
 
 ~~~Death_rat
 {PERSON(1|I am|You are|The {SUBJECT(1)} is)} {RANDOM(splatted|squashed)}!
+
+~~~Death_crate
+{PERSON(1|I am|You are|The {SUBJECT(1)} is)} {RANDOM(smashed|crushed|destroyed)}!
 
 ~~~Knockback_Impact
 {PERSON(1|I am|You are|{RANDOM(The {SUBJECT(1)}|{GENDER(1|It|He|She)})} is)} sent {RANDOM(flying|hurtling|reeling|bouncing)} into {PERSON(2|me|you|a {SUBJECT(2)})}!
@@ -226,6 +255,15 @@ Charged Attack: Smash
 
 ~~~mace_Description
 A stout metal stick.  For hitting things and making them go away.
+
+~~~scythe_ActionHeader
+Reap
+
+~~~scythe_ActionDescription
+Sweep the scythe through the air.  Affects the three spaces in front of you.
+
+~~~scythe_Description
+A former farming implement refitted as a weapon of war.
 
 ~~~shield_ActionHeader
 Block

@@ -1,7 +1,9 @@
 ﻿using Nucleus.Game;
 using Nucleus.Game.Debug;
 using Nucleus.Geometry;
+using Nucleus.Extensions;
 using Nucleus.Logs;
+using Nucleus.Maths;
 using Nucleus.Rendering;
 using System;
 using System.Collections.Generic;
@@ -73,7 +75,8 @@ namespace Roli
             var generator = DesignDungeon(map, style, exit != null);
 
             var blueprint = generator.Blueprint;
-            entryIndex = BuildDungeon(blueprint, stage, style, exit);
+            var rooms = generator.Rooms;
+            entryIndex = BuildDungeon(blueprint, rooms, stage, style, exit);
 
             return stage;
         }
@@ -100,7 +103,7 @@ namespace Roli
         }
 
 
-        private int BuildDungeon(SquareCellMap<BlueprintCell> blueprint, MapStage stage, RoliStageStyle style, StageExit exit)
+        private int BuildDungeon(SquareCellMap<BlueprintCell> blueprint, RoomCollection rooms, MapStage stage, RoliStageStyle style, StageExit exit)
         {
             int result = 0;
             var map = stage.Map as SquareCellMap<GameMapCell>;
@@ -161,13 +164,16 @@ namespace Roli
                         if (rng.NextDouble() < 0.1)
                         {
                             var enemyTable = enemies;
-                            if (rng.NextDouble() < 0.08) //Out-of-depth chance
+                            if (rng.NextDouble() < 0.03) //Out-of-depth chance
                             {
                                 enemyTable = allEnemies;
                             }
                             var func = enemyTable.Roll(RNG);
-                            var element = func.Invoke();
-                            stage.AddElement(element, i);
+                            if (func != null)
+                            {
+                                var element = func.Invoke();
+                                stage.AddElement(element, i);
+                            }
                         }
                         else if (rng.NextDouble() < 0.025)
                         {
@@ -179,15 +185,46 @@ namespace Roli
                 }
             }
 
-            stage.Borders = BuildWallOutline(blueprint, style);
+            // Generate furniture
+            foreach (var room in rooms)
+            {
+                if (room.Template?.Features != null)
+                {
+                    foreach (var feature in room.Template.Features)
+                    {
+                        var bitField = map.SpawnNewGrid<bool>() as SquareCellMap<bool>;
+                        bitField.SetValuesInside(room.Bounds, true);
+                        if (feature.PlacementMasks != null)
+                        {
+                            // Apply placement masks
+                            foreach (var mask in feature.PlacementMasks)
+                            {
+                                mask.Apply(bitField, map);
+                            }
+                        }
+                        var cells = map.GetCells(bitField);
+                        int number = feature.DetermineNumber(rng, cells);
+                        for (int i = 0; i < number; i++)
+                        {
+                            var cell = cells.PopRandom(rng);
+                            var element = feature.Create();
+                            if (cell == null || element == null) continue;
+
+                            stage.AddElement(element, cell.Index);
+                        }
+                    }
+                }
+            }
+
+            stage.Borders = BuildWallOutline(map, style);
             return result;
         }
 
-        public CurveCollection BuildWallOutline(SquareCellMap<BlueprintCell> blueprint, RoliStageStyle style)
+        public CurveCollection BuildWallOutline(SquareCellMap<GameMapCell> map, RoliStageStyle style)
         {
             // Build (initial) wall lines:
             bool rocky = style.Roughness > 0;
-            var polys = blueprint.Contour(cell => cell.GenerationType == CellGenerationType.Void || cell.GenerationType == CellGenerationType.Door || cell.GenerationType == CellGenerationType.LockedDoor);
+            var polys = map.Contour(cell => !cell.HasContentsWithData<Outlined, GameMapCell>());
             for (int i = 0; i < polys.Count; i++)
             {
                 // Bevel

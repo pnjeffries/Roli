@@ -12,13 +12,19 @@ namespace Roli
     /// </summary>
     public class FeatureLibrary
     {
+
+        /// <summary>
+        /// The main furniture faction
+        /// </summary>
+        public static Faction FurnitureFaction { get; } = new Faction("Furniture");
+
         /// <summary>
         /// A standard wall
         /// </summary>
         /// <returns></returns>
         public GameElement Wall()
         {
-            return new GameElement("wall", 
+            return new GameElement("wall", new Outlined(),
                 new ASCIIStyle("#"), new PrefabStyle("Wall"), new MapCellCollider(),
                 new VisionBlocker(), new Memorable(), new Inertia(true));
         }
@@ -50,6 +56,13 @@ namespace Roli
             return new StaticElement("entrance",
                 new ASCIIStyle("<"),
                 new Memorable(), new MapCellCollider(false), new Inertia(true));
+        }
+
+        public GameElement Crate()
+        {
+            return new StaticElement("crate", FurnitureFaction,
+                new ASCIIStyle("□"), new PrefabStyle("Crate"), new MapCellCollider(),
+                new Memorable(), new HitPoints(5));
         }
     }
 }

@@ -81,7 +81,11 @@ namespace Binding
                 }
                 var converter = CreateInstance(newType);
                 binding.Converter = converter as ValueConverter;
-                AssetDatabase.AddObjectToAsset(converter, PrefabStageUtility.GetCurrentPrefabStage().assetPath);
+                var prefab = PrefabStageUtility.GetCurrentPrefabStage();
+                string path;
+                if (prefab == null) path = EditorSceneManager.GetActiveScene().path;
+                else path = prefab.assetPath;
+                AssetDatabase.AddObjectToAsset(converter, path);
             }
 
         }

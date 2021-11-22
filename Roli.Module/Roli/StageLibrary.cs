@@ -33,17 +33,22 @@ namespace Roli
                 Floor1(), 
                 Floor2(),
                 Floor3(),
+                //RestSite1(),
                 Floor4(),
                 Floor5(),
                 Floor6(),
+                //RestSite1(),
                 Floor7(),
                 Floor8(),
                 Floor9(),
+                //RestSite1(),
                 Floor10(),
                 Floor11(),
                 Floor12(),
+                //RestSite1(),
                 Floor13(),
                 Floor14()
+                //RestSite1()
             };
         }
 
@@ -54,7 +59,7 @@ namespace Roli
         public RoliStageStyle Dungeon(string name)
         {
             var result = new RoliStageStyle(name,
-                Rooms.Corridor(), Rooms.Hall(), Rooms.StandardRoom(), Rooms.LargeRoom(), Rooms.Exit(), Rooms.Cell());
+                Rooms.Corridor(), Rooms.Hall(), Rooms.StandardRoom(), Rooms.LargeRoom(), Rooms.Exit(), Rooms.Cell(), Rooms.StoreRoom());
             return result;
         }
 
@@ -67,6 +72,18 @@ namespace Roli
             return new RoliStageStyle(name,
                 Rooms.Cavern(), Rooms.Crevice(), Rooms.Exit())
             { Roughness = 0.075, DoorChance = 0 , MinLoopSize = 0};
+        }
+
+        /// <summary>
+        /// Campsite rest floor
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public RoliStageStyle CampSite(string name)
+        {
+            return new RoliStageStyle(name,
+                Rooms.Cavern(), Rooms.Exit())
+            { Roughness = 0.075, DoorChance = 0, MinLoopSize = 0, MaxRoomCount = 3};
         }
 
         #region Levels
@@ -102,6 +119,14 @@ namespace Roli
             result.Creatures.Add(Creatures.Snake, 0.5);
             result.Creatures.Add(Creatures.Zombie, 2);
             result.Creatures.Add(Creatures.Phantom, 0.5);
+            result.Creatures.Add(Creatures.Serpentra, 0.25);
+            return result;
+        }
+
+        public RoliStageStyle RestSite1()
+        {
+            var result = CampSite("Campsite");
+            result.Creatures = new WeightedTable<CreatureLibrary.Create>();
             return result;
         }
 
@@ -114,7 +139,8 @@ namespace Roli
             result.Creatures.Add(Creatures.Bat, 1);
             result.Creatures.Add(Creatures.Wolf, 0.5);
             result.Creatures.Add(Creatures.Troll, 0.25);
-            result.Creatures.Add(Creatures.Orc, 1);
+            result.Creatures.Add(Creatures.Troglodyte, 1);
+            result.Creatures.Add(Creatures.Serpentra, 0.25);
             return result;
         }
 
@@ -124,8 +150,8 @@ namespace Roli
             result.Creatures = new WeightedTable<CreatureLibrary.Create>();
             result.Creatures.Add(Creatures.Rat, 1);
             result.Creatures.Add(Creatures.Zombie, 2);
-            result.Creatures.Add(Creatures.Orc, 1);
-            result.Creatures.Add(Creatures.Goblin, 1);
+            result.Creatures.Add(Creatures.Troglodyte, 1);
+            result.Creatures.Add(Creatures.Guard, 1);
             result.Creatures.Add(Creatures.Wolf, 0.5);
             result.Creatures.Add(Creatures.Phantom, 0.5);
             return result;
@@ -141,6 +167,7 @@ namespace Roli
             result.Creatures.Add(Creatures.Bat, 1);
             result.Creatures.Add(Creatures.Phantom, 2);
             result.Creatures.Add(Creatures.Troll, 1);
+            result.Creatures.Add(Creatures.Serpentra, 0.5);
             return result;
         }
 
@@ -150,8 +177,8 @@ namespace Roli
             result.Creatures = new WeightedTable<CreatureLibrary.Create>();
             result.Creatures.Add(Creatures.Rat, 1);
             result.Creatures.Add(Creatures.Wolf, 1);
-            result.Creatures.Add(Creatures.Orc, 1);
-            result.Creatures.Add(Creatures.Goblin, 1);
+            result.Creatures.Add(Creatures.Troglodyte, 1);
+            result.Creatures.Add(Creatures.Guard, 1);
             result.Creatures.Add(Creatures.Archer, 0.5);
             return result;
         }
@@ -170,11 +197,12 @@ namespace Roli
         {
             var result = Cave("Dread Mines");
             result.Creatures = new WeightedTable<CreatureLibrary.Create>();
-            result.Creatures.Add(Creatures.Orc, 1);
-            result.Creatures.Add(Creatures.Goblin, 1);
+            result.Creatures.Add(Creatures.Troglodyte, 1);
+            result.Creatures.Add(Creatures.Guard, 1);
             result.Creatures.Add(Creatures.Archer, 0.5);
             result.Creatures.Add(Creatures.Phantom, 0.5);
             result.Creatures.Add(Creatures.Troll, 2);
+            result.Creatures.Add(Creatures.Serpentra, 1);
             return result;
         }
 
@@ -193,8 +221,8 @@ namespace Roli
             var result = Dungeon("Sunken Walls");
             result.Creatures = new WeightedTable<CreatureLibrary.Create>();
             result.Creatures.Add(Creatures.Wolf, 1);
-            result.Creatures.Add(Creatures.Orc, 1);
-            result.Creatures.Add(Creatures.Goblin, 1);
+            result.Creatures.Add(Creatures.Troglodyte, 1);
+            result.Creatures.Add(Creatures.Guard, 1);
             result.Creatures.Add(Creatures.Archer, 1);
             result.Creatures.Add(Creatures.Troll, 1);
             return result;
@@ -205,8 +233,8 @@ namespace Roli
             var result = Dungeon("Bloodstained Hallways");
             result.Creatures = new WeightedTable<CreatureLibrary.Create>();
             result.Creatures.Add(Creatures.Wolf, 1);
-            result.Creatures.Add(Creatures.Orc, 1);
-            result.Creatures.Add(Creatures.Goblin, 1);
+            result.Creatures.Add(Creatures.Troglodyte, 1);
+            result.Creatures.Add(Creatures.Guard, 1);
             result.Creatures.Add(Creatures.Archer, 1);
             result.Creatures.Add(Creatures.Troll, 1);
             result.Creatures.Add(Creatures.Phantom, 1);
@@ -218,11 +246,12 @@ namespace Roli
             var result = Dungeon("Library of Ignorance");
             result.Creatures = new WeightedTable<CreatureLibrary.Create>();
             result.Creatures.Add(Creatures.Wolf, 1);
-            result.Creatures.Add(Creatures.Orc, 1);
-            result.Creatures.Add(Creatures.Goblin, 1);
+            result.Creatures.Add(Creatures.Troglodyte, 1);
+            result.Creatures.Add(Creatures.Guard, 1);
             result.Creatures.Add(Creatures.Archer, 1);
             result.Creatures.Add(Creatures.Troll, 1);
             result.Creatures.Add(Creatures.Phantom, 1);
+            result.Creatures.Add(Creatures.Serpentra, 1);
             return result;
         }
 
@@ -231,11 +260,12 @@ namespace Roli
             var result = Dungeon("The Underkeep");
             result.Creatures = new WeightedTable<CreatureLibrary.Create>();
             result.Creatures.Add(Creatures.Wolf, 1);
-            result.Creatures.Add(Creatures.Orc, 1);
-            result.Creatures.Add(Creatures.Goblin, 1);
+            result.Creatures.Add(Creatures.Troglodyte, 1);
+            result.Creatures.Add(Creatures.Guard, 1);
             result.Creatures.Add(Creatures.Archer, 1);
             result.Creatures.Add(Creatures.Troll, 1);
             result.Creatures.Add(Creatures.Phantom, 1);
+            result.Creatures.Add(Creatures.Drake, 1);
             return result;
         }
 

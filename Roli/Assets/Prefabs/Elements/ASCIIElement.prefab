@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Source: {fileID: 0}
-  Path: Data[DirectionalItemUseAbility]
+  Path: Data[DirectionalActionAbility]
   Converter: {fileID: -2166362447057984333}
   Target: {fileID: 8568810567688282059}
   TargetPath: Play
@@ -485,6 +485,11 @@ MonoBehaviour:
     TypeShortName: 
     AllEnums: 0
     Template: {fileID: 6627630139461093398, guid: 8f1807ac8e977bd47b90f7a553924c6b, type: 3}
+  - _FullTypeName: Nucleus.Game.Aflame, Nucleus.Game, Version=1.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    TypeShortName: 
+    AllEnums: 0
+    Template: {fileID: 6627630139461093398, guid: 8be981aaebb28f2418b2ea20356a6a39, type: 3}
   Group: 0
   GroupPath: 
   GroupTemplate: {fileID: 0}

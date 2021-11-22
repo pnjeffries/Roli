@@ -32,12 +32,12 @@ namespace Roli
         /// <summary>
         /// The faction to which the player belongs
         /// </summary>
-        public static Faction PlayerFaction { get; } = new Faction("Player");
+        public static Faction PlayerFaction { get; } = new Faction("Player", "Enemy", "Furniture");
 
         /// <summary>
         /// The main enemy faction
         /// </summary>
-        public static Faction EnemyFaction { get; } = new Faction("Enemy");
+        public static Faction EnemyFaction { get; } = new Faction("Enemy", "Player");
 
         /// <summary>
         /// The delegate function for creating creatures
@@ -54,7 +54,7 @@ namespace Roli
             {
                 return new WeightedTable<Create>
                    (
-                        Rat, Bat, Snake, Goblin, Phantom, Troll, Zombie, Archer, Orc, Wolf
+                        Rat, Bat, Snake, Guard, Phantom, Troll, Zombie, Archer, Troglodyte, Wolf, Drake, Serpentra
                    );
             }
         }
@@ -152,12 +152,44 @@ namespace Roli
             return result;
         }
 
+        public GameElement Serpentra()
+        {
+            var result = Enemy("serpentra");
+            result.SetData(new ASCIIStyle("S"), new PrefabStyle("Meeple"),
+                new MapAwareness(3), new HitPoints(5), new ElementWeight(60),
+                new BumpAttackAbility(1, 1, new ApplyStatusEffect(new Poisoned())),
+                new WindUpAbility(
+                   new WindUpAction("WindUp_serpentra",
+                       new AOEAttackActionFactory(new IEffect[]
+                       {
+                            //new SFXImpactEffect(),
+                            new KnockbackEffect(Vector.UnitX, 0),
+                            new DamageEffect(0, DamageType.Poison),
+                            new ApplyStatusEffect(new Poisoned())
+                       },
+                       "Attack_serpentra",
+                       "PoisonSpray",
+                       2, 0, 1, 0))));
+            return result;
+        }
+
         public GameElement Bat()
         {
             var result = Enemy("bat");
-            result.SetData(new ASCIIStyle("b"), new PrefabStyle("Meeple"), 
+            result.SetData(new ASCIIStyle("b"), new PrefabStyle("Meeple"),
                 new MapAwareness(4), new HitPoints(1), new ElementWeight(5),
-                new BumpAttackAbility(1,0));
+                //new BumpAttackAbility(1,0));
+                new WindUpAbility(
+                    new WindUpAction("WindUp_bat",
+                        new AOEAttackActionFactory(new IEffect[]
+                        {
+                            new SFXImpactEffect(),
+                            new KnockbackEffect(Vector.UnitX, 0),
+                            new DamageEffect(1)
+                        },
+                        "Attack_bat",
+                        "",
+                        1, 0))));
             result.GetData<TurnCounter>().Speed = 2;
             return result;
         }
@@ -193,14 +225,14 @@ namespace Roli
             return result;
         }
 
-        public GameElement Goblin()
+        public GameElement Guard()
         {
             var spear = Items.Spear();
-            var result = Enemy("goblin");
+            var result = Enemy("guard");
             result.SetData(new ASCIIStyle("g"), 
                 new PrefabStyle("Meeple"), 
                 new MapAwareness(5), 
-                new HitPoints(3),
+                new HitPoints(6),
                 new BumpAttackAbility(),
                 new OpenDoorAbility(),
                 new ElementGender(RNG.NextGender()),
@@ -212,11 +244,11 @@ namespace Roli
             return result;
         }
 
-        public GameElement Orc()
+        public GameElement Troglodyte()
         {
             var weapon = Items.Mace();
-            var result = Enemy("orc");
-            result.SetData(new ASCIIStyle("o"),
+            var result = Enemy("troglodyte");
+            result.SetData(new ASCIIStyle("t"),
                 new PrefabStyle("Meeple"),
                 new MapAwareness(5),
                 new HitPoints(6),
@@ -267,5 +299,27 @@ namespace Roli
             result.GetData<TurnCounter>().Speed = 0.5;
             return result;
         }
+
+        public GameElement Drake()
+        {
+            var result = Enemy("drake");
+            result.SetData(new ASCIIStyle("D"), new PrefabStyle("Meeple"),
+                new MapAwareness(4), new HitPoints(15), new ElementWeight(300),
+                new BumpAttackAbility(3, 2),
+                new WindUpAbility(
+                   new WindUpAction("WindUp_drake",
+                       new AOEAttackActionFactory(new IEffect[]
+                       {
+                            //new SFXImpactEffect(),
+                            new KnockbackEffect(Vector.UnitX, 1),
+                            new DamageEffect(1, DamageType.Fire),
+                            new ApplyStatusEffect(new Aflame())
+                       },
+                       "Attack_drake",
+                       "Flame",
+                       3, 0, 2, 0, 1, 0))));
+            return result;
+        }
+
     }
 }

@@ -5535,6 +5535,15 @@
             <param name="rng">The random number generator to use to determine the item to be selected</param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Extensions.IListExtensions.PopRandom``1(System.Collections.Generic.IList{``0},System.Random)">
+            <summary>
+            Remove and return a random item in this list
+            </summary>
+            <typeparam name="TItem"></typeparam>
+            <param name="list"></param>
+            <param name="rng"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Extensions.IListExtensions.SetAutoExtend``1(System.Collections.Generic.IList{``0},System.Int32,``0)">
             <summary>
             Set the value at the specified index if the list is long enough or if it is not
@@ -7150,6 +7159,86 @@
             <param name="azimuth">The azimuth angle, or longitude</param>
             <returns></returns>
         </member>
+        <member name="T:Nucleus.Geometry.Cell_Maps.AdjacencyCellMask">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nucleus.Geometry.Cell_Maps.AdjacencyCellMask.ContiguousLimit">
+            <summary>
+            The minimum number of contiguous adjacent cells where the 
+            </summary>
+        </member>
+        <member name="P:Nucleus.Geometry.Cell_Maps.AdjacencyCellMask.Condition">
+            <summary>
+            The condition which determines whether a cell should pass or be filtered out
+            </summary>
+        </member>
+        <member name="T:Nucleus.Geometry.CellMask">
+            <summary>
+            Abstract base class for cell masks
+            </summary>
+        </member>
+        <member name="M:Nucleus.Geometry.CellMask.Apply``1(Nucleus.Geometry.ICellMap{System.Boolean},Nucleus.Geometry.ICellMap{``0})">
+            <summary>
+            Filter the specified bitField through the mask
+            </summary>
+            <typeparam name="TMapCell"></typeparam>
+            <param name="bitField">The map of boolean values</param>
+            <param name="map">The base map to use to determine masking</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Geometry.CellMaskCollection">
+            <summary>
+            A collection of cell masks
+            </summary>
+        </member>
+        <member name="M:Nucleus.Geometry.CellMaskCollection.Apply``1(Nucleus.Geometry.ICellMap{System.Boolean},Nucleus.Geometry.ICellMap{``0})">
+            <summary>
+            Filter the specified bitField through the masks
+            </summary>
+            <typeparam name="TMapCell"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Geometry.CellFilterMask">
+            <summary>
+            Abstract base class for CellMasks which filter cells based on whether they pass or fail a particular condition.
+            </summary>
+        </member>
+        <member name="M:Nucleus.Geometry.CellFilterMask.Apply``1(Nucleus.Geometry.ICellMap{System.Boolean},Nucleus.Geometry.ICellMap{``0})">
+            <summary>
+            Filter the specified bitField through the mask
+            </summary>
+            <typeparam name="TMapCell"></typeparam>
+            <param name="bitField">The map of boolean values</param>
+            <param name="map">The base map to use to determine masking</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Geometry.ConditionalCellMask">
+            <summary>
+            A cell mask which passes or filters cells based on a function delegate
+            </summary>
+        </member>
+        <member name="P:Nucleus.Geometry.ConditionalCellMask.Empty">
+            <summary>
+            Conditional cell mask which passes cells if they have no contents
+            </summary>
+        </member>
+        <member name="P:Nucleus.Geometry.ConditionalCellMask.Condition">
+            <summary>
+            The condition which determines whether a cell should pass or be filtered out
+            </summary>
+        </member>
+        <member name="T:Nucleus.Geometry.IndexCellMask">
+            <summary>
+            Abstract base class for cell masks which filter based on the cell index
+            </summary>
+        </member>
+        <member name="T:Nucleus.Geometry.InvertCellMask">
+            <summary>
+            A cell mask which will simply invert the current values of the bitfield
+            </summary>
+        </member>
         <member name="T:Nucleus.Geometry.MapData">
             <summary>
             CellMap data storage for elements 
@@ -8616,6 +8705,17 @@
             <param name="cellIndex"></param>
             <returns></returns>
         </member>
+        <member name="M:Nucleus.Geometry.ICellMapExtensions.CountContiguousAdjacentCellsWhere``2(Nucleus.Geometry.ICellMap{``0},System.Int32,System.Func{``1,System.Boolean})">
+            <summary>
+            Count the number of contigurous adjacent cells which satisfy the specified condition
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="T2"></typeparam>
+            <param name="map"></param>
+            <param name="cellIndex"></param>
+            <param name="condition"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nucleus.Geometry.ICellMapExtensions.CellBorder``1(Nucleus.Geometry.ICellMap{``0},System.Int32)">
             <summary>
             Get the polyline representing the border of the cell with the specified index
@@ -8699,6 +8799,24 @@
             <typeparam name="T"></typeparam>
             <param name="map"></param>
             <param name="condition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.ICellMapExtensions.CellsWhere``1(Nucleus.Geometry.ICellMap{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Return a list of cell values where the specified condition delegate returns true
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="map"></param>
+            <param name="condition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.ICellMapExtensions.GetCells``1(Nucleus.Geometry.ICellMap{``0},Nucleus.Geometry.ICellMap{System.Boolean})">
+            <summary>
+            Return a list of cell values which correspond to cells in the specified bitmask which
+            are set to true.
+            </summary>
+            <param name="map"></param>
+            <param name="bitMask">A map of boolean values where true values indicate cells to be retrieved</param>
             <returns></returns>
         </member>
         <member name="M:Nucleus.Geometry.ICellMapExtensions.RandomIndexWhere``1(Nucleus.Geometry.ICellMap{``0},System.Func{``0,System.Boolean},System.Random)">
@@ -8828,6 +8946,15 @@
             <param name="condition"></param>
             <param name="maxRange">The maximum number of cells which may be visited before terminating</param>
             <param name="returnLast">If the condition is not met before the max range or the end of the map is found, return the last cell visited</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.MapCellExtensions.HasContentsWithData``2(``1)">
+            <summary>
+            Does this cell contain any elements with attached data of the specified type?
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <typeparam name="TMapCell"></typeparam>
+            <param name="cell"></param>
             <returns></returns>
         </member>
         <member name="T:Nucleus.Geometry.MapCellDataStore">
@@ -9748,6 +9875,13 @@
             <param name="position"></param>
             <param name="range"></param>
             <returns></returns>
+        </member>
+        <member name="M:Nucleus.Geometry.SquareCellMap`1.SetValuesInside(Nucleus.Geometry.IntRectangle,`0)">
+            <summary>
+            Set all values inside the specified 2D bounds to the specified value
+            </summary>
+            <param name="bounds"></param>
+            <param name="value"></param>
         </member>
         <member name="T:Nucleus.Geometry.WidePathBasic">
             <summary>
@@ -21604,6 +21738,12 @@
             <param name="x"></param>
             <returns></returns>
         </member>
+        <member name="T:Nucleus.Maths.IInterval">
+            <summary>
+            Interface for interval objects which define a range of values
+            between two given extents.
+            </summary>
+        </member>
         <member name="T:Nucleus.Maths.INamedDataSetCollection">
             <summary>
             Interface for collections of NamedDataSets
@@ -25249,6 +25389,23 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="collection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Model.IDataOwnerExtensions.HasAttachedDataType``1(Nucleus.Model.IDataOwner)">
+            <summary>
+            Does this data owner have any attached data of the given generic type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Model.IDataOwnerExtensions.ContainsAttachedData``2(System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            Does any of the objects in this collection have an attached of the specified type
+            </summary>
+            <typeparam name="TData"></typeparam>
+            <typeparam name="TDataOwner"></typeparam>
+            <param name="owners"></param>
             <returns></returns>
         </member>
         <member name="T:Nucleus.Model.IVertexDataComponent">

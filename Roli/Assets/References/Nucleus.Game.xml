@@ -319,6 +319,11 @@
             The index of the cell this action will move an element into
             </summary>
         </member>
+        <member name="P:Nucleus.Game.MoveCellAction.Direction">
+            <summary>
+            The direction of movement
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.MultiCellTargetingAction">
             <summary>
             Base class for actions which may target multiple map cells
@@ -402,6 +407,57 @@
         <member name="T:Nucleus.Game.ExitPlacement">
             <summary>
             Enumerated value to represent different strategies for placing an exit in a room
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.FeatureSetOut">
+            <summary>
+            Set-out logic for the generation of features in rooms
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.FeatureSetOut.FeatureCreator">
+            <summary>
+            The delegate function for creating features
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Nucleus.Game.FeatureSetOut.Create">
+            <summary>
+            The function delegate used to create the feature
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.FeatureSetOut.Number">
+            <summary>
+            The range of numbers of features to generate.
+            If this is an IntInterval, it is given in whole numbers,
+            if it is an Interval, it is defined as a proportion of the
+            overall viable area.
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.FeatureSetOut.PlacementMasks">
+            <summary>
+            The collection of masks which determine possible cell placement
+            </summary>
+        </member>
+        <member name="M:Nucleus.Game.FeatureSetOut.#ctor(Nucleus.Game.FeatureSetOut.FeatureCreator,Nucleus.Maths.IInterval,Nucleus.Geometry.CellMask[])">
+            <summary>
+            Constructor
+            </summary>
+            <param name="create"></param>
+            <param name="number"></param>
+            <param name="placementMasks"></param>
+        </member>
+        <member name="M:Nucleus.Game.FeatureSetOut.DetermineNumber``1(System.Random,System.Collections.Generic.IList{``0})">
+            <summary>
+            Randomly determine the number of cells to fill with the feature
+            </summary>
+            <typeparam name="TCell"></typeparam>
+            <param name="rng"></param>
+            <param name="cells"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nucleus.Game.FeatureSetOutCollection">
+            <summary>
+            A collection of feature set-out rules
             </summary>
         </member>
         <member name="T:Nucleus.Game.Room">
@@ -525,6 +581,12 @@
         <member name="P:Nucleus.Game.StageStyle.MinLoopSize">
             <summary>
             The minimum size of loop before two rooms will connect into one another
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.StageStyle.MaxRoomCount">
+            <summary>
+            The maximum number of rooms in the stage.
+            0 = not capped.
             </summary>
         </member>
         <member name="M:Nucleus.Game.StageStyle.#ctor">
@@ -747,12 +809,17 @@
             Ability which allows the actor to cycle through their selected item slot
             </summary>
         </member>
-        <member name="F:Nucleus.Game.DirectionalItemUseAbility._ActionFactory">
+        <member name="T:Nucleus.Game.DirectionalActionAbility">
+            <summary>
+            Ability which allows for actions to be used in a specific direction
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DirectionalActionAbility._ActionFactory">
             <summary>
             Private backing member variable for the ActionFactory property
             </summary>
         </member>
-        <member name="P:Nucleus.Game.DirectionalItemUseAbility.ActionFactory">
+        <member name="P:Nucleus.Game.DirectionalActionAbility.ActionFactory">
             <summary>
             The ActionFactory used to generate actions
             </summary>
@@ -777,6 +844,21 @@
         <member name="T:Nucleus.Game.Components.Abilities.OpenDoorAbility">
             <summary>
             Data component which confers the ability to open doors
+            </summary>
+        </member>
+        <member name="T:Nucleus.Game.Components.Abilities.WindUpAbility">
+            <summary>
+            Ability that has a wind-up phase
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Components.Abilities.WindUpAbility._Prototype">
+            <summary>
+            Private backing member variable for the Prototype property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Components.Abilities.WindUpAbility.Prototype">
+            <summary>
+            The prototype of the wind-up action.
             </summary>
         </member>
         <member name="T:Nucleus.Game.Components.ConsumableItem">
@@ -1252,6 +1334,11 @@
             The collection of actions available to this element
             </summary>
         </member>
+        <member name="P:Nucleus.Game.AvailableActions.LastAction">
+            <summary>
+            The last action performed by this actor
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.AvailableActions.ActionForInput(Nucleus.Game.InputFunction)">
             <summary>
             Get the action assigned to the specified user input function
@@ -1332,6 +1419,13 @@
         <member name="P:Nucleus.Game.DungeonArtitect.PreventParallelCorridors">
             <summary>
             If set to true, parallel corridors will be detected and prevented
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.DungeonArtitect.MaxRoomCount">
+            <summary>
+            The maximum number of rooms which may be generated.
+            If this number is reached before the exit has been placed, the exit will be added.
+            If set to zero, there is no limit on the number of rooms.
             </summary>
         </member>
         <member name="P:Nucleus.Game.DungeonArtitect.SecurityLevelCount">
@@ -1500,7 +1594,7 @@
         </member>
         <member name="M:Nucleus.Game.DungeonArtitect.DeleteCell(System.Int32,System.Int32,Nucleus.Game.Room)">
             <summary>
-            'Delete' a cell in the blueprint by returning it to 
+            'Delete' a cell in the blueprint by returning it to untouched or wall state
             </summary>
             <param name="i"></param>
             <param name="j"></param>
@@ -1897,6 +1991,12 @@
             <param name="actions"></param>
             <returns></returns>
         </member>
+        <member name="T:Nucleus.Game.Outlined">
+            <summary>
+            Component which is used to indicate that an outline should be generated around this element and others
+            that share this component
+            </summary>
+        </member>
         <member name="T:Nucleus.Game.PickUp">
             <summary>
             Element data component used to tag items which may be picked up
@@ -2113,6 +2213,18 @@
             Duplication constructor
             </summary>
             <param name="other"></param>
+        </member>
+        <member name="T:Nucleus.Game.Aflame">
+            <summary>
+            Status effect representing when a flammable entity has been set on fire
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Aflame.TimeRemaining">
+            <summary>
+            The time remaining for this status effect.
+            Should be set to double.NaN for those which
+            will apply indefinitely.
+            </summary>
         </member>
         <member name="T:Nucleus.Game.Combo">
             <summary>
@@ -2467,6 +2579,11 @@
         <member name="F:Nucleus.Game.DamageType.Base">
             <summary>
             The base damage type
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.DamageType.Fire">
+            <summary>
+            Fire damage type
             </summary>
         </member>
         <member name="F:Nucleus.Game.DamageType.Poison">
@@ -2833,6 +2950,21 @@
             A player or AI-controlled faction
             </summary>
         </member>
+        <member name="F:Nucleus.Game.Faction.EnemyScore">
+            <summary>
+            The score at or below which another faction is considered an enemy
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.Faction.AllyScore">
+            <summary>
+            The score at or above which another faction is considered a friend
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.Faction.Relationships">
+            <summary>
+            The relationship scores for other factions in relation to this one
+            </summary>
+        </member>
         <member name="M:Nucleus.Game.Faction.#ctor">
             <summary>
             Initialise a blank faction
@@ -2843,6 +2975,13 @@
             Initialise a faction with the specified name
             </summary>
             <param name="name"></param>
+        </member>
+        <member name="M:Nucleus.Game.Faction.#ctor(System.String,System.String[])">
+            <summary>
+            Initialise a faction with a name and a list of enemy names
+            </summary>
+            <param name="name"></param>
+            <param name="enemyNames"></param>
         </member>
         <member name="M:Nucleus.Game.Faction.IsEnemy(Nucleus.Game.Faction)">
             <summary>
@@ -2857,6 +2996,20 @@
             </summary>
             <param name="other"></param>
             <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Faction.GetRelationshipScore(Nucleus.Game.Faction)">
+            <summary>
+            Get the relationship score for another faction
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nucleus.Game.Faction.SetRelationShipScore(Nucleus.Game.Faction,System.Double)">
+            <summary>
+            Set the relationship score for another faction
+            </summary>
+            <param name="other"></param>
+            <param name="score"></param>
         </member>
         <member name="M:Nucleus.Game.Faction.AreEnemies(Nucleus.Model.Element,Nucleus.Model.Element)">
             <summary>
@@ -3167,6 +3320,16 @@
         <member name="P:Nucleus.Game.RoomTemplate.LockChance">
             <summary>
             The chance that, if a door is generated, it will be locked
+            </summary>
+        </member>
+        <member name="F:Nucleus.Game.RoomTemplate._Features">
+            <summary>
+            Private backing field for the Features property
+            </summary>
+        </member>
+        <member name="P:Nucleus.Game.RoomTemplate.Features">
+            <summary>
+            The features which should be generated within this type of room
             </summary>
         </member>
         <member name="M:Nucleus.Game.RoomTemplate.GenTypeForCell(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">

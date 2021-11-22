@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Source: {fileID: 0}
-  Path: State.Controlled.Data[DirectionalItemUseAbility]
+  Path: State.Controlled.Data[DirectionalActionAbility]
   Converter: {fileID: 5957443372629413534}
   Target: {fileID: 3784054354046756816}
 --- !u!1 &3784054353780534129

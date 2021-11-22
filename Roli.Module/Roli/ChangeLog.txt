@@ -1,7 +1,22 @@
-﻿v0.1.3.3:
+﻿v0.1.5:
+- Orcs & Goblins removed.
+- New enemy: Guard
+- New enemy: Troglodyte
+
+v0.1.4:
 - Locked doors implemented.
+- Key generation implemented.
 - New status effect: Weakened
 - Phantoms now apply Weakened status when they attack.
+- New weapon: Scythe.
+- Bat quick attack removed; replaced with 'bite' attack.
+- New enemy: Drake.
+- New damage type: Fire.
+- New status effect: Aflame.
+- Spear quick-attack removed.
+- Poison now kills you slower.
+- New enemy: Serpentra
+- Enemy and item spawn rates adjusted.
 
 v0.1.3.2:
 - Spear quick-attack knockback increased.
